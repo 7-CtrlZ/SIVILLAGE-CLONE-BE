@@ -1,14 +1,18 @@
 package com.academy.sivillageclonebe.member.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.Comment;
+import java.util.*;
 
 import java.time.LocalDate;
 
 @Getter
 @Entity
+@ToString
 @NoArgsConstructor
 public class Member {
 
@@ -17,13 +21,13 @@ public class Member {
     private Long id;
 
     @Column(nullable = false, length = 20)
-    private Long role_id;
+    private Long roleId;
 
     @Column(nullable = false, length = 20)
-    private Long oauth_id;
+    private Long oauthId;
 
     @Comment("이메일")
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false, length = 20, unique = true)
     private String username;
 
     @Column(length = 20)
@@ -36,10 +40,36 @@ public class Member {
     private String phone;
 
     @Column(nullable = false)
-    private boolean is_deleted;
+    private boolean isDeleted;
 
     @Column(nullable = false)
-    private LocalDate created_at;
+    private LocalDate createdAt;
     @Column(nullable = false)
-    private LocalDate updated_at;
+    private LocalDate updatedAt;
+
+    @Builder
+    public Member(
+            Long id,
+            Long roleId,
+            Long oauthId,
+            String username,
+            String password,
+            String name,
+            String phone,
+            boolean isDeleted,
+            LocalDate createdAt,
+            LocalDate updatedAt
+    ) {
+        this.id = id;
+        this.roleId = roleId;
+        this.oauthId = oauthId;
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.phone = phone;
+        this.isDeleted = isDeleted;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
 }
