@@ -38,8 +38,6 @@ public class MemberServiceImpl implements MemberService{
                 .name(getMember.getName())
                 .phone(getMember.getPhone())
                 .isDeleted(getMember.isDeleted())
-                .createdAt(getMember.getCreatedAt())
-                .updatedAt(getMember.getUpdatedAt())
                 .build();
         log.info("memberSignUpDto : {}", memberSignUpDto);
         return memberSignUpDto;
@@ -60,8 +58,6 @@ public class MemberServiceImpl implements MemberService{
                     .name(member.getName())
                     .phone(member.getPhone())
                     .isDeleted(member.isDeleted())
-                    .createdAt(member.getCreatedAt())
-                    .updatedAt(member.getUpdatedAt())
                     .build();
             return memberSignUpDto;
         }
