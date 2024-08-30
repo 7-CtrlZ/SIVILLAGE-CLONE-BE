@@ -1,11 +1,14 @@
 package com.academy.sivillageclonebe.member.entity;
 
+import com.academy.sivillageclonebe.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.Comment;
+
+import java.time.LocalDateTime;
 import java.util.*;
 
 import java.time.LocalDate;
@@ -14,7 +17,7 @@ import java.time.LocalDate;
 @Entity
 @ToString
 @NoArgsConstructor
-public class Member {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,11 +45,6 @@ public class Member {
     @Column(nullable = false)
     private boolean isDeleted;
 
-    @Column(nullable = false)
-    private LocalDate createdAt;
-    @Column(nullable = false)
-    private LocalDate updatedAt;
-
     @Builder
     public Member(
             Long id,
@@ -56,9 +54,7 @@ public class Member {
             String password,
             String name,
             String phone,
-            boolean isDeleted,
-            LocalDate createdAt,
-            LocalDate updatedAt
+            boolean isDeleted
     ) {
         this.id = id;
         this.roleId = roleId;
@@ -68,8 +64,6 @@ public class Member {
         this.name = name;
         this.phone = phone;
         this.isDeleted = isDeleted;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
     }
 
 }
