@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.Comment;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -17,7 +20,7 @@ import java.time.LocalDate;
 @Entity
 @ToString
 @NoArgsConstructor
-public class Member extends BaseEntity {
+public class Member extends BaseEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +36,7 @@ public class Member extends BaseEntity {
     @Column(nullable = false, length = 20, unique = true)
     private String username;
 
-    @Column(length = 20)
+    @Column(length = 100)
     private String password;
 
     @Column(nullable = false, length = 20)
@@ -65,5 +68,36 @@ public class Member extends BaseEntity {
         this.phone = phone;
         this.isDeleted = isDeleted;
     }
+
+    public void hashPassword(String password) {
+        this.password = new BCryptPasswordEncoder().encode(password);
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        List<GrantedAuthority> authorities = new ArrayList<>();
+        return List.of();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
 
 }

@@ -3,11 +3,11 @@ package com.academy.sivillageclonebe.member.vo;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 @ToString
 @Getter
-public class MemberRequestVo {
+public class SignUpRequestVo {
 
     private Long roleId;
     private Long oauthId;
@@ -16,7 +16,5 @@ public class MemberRequestVo {
     private String name;
     private String phone;
     private boolean isDeleted;
-    private LocalDate createdAt;
-    private LocalDate updatedAt;
 
 }
