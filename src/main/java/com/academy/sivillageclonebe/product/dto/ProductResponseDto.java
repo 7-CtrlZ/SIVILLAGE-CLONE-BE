@@ -1,37 +1,35 @@
 package com.academy.sivillageclonebe.product.dto;
 
 import com.academy.sivillageclonebe.product.vo.ProductResponseVo;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProductResponseDto {
 
     private String productUuid;
-    private Long brandId;
+    private String productCode;
     private String productName;
-    private String productDescription;
     private Double price;
+    private String productDescription;
+    private String productDetailContent;
 
     public ProductResponseVo toResponseVo() {
         return ProductResponseVo.builder()
                 .productUuid(productUuid)
-                .brandId(brandId)
+                .productCode(productCode)
                 .productName(productName)
-                .productDescription(productDescription)
                 .price(price)
+                .productDescription(productDescription)
+                .productDetailContent(productDetailContent)
                 .build();
-    }
-
-    public ProductResponseDto(String productUuid, Long brandId, String productName, String productDescription, Double price) {
-        this.productUuid = productUuid;
-        this.brandId = brandId;
-        this.productName = productName;
-        this.productDescription = productDescription;
-        this.price = price;
     }
 
 }

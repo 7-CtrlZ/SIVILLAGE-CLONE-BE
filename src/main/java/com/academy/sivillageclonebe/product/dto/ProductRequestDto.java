@@ -1,37 +1,30 @@
 package com.academy.sivillageclonebe.product.dto;
 
 import com.academy.sivillageclonebe.product.entity.Product;
-import lombok.Builder;
-import lombok.Getter;
-
-import java.time.LocalDateTime;
+import lombok.*;
 
 @Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProductRequestDto {
 
     private String productUuid;
-    private Long brandId;
+    private String productCode;
     private String productName;
-    private String productDescription;
     private Double price;
+    private String productDescription;
+    private String productDetailContent;
 
-    public Product toEntity(String productUuid) {
+    public Product toEntity(String productUuid, String productCode) {
         return Product.builder()
                 .productUuid(productUuid)
-                .brandId(brandId)
+                .productCode(productCode)
                 .productName(productName)
-                .productDescription(productDescription)
                 .price(price)
+                .productDescription(productDescription)
+                .productDetailContent(productDetailContent)
                 .build();
     }
-
-    @Builder
-    public ProductRequestDto(String productUuid, Long brandId, String productName, String productDescription, Double price) {
-        this.productUuid = productUuid;
-        this.brandId = brandId;
-        this.productName = productName;
-        this.productDescription = productDescription;
-        this.price = price;
-    }
-
 }

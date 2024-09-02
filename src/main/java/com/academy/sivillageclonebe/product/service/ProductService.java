@@ -6,6 +6,6 @@ import com.academy.sivillageclonebe.product.vo.ProductResponseVo;
 
 public interface ProductService {
 
-    Void addProduct(ProductRequestDto productDto);
+    void addProduct(ProductRequestDto productDto);
     ProductResponseDto getProduct(String productUuid);
 }

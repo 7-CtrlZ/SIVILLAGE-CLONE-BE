@@ -16,14 +16,15 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
     @Override
-    public Void addProduct(ProductRequestDto productDto) {
+    public void addProduct(ProductRequestDto productDto) {
         String productUuid;
+        String productCode;
 
         productUuid = UUID.randomUUID().toString();
+        productCode = productUuid.substring(0, 8);
 
-        productRepository.save(productDto.toEntity(productUuid));
+        productRepository.save(productDto.toEntity(productUuid, productCode));
 
-        return null;
     }
 
     @Override
@@ -31,9 +32,10 @@ public class ProductServiceImpl implements ProductService {
         Product getProduct = productRepository.findByProductUuid(productUuid).orElseThrow(() -> new IllegalArgumentException("해당 상품이 존재하지 않습니다."));
         return ProductResponseDto.builder()
                 .productUuid(getProduct.getProductUuid())
+                .productCode(getProduct.getProductCode())
                 .productName(getProduct.getProductName())
-                .brandId(getProduct.getBrandId())
                 .productDescription(getProduct.getProductDescription())
+                .productDetailContent(getProduct.getProductDetailContent())
                 .price(getProduct.getPrice())
                 .build();
     }

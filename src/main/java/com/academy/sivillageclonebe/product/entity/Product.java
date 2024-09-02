@@ -20,13 +20,13 @@ public class Product extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long productId;
+    private Long id;
 
     @Column(nullable = false, length  = 100)
     private String productUuid;
 
-    @Column(nullable = false)
-    private Long brandId;
+    @Column(nullable = false, length  = 100)
+    private String productCode;
 
     @Column(nullable = false, length = 100)
     private String productName;
@@ -34,12 +34,10 @@ public class Product extends BaseEntity {
     @Column(nullable = false)
     private Double price;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 500)
     private String productDescription;
 
-    @CreatedDate
-    @Column(updatable = false)
-    private LocalDateTime createdAt;
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
+    @Column(nullable = false, length  = 1000)
+    private String productDetailContent;
+
 }
