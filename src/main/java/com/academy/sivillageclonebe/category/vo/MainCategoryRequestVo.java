@@ -1,4 +1,9 @@
 package com.academy.sivillageclonebe.category.vo;
 
-public class MainCategoryRequsetVo {
+import lombok.Getter;
+
+@Getter
+public class MainCategoryRequestVo {
+
+    private String categoryName;
 }

@@ -1,2 +1,4 @@
-package com.academy.sivillageclonebe.category.reponstity;public interface DetailedCategoriesRepository {
+package com.academy.sivillageclonebe.category.reponstity;
+
+public interface DetailedCategoriesRepository {
 }

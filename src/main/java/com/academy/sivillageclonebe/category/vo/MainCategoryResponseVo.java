@@ -1,2 +1,4 @@
-package com.academy.sivillageclonebe.category.vo;public class MainCategoryResponseVo {
+package com.academy.sivillageclonebe.category.vo;
+
+public class MainCategoryResponseVo {
 }

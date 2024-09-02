@@ -11,8 +11,9 @@ import java.time.LocalDateTime;
 public class ProductResponseVo {
 
     private String productUuid;
-    private Long brandId;
+    private String productCode;
     private String productName;
     private String productDescription;
+    private String productDetailContent;
     private Double price;
 }
