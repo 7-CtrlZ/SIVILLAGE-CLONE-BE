@@ -18,4 +18,3 @@ public enum CommonResponseMessage {
     CommonResponseMessage(String message) {
         this.message = message;
     }
-}
