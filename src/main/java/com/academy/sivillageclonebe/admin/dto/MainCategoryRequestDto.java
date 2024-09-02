@@ -1,6 +1,5 @@
-package com.academy.sivillageclonebe.category.dto;
+package com.academy.sivillageclonebe.admin.dto;
 
-import com.academy.sivillageclonebe.category.entity.MainCategory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

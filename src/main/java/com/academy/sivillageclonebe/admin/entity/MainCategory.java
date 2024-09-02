@@ -1,4 +1,4 @@
-package com.academy.sivillageclonebe.category.entity;
+package com.academy.sivillageclonebe.admin.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

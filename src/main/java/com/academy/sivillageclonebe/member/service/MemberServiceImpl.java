@@ -20,50 +20,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class MemberServiceImpl implements MemberService{
 
-    private final MemberRepository memberRepository;
-    private final AuthenticationManager authenticationManager;
-    private final JwtTokenProvider jwtTokenProvider;
-    private final PasswordEncoder passwordEncoder;
-    private final OauthRepository oauthRepository;
 
-    @Override
-    public void signUp(SignUpRequestDto signUpRequestDto) {
-        Member member = memberRepository.findByEmail(signUpRequestDto.getEmail()).orElse(null);
-        if (member != null) {
-            throw new IllegalArgumentException("이미 가입된 회원입니다.");
-        }
-        memberRepository.save(signUpRequestDto.toEntity(passwordEncoder));
-    }
-
-    @Override
-    public SignInResponseDto signIn(SignInRequestDto signInRequestDto) {
-
-        log.info("signInRequestDto : {}", signInRequestDto);
-        Member member = memberRepository.findByEmail(signInRequestDto.getEmail()).orElseThrow(
-                () -> new IllegalArgumentException("해당 이메일을 가진 회원이 없습니다.")
-        );
-        log.info("member : {}", member);
-        try {
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            member.getUsername(),
-                            signInRequestDto.getPassword()
-                    )
-            );
-            return SignInResponseDto.builder()
-                    .accessToken(createToken(authentication))
-                    .name(member.getName())
-                    .build();
-        } catch (Exception e) {
-            log.error("Sign in failed for user {}: {}", signInRequestDto.getEmail(), e.getMessage());
-            throw new IllegalArgumentException("로그인 실패");
-        }
-    }
-
-    private String createToken(Authentication authentication) {
-        return jwtTokenProvider.generateAccessToken(authentication);
-    }
 }
