@@ -4,7 +4,6 @@ import com.academy.sivillageclonebe.product.dto.ProductRequestDto;
 import com.academy.sivillageclonebe.product.dto.ProductResponseDto;
 import com.academy.sivillageclonebe.product.entity.Product;
 import com.academy.sivillageclonebe.product.repository.ProductRepository;
-import com.academy.sivillageclonebe.product.vo.ProductResponseVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +16,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
     @Override
-    public ProductResponseVo addProduct(ProductRequestDto productDto) {
+    public Void addProduct(ProductRequestDto productDto) {
         String productUuid;
 
         productUuid = UUID.randomUUID().toString();

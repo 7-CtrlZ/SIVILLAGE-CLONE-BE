@@ -20,12 +20,12 @@ public class Product extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long productId;
 
     @Column(nullable = false, length  = 100)
     private String productUuid;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false)
     private Long brandId;
 
     @Column(nullable = false, length = 100)

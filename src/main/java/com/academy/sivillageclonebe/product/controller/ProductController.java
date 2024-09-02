@@ -19,7 +19,7 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping
-    public ResponseEntity<ProductResponseVo> addProduct(
+    public ResponseEntity<Void> addProduct(
             @RequestBody ProductRequestVo productRequestVo) {
         log.info("productRequestVo : {}", productRequestVo);
         ProductRequestDto productRequestDto = ProductRequestDto.builder()
@@ -28,7 +28,7 @@ public class ProductController {
                 .productDescription(productRequestVo.getProductDescription())
                 .price(productRequestVo.getPrice())
                 .build();
-        ProductResponseVo productResponseVo = productService.addProduct(productRequestDto);
+        Void productResponseVo = productService.addProduct(productRequestDto);
         return ResponseEntity.ok(productResponseVo);
     }
 
