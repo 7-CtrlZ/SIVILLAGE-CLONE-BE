@@ -50,7 +50,7 @@ public class MemberServiceImpl implements MemberService{
             );
             return SignInResponseDto.builder()
                     .accessToken(createToken(authentication))
-                    .username(member.getUsername())
+                    .name(member.getName())
                     .build();
         } catch (Exception e) {
             log.error("Sign in failed for user {}: {}", signInRequestDto.getUsername(), e.getMessage());
