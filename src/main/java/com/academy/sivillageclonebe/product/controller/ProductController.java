@@ -19,7 +19,7 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping
-    public ResponseEntity<ProductResponseVo> createProduct(
+    public ResponseEntity<ProductResponseVo> addProduct(
             @RequestBody ProductRequestVo productRequestVo) {
         log.info("productRequestVo : {}", productRequestVo);
         ProductRequestDto productRequestDto = ProductRequestDto.builder()
@@ -33,7 +33,7 @@ public class ProductController {
     }
 
     @GetMapping("/{productUuid}")
-    public ResponseEntity<ProductResponseVo> addProduct (@PathVariable String productUuid) {
+    public ResponseEntity<ProductResponseVo> getProduct (@PathVariable String productUuid) {
         ProductResponseDto getProduct = productService.getProduct(productUuid);
         log.info("getProduct : {}", getProduct);
         ProductResponseVo productResponseVo = getProduct.toResponseVo();
