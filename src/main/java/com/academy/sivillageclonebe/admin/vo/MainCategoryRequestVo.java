@@ -1,4 +1,4 @@
-package com.academy.sivillageclonebe.category.vo;
+package com.academy.sivillageclonebe.admin.vo;
 
 import lombok.Getter;
 

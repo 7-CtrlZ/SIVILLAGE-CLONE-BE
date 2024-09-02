@@ -1,5 +1,6 @@
 package com.academy.sivillageclonebe.member.dto;
 
+import com.academy.sivillageclonebe.member.vo.SignInResponseVo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,5 +15,12 @@ public class SignInResponseDto {
     private String accessToken;
 //    private String refreshToken;
     private String name;
+
+    public SignInResponseVo toVo() {
+        return SignInResponseVo.builder()
+                .accessToken(accessToken)
+                .name(name)
+                .build();
+    }
 
 }

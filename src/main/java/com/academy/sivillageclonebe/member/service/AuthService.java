@@ -4,8 +4,9 @@ import com.academy.sivillageclonebe.member.dto.SignInRequestDto;
 import com.academy.sivillageclonebe.member.dto.SignInResponseDto;
 import com.academy.sivillageclonebe.member.dto.SignUpRequestDto;
 
-public interface MemberService {
+public interface AuthService {
 
-
+        void signUp(SignUpRequestDto signUpRequestDto);
+        SignInResponseDto signIn(SignInRequestDto signInRequestDto);
 
 }

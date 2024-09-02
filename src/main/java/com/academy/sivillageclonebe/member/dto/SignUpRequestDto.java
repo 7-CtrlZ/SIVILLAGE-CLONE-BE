@@ -20,7 +20,7 @@ public class SignUpRequestDto {
     private String password;
     private String name;
     private String phone;
-    private boolean isDeleted = false;
+    private boolean isDeleted;
 
     public Member toEntity(PasswordEncoder passwordEncoder) {
         return Member.builder()
@@ -30,7 +30,7 @@ public class SignUpRequestDto {
                 .password(passwordEncoder.encode(password))
                 .name(name)
                 .phone(phone)
-                .isDeleted(isDeleted)
+                .isDeleted(false)
                 .build();
     }
 

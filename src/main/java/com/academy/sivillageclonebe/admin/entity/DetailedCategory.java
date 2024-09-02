@@ -1,4 +1,4 @@
-package com.academy.sivillageclonebe.category.entity;
+package com.academy.sivillageclonebe.admin.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SubCategory {
+public class DetailedCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,8 @@ public class SubCategory {
     @Column(nullable = false, length  = 100)
     private String categoryCode;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
-    private MainCategory mainCategory;
+    private SubCategory subCategory;
 
 }
