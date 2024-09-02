@@ -7,7 +7,7 @@ import lombok.ToString;
 @Getter
 public class SignInRequestVo {
 
-    private String username;
+    private String email;
     private String password;
 
 }

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/user")
-public class MemberController {
+public class AuthController {
 
     private final MemberService memberService;
     private final ModelMapper modelMapper;
@@ -29,7 +29,7 @@ public class MemberController {
     public CommonResponseEntity<SignInResponseVo> signIn(
             @RequestBody SignInRequestVo signInRequestVo) {
         SignInRequestDto signInRequestDto = SignInRequestDto.builder().
-                username(signInRequestVo.getUsername()).
+                email(signInRequestVo.getEmail()).
                 password(signInRequestVo.getPassword()).
                 build();
         SignInResponseVo signInResponseVo = modelMapper.map(memberService.signIn(signInRequestDto), SignInResponseVo.class);

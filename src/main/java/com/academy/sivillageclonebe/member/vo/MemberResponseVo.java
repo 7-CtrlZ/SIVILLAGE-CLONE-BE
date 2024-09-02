@@ -1,20 +1,20 @@
 package com.academy.sivillageclonebe.member.vo;
 
-import com.academy.sivillageclonebe.member.entity.Oauth;
 import com.academy.sivillageclonebe.member.entity.Role;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
-import java.util.Date;
-
-@ToString
 @Getter
-public class SignUpRequestVo {
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class MemberResponseVo {
 
+    private Long id;
     private Role role;
     private String email;
-    private String password;
     private String name;
     private String phone;
+    private boolean isDeleted;
 
 }

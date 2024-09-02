@@ -1,24 +1,33 @@
 package com.academy.sivillageclonebe.member.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.RequiredArgsConstructor;
 
 @Getter
-@Entity
-@ToString
-@NoArgsConstructor
-public class Role {
+@RequiredArgsConstructor
+public enum Role {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    MEMBER("멤버"),
+    SELLER("셀러"),
+    ADMIN("관리자");
 
-    private String name;
+    private final String role;
 
+    @JsonValue
+    public String getRole() {
+        return role;
+    }
+
+    @JsonCreator
+    public static Role fromRole(String value) {
+        for (Role role : Role.values()) {
+            if (role.getRole().equals(value)) {
+                return role;
+            }
+        }
+        throw new IllegalArgumentException("Unknown role: " + value);
+    }
 
 }

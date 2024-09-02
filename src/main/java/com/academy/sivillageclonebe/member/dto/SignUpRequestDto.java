@@ -6,9 +6,6 @@ import com.academy.sivillageclonebe.member.entity.Role;
 import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.time.LocalDate;
-import java.util.Date;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,20 +15,18 @@ import java.util.Date;
 public class SignUpRequestDto {
 
     private Long id;
-    private Integer roleId;
-    private Integer oauthId;
-    private String username;
+    private Role role;
+    private String email;
     private String password;
     private String name;
     private String phone;
     private boolean isDeleted = false;
 
-    public Member toEntity(PasswordEncoder passwordEncoder, Role role, Oauth oauth) {
+    public Member toEntity(PasswordEncoder passwordEncoder) {
         return Member.builder()
                 .id(id)
                 .role(role)
-                .oauth(oauth)
-                .username(username)
+                .email(email)
                 .password(passwordEncoder.encode(password))
                 .name(name)
                 .phone(phone)

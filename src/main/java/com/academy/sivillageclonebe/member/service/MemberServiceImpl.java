@@ -6,10 +6,8 @@ import com.academy.sivillageclonebe.member.dto.SignInResponseDto;
 import com.academy.sivillageclonebe.member.dto.SignUpRequestDto;
 import com.academy.sivillageclonebe.member.entity.Member;
 import com.academy.sivillageclonebe.member.entity.Oauth;
-import com.academy.sivillageclonebe.member.entity.Role;
 import com.academy.sivillageclonebe.member.repository.MemberRepository;
 import com.academy.sivillageclonebe.member.repository.OauthRepository;
-import com.academy.sivillageclonebe.member.repository.RoleRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,29 +27,22 @@ public class MemberServiceImpl implements MemberService{
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
     private final PasswordEncoder passwordEncoder;
-    private final RoleRepository roleRepository;
     private final OauthRepository oauthRepository;
 
     @Override
     public void signUp(SignUpRequestDto signUpRequestDto) {
-        Member member = memberRepository.findByUsername(signUpRequestDto.getUsername()).orElse(null);
+        Member member = memberRepository.findByEmail(signUpRequestDto.getEmail()).orElse(null);
         if (member != null) {
             throw new IllegalArgumentException("이미 가입된 회원입니다.");
         }
-
-        Role role = roleRepository.findById(signUpRequestDto.getRoleId())
-                .orElseThrow(() -> new RuntimeException("Role not found"));
-        Oauth oauth = oauthRepository.findById(signUpRequestDto.getOauthId())
-                .orElseThrow(() -> new RuntimeException("Oauth not found"));
-
-        memberRepository.save(signUpRequestDto.toEntity(passwordEncoder, role, oauth));
+        memberRepository.save(signUpRequestDto.toEntity(passwordEncoder));
     }
 
     @Override
     public SignInResponseDto signIn(SignInRequestDto signInRequestDto) {
 
         log.info("signInRequestDto : {}", signInRequestDto);
-        Member member = memberRepository.findByUsername(signInRequestDto.getUsername()).orElseThrow(
+        Member member = memberRepository.findByEmail(signInRequestDto.getEmail()).orElseThrow(
                 () -> new IllegalArgumentException("해당 이메일을 가진 회원이 없습니다.")
         );
         log.info("member : {}", member);
@@ -67,7 +58,7 @@ public class MemberServiceImpl implements MemberService{
                     .name(member.getName())
                     .build();
         } catch (Exception e) {
-            log.error("Sign in failed for user {}: {}", signInRequestDto.getUsername(), e.getMessage());
+            log.error("Sign in failed for user {}: {}", signInRequestDto.getEmail(), e.getMessage());
             throw new IllegalArgumentException("로그인 실패");
         }
     }

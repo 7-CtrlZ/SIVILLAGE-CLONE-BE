@@ -11,10 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.time.LocalDateTime;
 import java.util.*;
-
-import java.time.LocalDate;
 
 @Getter
 @Entity
@@ -26,19 +23,16 @@ public class Member extends BaseEntity implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id", nullable = false)
+    @Column(nullable = false, updatable = false, unique = true)
+    private UUID uuid;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Role role;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "oauth_id", nullable = false)
-    private Oauth oauth;
-
-
-
     @Comment("이메일")
-    @Column(nullable = false, length = 20, unique = true)
-    private String username;
+    @Column(nullable = false, length = 100, unique = true)
+    private String email;
 
     @Column(length = 100)
     private String password;
@@ -56,8 +50,7 @@ public class Member extends BaseEntity implements UserDetails {
     public Member(
             Long id,
             Role role,
-            Oauth oauth,
-            String username,
+            String email,
             String password,
             String name,
             String phone,
@@ -65,12 +58,16 @@ public class Member extends BaseEntity implements UserDetails {
     ) {
         this.id = id;
         this.role = role;
-        this.oauth = oauth;
-        this.username = username;
+        this.email = email;
         this.password = password;
         this.name = name;
         this.phone = phone;
         this.isDeleted = isDeleted;
+    }
+
+    @PrePersist
+    public void generateUUID() {
+        this.uuid = UUID.randomUUID();
     }
 
     public void hashPassword(String password) {
@@ -81,6 +78,11 @@ public class Member extends BaseEntity implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
 //        List<GrantedAuthority> authorities = new ArrayList<>();
         return List.of();
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
     }
 
     @Override
