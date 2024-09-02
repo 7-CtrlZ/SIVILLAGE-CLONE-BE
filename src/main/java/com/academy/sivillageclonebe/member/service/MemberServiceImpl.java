@@ -1,66 +1,69 @@
 package com.academy.sivillageclonebe.member.service;
 
-import com.academy.sivillageclonebe.member.dto.MemberSignupDto;
+import com.academy.sivillageclonebe.common.jwt.JwtTokenProvider;
+import com.academy.sivillageclonebe.member.dto.SignInRequestDto;
+import com.academy.sivillageclonebe.member.dto.SignInResponseDto;
+import com.academy.sivillageclonebe.member.dto.SignUpRequestDto;
 import com.academy.sivillageclonebe.member.entity.Member;
+import com.academy.sivillageclonebe.member.entity.Oauth;
 import com.academy.sivillageclonebe.member.repository.MemberRepository;
+import com.academy.sivillageclonebe.member.repository.OauthRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class MemberServiceImpl implements MemberService{
 
     private final MemberRepository memberRepository;
+    private final AuthenticationManager authenticationManager;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final PasswordEncoder passwordEncoder;
+    private final OauthRepository oauthRepository;
 
     @Override
-    public void signUp(MemberSignupDto memberSignupDto) {
-        log.info("memberSignUpDto : {}", memberSignupDto);
-        Member member = memberSignupDto.toEntity();
-        log.info("member : {}", member);
-        memberRepository.save(member);
-    }
-
-    public MemberSignupDto getMemberById(Long id) {
-
-        log.info("id : {}", id);
-        Member getMember = memberRepository.findById(id).orElseThrow();
-        log.info("getMember : {}", getMember);
-        MemberSignupDto memberSignUpDto = MemberSignupDto.builder()
-                .id(getMember.getId())
-                .roleId(getMember.getRoleId())
-                .oauthId(getMember.getOauthId())
-                .username(getMember.getUsername())
-                .password(getMember.getPassword())
-                .name(getMember.getName())
-                .phone(getMember.getPhone())
-                .isDeleted(getMember.isDeleted())
-                .build();
-        log.info("memberSignUpDto : {}", memberSignUpDto);
-        return memberSignUpDto;
+    public void signUp(SignUpRequestDto signUpRequestDto) {
+        Member member = memberRepository.findByEmail(signUpRequestDto.getEmail()).orElse(null);
+        if (member != null) {
+            throw new IllegalArgumentException("이미 가입된 회원입니다.");
+        }
+        memberRepository.save(signUpRequestDto.toEntity(passwordEncoder));
     }
 
     @Override
-    public MemberSignupDto getMemberByUsername(String username) {
-        Member member = memberRepository.findByUsername(username).orElseThrow(
+    public SignInResponseDto signIn(SignInRequestDto signInRequestDto) {
+
+        log.info("signInRequestDto : {}", signInRequestDto);
+        Member member = memberRepository.findByEmail(signInRequestDto.getEmail()).orElseThrow(
                 () -> new IllegalArgumentException("해당 이메일을 가진 회원이 없습니다.")
         );
-        if (member != null) {
-            MemberSignupDto memberSignUpDto = MemberSignupDto.builder()
-                    .id(member.getId())
-                    .roleId(member.getRoleId())
-                    .oauthId(member.getOauthId())
-                    .username(member.getUsername())
-                    .password(member.getPassword())
+        log.info("member : {}", member);
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            member.getUsername(),
+                            signInRequestDto.getPassword()
+                    )
+            );
+            return SignInResponseDto.builder()
+                    .accessToken(createToken(authentication))
                     .name(member.getName())
-                    .phone(member.getPhone())
-                    .isDeleted(member.isDeleted())
                     .build();
-            return memberSignUpDto;
+        } catch (Exception e) {
+            log.error("Sign in failed for user {}: {}", signInRequestDto.getEmail(), e.getMessage());
+            throw new IllegalArgumentException("로그인 실패");
         }
-        return null;
+    }
+
+    private String createToken(Authentication authentication) {
+        return jwtTokenProvider.generateAccessToken(authentication);
     }
 }

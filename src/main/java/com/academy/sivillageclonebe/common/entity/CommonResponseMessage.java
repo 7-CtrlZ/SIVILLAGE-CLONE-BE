@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public enum CommonResponseMessage {
-
     SUCCESS("요청에 성공하였습니다."),
     FAIL("요청에 실패하였습니다."),
     NOT_FOUND("해당 데이터를 찾을 수 없습니다."),
@@ -19,5 +18,3 @@ public enum CommonResponseMessage {
     CommonResponseMessage(String message) {
         this.message = message;
     }
-
-}
