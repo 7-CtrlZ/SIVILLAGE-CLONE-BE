@@ -5,7 +5,12 @@ import com.academy.sivillageclonebe.member.dto.SignInRequestDto;
 import com.academy.sivillageclonebe.member.dto.SignInResponseDto;
 import com.academy.sivillageclonebe.member.dto.SignUpRequestDto;
 import com.academy.sivillageclonebe.member.entity.Member;
+import com.academy.sivillageclonebe.member.entity.Oauth;
+import com.academy.sivillageclonebe.member.entity.Role;
 import com.academy.sivillageclonebe.member.repository.MemberRepository;
+import com.academy.sivillageclonebe.member.repository.OauthRepository;
+import com.academy.sivillageclonebe.member.repository.RoleRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,12 +22,15 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class MemberServiceImpl implements MemberService{
 
     private final MemberRepository memberRepository;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
     private final PasswordEncoder passwordEncoder;
+    private final RoleRepository roleRepository;
+    private final OauthRepository oauthRepository;
 
     @Override
     public void signUp(SignUpRequestDto signUpRequestDto) {
@@ -30,7 +38,13 @@ public class MemberServiceImpl implements MemberService{
         if (member != null) {
             throw new IllegalArgumentException("이미 가입된 회원입니다.");
         }
-        memberRepository.save(signUpRequestDto.toEntity(passwordEncoder));
+
+        Role role = roleRepository.findById(signUpRequestDto.getRoleId())
+                .orElseThrow(() -> new RuntimeException("Role not found"));
+        Oauth oauth = oauthRepository.findById(signUpRequestDto.getOauthId())
+                .orElseThrow(() -> new RuntimeException("Oauth not found"));
+
+        memberRepository.save(signUpRequestDto.toEntity(passwordEncoder, role, oauth));
     }
 
     @Override

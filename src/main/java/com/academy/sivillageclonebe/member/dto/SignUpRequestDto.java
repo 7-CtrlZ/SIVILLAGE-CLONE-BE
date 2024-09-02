@@ -1,6 +1,8 @@
 package com.academy.sivillageclonebe.member.dto;
 
 import com.academy.sivillageclonebe.member.entity.Member;
+import com.academy.sivillageclonebe.member.entity.Oauth;
+import com.academy.sivillageclonebe.member.entity.Role;
 import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -16,24 +18,24 @@ import java.util.Date;
 public class SignUpRequestDto {
 
     private Long id;
-    private Long roleId;
-    private Long oauthId;
+    private Integer roleId;
+    private Integer oauthId;
     private String username;
     private String password;
     private String name;
     private String phone;
-    private boolean isDeleted;
+    private boolean isDeleted = false;
 
-    public Member toEntity(PasswordEncoder passwordEncoder) {
+    public Member toEntity(PasswordEncoder passwordEncoder, Role role, Oauth oauth) {
         return Member.builder()
                 .id(id)
-                .roleId(roleId)
-                .oauthId(oauthId)
+                .role(role)
+                .oauth(oauth)
                 .username(username)
                 .password(passwordEncoder.encode(password))
                 .name(name)
                 .phone(phone)
-                .isDeleted(false)
+                .isDeleted(isDeleted)
                 .build();
     }
 

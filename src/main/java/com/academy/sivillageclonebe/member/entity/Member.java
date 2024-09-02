@@ -26,11 +26,15 @@ public class Member extends BaseEntity implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 20)
-    private Long roleId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "role_id", nullable = false)
+    private Role role;
 
-    @Column(nullable = false, length = 20)
-    private Long oauthId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "oauth_id", nullable = false)
+    private Oauth oauth;
+
+
 
     @Comment("이메일")
     @Column(nullable = false, length = 20, unique = true)
@@ -51,8 +55,8 @@ public class Member extends BaseEntity implements UserDetails {
     @Builder
     public Member(
             Long id,
-            Long roleId,
-            Long oauthId,
+            Role role,
+            Oauth oauth,
             String username,
             String password,
             String name,
@@ -60,8 +64,8 @@ public class Member extends BaseEntity implements UserDetails {
             boolean isDeleted
     ) {
         this.id = id;
-        this.roleId = roleId;
-        this.oauthId = oauthId;
+        this.role = role;
+        this.oauth = oauth;
         this.username = username;
         this.password = password;
         this.name = name;
