@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SubCategory {
+public class BottomCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +24,5 @@ public class SubCategory {
     private String categoryCode;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private MainCategory mainCategory;
-
+    private MiddleCategory middleCategory;
 }

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class DetailedCategory {
+public class TopCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,8 +22,4 @@ public class DetailedCategory {
 
     @Column(nullable = false, length  = 100)
     private String categoryCode;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private BottomCategory bottomCategory;
-
 }
