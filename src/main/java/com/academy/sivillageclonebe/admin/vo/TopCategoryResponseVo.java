@@ -3,7 +3,6 @@ package com.academy.sivillageclonebe.admin.vo;
 import lombok.*;
 
 @Getter
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

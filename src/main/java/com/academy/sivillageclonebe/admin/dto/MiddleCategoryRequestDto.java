@@ -4,7 +4,6 @@ import com.academy.sivillageclonebe.admin.entity.MiddleCategory;
 import com.academy.sivillageclonebe.admin.entity.TopCategory;
 import lombok.*;
 
-@ToString
 @Getter
 @Builder
 @AllArgsConstructor

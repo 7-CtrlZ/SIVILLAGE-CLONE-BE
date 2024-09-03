@@ -3,7 +3,6 @@ package com.academy.sivillageclonebe.admin.dto;
 import com.academy.sivillageclonebe.admin.vo.TopCategoryResponseVo;
 import lombok.*;
 
-@ToString
 @Getter
 @Builder
 @AllArgsConstructor
