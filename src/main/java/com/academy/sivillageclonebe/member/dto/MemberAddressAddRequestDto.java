@@ -1,5 +1,6 @@
 package com.academy.sivillageclonebe.member.dto;
 
+import com.academy.sivillageclonebe.member.entity.Member;
 import com.academy.sivillageclonebe.member.entity.MemberAddress;
 import lombok.*;
 
@@ -9,10 +10,10 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @ToString
-public class MemberAddressRequestDto {
+public class MemberAddressAddRequestDto {
 
     private Long id;
-    private Long memberId; ;
+    private Member member;
     private String address;
     private String zipCode;
     private String request;
@@ -22,6 +23,14 @@ public class MemberAddressRequestDto {
 
     public MemberAddress toEntity() {
         return MemberAddress.builder()
+                .id(id)
+                .member(member)
+                .address(address)
+                .zipCode(zipCode)
+                .request(request)
+                .receiverName(receiverName)
+                .receiverPhone(receiverPhone)
+                .isDefault(isDefault)
                 .build();
     }
 }
