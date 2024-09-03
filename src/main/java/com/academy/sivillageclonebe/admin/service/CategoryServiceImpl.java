@@ -1,6 +1,7 @@
 package com.academy.sivillageclonebe.admin.service;
 
 import com.academy.sivillageclonebe.admin.dto.*;
+import com.academy.sivillageclonebe.admin.entity.MiddleCategory;
 import com.academy.sivillageclonebe.admin.entity.TopCategory;
 import com.academy.sivillageclonebe.admin.reponstity.BottomCategoryRepository;
 import com.academy.sivillageclonebe.admin.reponstity.MiddleCategoryRepository;
@@ -41,11 +42,6 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public TopCategoryResponseDto getTopCategory(Long topCategoryId) {
-        return null;
-    }
-
-    @Override
     public TopCategoryResponseDto getTopCategoryByCategoryCode(String topCategoryCode) {
 
         try {
@@ -83,12 +79,22 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public MiddleCategoryResponseDto getMiddleCategory(Long middleCategoryId) {
-        return null;
-    }
+    public MiddleCategoryResponseDto getMiddleCategoryByCode(String middleCategoryCode) {
+        try {
+            MiddleCategory middleCategory = middleCategoryRepository
+                    .findByCategoryCode(middleCategoryCode)
+                    .orElseThrow(() -> new IllegalArgumentException("해당 카테고리가 존재하지 않습니다.")
+                    );
+            log.info("middleCategory : {}", middleCategory);
+            return MiddleCategoryResponseDto.builder()
+                    .middleCategoryName(middleCategory.getCategoryName())
+                    .middleCategoryCode(middleCategory.getCategoryCode())
+                    .topCategoryCode(middleCategory.getTopCategory().getCategoryCode())
+                    .build();
 
-    @Override
-    public MiddleCategoryResponseDto getMiddleCategoryCode(String middleCategoryCode) {
+        } catch (Exception e) {
+            log.error("error : {}", e);
+        }
         return null;
     }
 

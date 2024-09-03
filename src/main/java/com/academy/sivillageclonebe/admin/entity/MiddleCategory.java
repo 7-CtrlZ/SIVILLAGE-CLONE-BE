@@ -15,7 +15,7 @@ public class MiddleCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(nullable = false, length  = 100)
     private String categoryName;
@@ -24,6 +24,7 @@ public class MiddleCategory {
     private String categoryCode;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "topCategoryId", nullable = false)
     private TopCategory topCategory;
 
 }

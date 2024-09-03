@@ -37,7 +37,7 @@ public class CategoryController {
     }
 
     @GetMapping("/top-category/{topCategoryCode}")
-    public CommonResponseEntity<TopCategoryResponseVo> getTopCategory (
+    public CommonResponseEntity<TopCategoryResponseVo> getTopCategoryByCategoryCode (
             @PathVariable String topCategoryCode) {
         return new CommonResponseEntity<>(
                 HttpStatus.OK,
@@ -62,13 +62,13 @@ public class CategoryController {
     }
 
     @GetMapping("/middle-category/{middleCategoryCode}")
-    public CommonResponseEntity<MiddleCategoryResponseVo> getMiddleCategory (
+    public CommonResponseEntity<MiddleCategoryResponseVo> getMiddleCategoryByCategoryCode (
             @PathVariable String middleCategoryCode) {
-
+        log.info("middleCategoryCode : {}", middleCategoryCode);
         return new CommonResponseEntity<>(
                 HttpStatus.OK,
                 CommonResponseMessage.SUCCESS.getMessage(),
-                categoryService.getMiddleCategoryCode(middleCategoryCode).toVo());
+                categoryService.getMiddleCategoryByCode(middleCategoryCode).toVo());
     }
 
 }
