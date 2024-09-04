@@ -13,12 +13,13 @@ import lombok.NoArgsConstructor;
 public class SignInResponseDto {
 
     private String accessToken;
-//    private String refreshToken;
+    private String refreshToken;
     private String name;
 
     public SignInResponseVo toVo() {
         return SignInResponseVo.builder()
                 .accessToken(accessToken)
+                .refreshToken(refreshToken)
                 .name(name)
                 .build();
     }

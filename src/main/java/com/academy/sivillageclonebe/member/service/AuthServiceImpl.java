@@ -7,6 +7,7 @@ import com.academy.sivillageclonebe.member.dto.SignUpRequestDto;
 import com.academy.sivillageclonebe.member.entity.Member;
 import com.academy.sivillageclonebe.member.repository.MemberRepository;
 import com.academy.sivillageclonebe.member.repository.OauthRepository;
+import io.jsonwebtoken.Claims;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -56,7 +59,8 @@ public class AuthServiceImpl implements AuthService{
                     )
             );
             return SignInResponseDto.builder()
-                    .accessToken(createToken(authentication))
+                    .accessToken(jwtTokenProvider.generateAccessToken(authentication))
+                    .refreshToken(jwtTokenProvider.generateRefreshToken(authentication))
                     .name(authentication.getName())
                     .build();
 
@@ -68,5 +72,19 @@ public class AuthServiceImpl implements AuthService{
 
     private String createToken(Authentication authentication) {
         return jwtTokenProvider.generateAccessToken(authentication);
+    }
+
+    public String refreshAccessToken(String refreshToken) {
+        if (jwtTokenProvider.validateToken(refreshToken)) {
+            Claims claims = jwtTokenProvider.getClaims(refreshToken);
+            Authentication authentication = new UsernamePasswordAuthenticationToken(
+                    claims.getSubject(),
+                    null,
+                    List.of()
+            );
+            return jwtTokenProvider.generateAccessToken(authentication);
+        } else {
+            throw new IllegalArgumentException("Invalid Refresh Token");
+        }
     }
 }

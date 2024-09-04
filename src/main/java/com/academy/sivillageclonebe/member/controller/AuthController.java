@@ -7,6 +7,7 @@ import com.academy.sivillageclonebe.member.dto.SignInResponseDto;
 import com.academy.sivillageclonebe.member.dto.SignUpRequestDto;
 import com.academy.sivillageclonebe.member.service.AuthService;
 import com.academy.sivillageclonebe.member.service.MemberService;
+import com.academy.sivillageclonebe.member.vo.RefreshTokenRequestVo;
 import com.academy.sivillageclonebe.member.vo.SignInRequestVo;
 import com.academy.sivillageclonebe.member.vo.SignInResponseVo;
 import com.academy.sivillageclonebe.member.vo.SignUpRequestVo;
@@ -50,6 +51,20 @@ public class AuthController {
                 HttpStatus.OK,
                 CommonResponseMessage.SUCCESS.getMessage(),
                 null
+        );
+    }
+
+    @Operation(summary = "Refresh Token API", description = "Refresh Token을 통해 Access Token을 갱신합니다.", tags = {"Auth"})
+    @PostMapping("/refresh-token")
+    public CommonResponseEntity<SignInResponseVo> refreshToken(
+            @RequestBody RefreshTokenRequestVo refreshTokenRequestVo) {
+
+        String newAccessToken = authService.refreshAccessToken(refreshTokenRequestVo.getRefreshToken());
+
+        return new CommonResponseEntity<>(
+                HttpStatus.OK,
+                CommonResponseMessage.SUCCESS.getMessage(),
+                SignInResponseVo.builder().accessToken(newAccessToken).build()
         );
     }
 }
