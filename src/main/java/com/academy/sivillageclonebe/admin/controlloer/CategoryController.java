@@ -103,4 +103,25 @@ public class CategoryController {
                 middleCategoryResponseDtoList.stream().map(MiddleCategoryResponseDto::toVo).toList());
     }
 
+    @GetMapping("/bottom-categoryList/{middleCategoryCode}")
+    public CommonResponseEntity<List<BottomCategoryResponseVo>> getBottomCategoryList(
+            @PathVariable String middleCategoryCode) {
+        List<BottomCategoryResponseDto> bottomCategoryResponseDtoList = categoryService.getBottomCategoryListByMiddleCategoryCode(middleCategoryCode);
+        return new CommonResponseEntity<>(
+                HttpStatus.OK,
+                "상품 조회 성공",
+                bottomCategoryResponseDtoList.stream().map(BottomCategoryResponseDto::toVo).toList());
+    }
+
+    @GetMapping("/sub-categoryList/{bottomCategoryCode}")
+    public CommonResponseEntity<List<SubCategoryResponseVo>> getSubCategoryList(
+            @PathVariable String bottomCategoryCode) {
+        List<SubCategoryResponseDto> subCategoryResponseDtoList = categoryService.getSubCategoryListByBottomCategoryCode(bottomCategoryCode);
+        return new CommonResponseEntity<>(
+                HttpStatus.OK,
+                "상품 조회 성공",
+                subCategoryResponseDtoList.stream().map(SubCategoryResponseDto::toVo).toList());
+    }
+
+
 }

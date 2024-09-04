@@ -1,7 +1,6 @@
-package com.academy.sivillageclonebe.admin.reponstity;
+package com.academy.sivillageclonebe.admin.repository;
 
 import com.academy.sivillageclonebe.admin.entity.MiddleCategory;
-import com.academy.sivillageclonebe.admin.entity.TopCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

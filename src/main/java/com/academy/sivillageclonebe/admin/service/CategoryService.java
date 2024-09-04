@@ -1,8 +1,6 @@
 package com.academy.sivillageclonebe.admin.service;
 
 import com.academy.sivillageclonebe.admin.dto.*;
-import com.academy.sivillageclonebe.admin.entity.TopCategory;
-import com.academy.sivillageclonebe.admin.reponstity.BottomCategoryRepository;
 
 import java.util.List;
 
@@ -15,5 +13,7 @@ public interface CategoryService {
 
     List<TopCategoryResponseDto> getTopCategoryList();
     List<MiddleCategoryResponseDto> getMiddleCategoryListByTopCategoryCode(String topCategoryCode);
+    List<BottomCategoryResponseDto> getBottomCategoryListByMiddleCategoryCode(String middleCategoryCode);
+    List<SubCategoryResponseDto> getSubCategoryListByBottomCategoryCode(String bottomCategoryCode);
 
 }
