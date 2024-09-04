@@ -1,18 +1,16 @@
 package com.academy.sivillageclonebe.admin.controlloer;
 
-import com.academy.sivillageclonebe.admin.dto.MiddleCategoryRequestDto;
-import com.academy.sivillageclonebe.admin.dto.TopCategoryRequestDto;
+import com.academy.sivillageclonebe.admin.dto.*;
 import com.academy.sivillageclonebe.admin.service.CategoryService;
-import com.academy.sivillageclonebe.admin.vo.MiddleCategoryRequestVo;
-import com.academy.sivillageclonebe.admin.vo.MiddleCategoryResponseVo;
-import com.academy.sivillageclonebe.admin.vo.TopCategoryRequestVo;
-import com.academy.sivillageclonebe.admin.vo.TopCategoryResponseVo;
+import com.academy.sivillageclonebe.admin.vo.*;
 import com.academy.sivillageclonebe.common.entity.CommonResponseEntity;
 import com.academy.sivillageclonebe.common.entity.CommonResponseMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -22,6 +20,7 @@ public class CategoryController {
 
     public final CategoryService categoryService;
 
+    /*category create*/
     @PostMapping("/top-category")
     public CommonResponseEntity<Void> creteTopCategory (
             @RequestBody TopCategoryRequestVo topCategoryRequestVo) {
@@ -36,17 +35,8 @@ public class CategoryController {
                 null);
     }
 
-    @GetMapping("/top-category/{topCategoryCode}")
-    public CommonResponseEntity<TopCategoryResponseVo> getTopCategoryByCategoryCode (
-            @PathVariable String topCategoryCode) {
-        return new CommonResponseEntity<>(
-                HttpStatus.OK,
-                CommonResponseMessage.SUCCESS.getMessage(),
-                categoryService.getTopCategoryByCategoryCode(topCategoryCode).toVo());
-    }
-
     @PostMapping("/middle-category")
-    public CommonResponseEntity<Void> creteMiddleCategory (
+    public CommonResponseEntity<Void> createMiddleCategory (
             @RequestBody MiddleCategoryRequestVo middleCategoryRequestVo) {
         log.info("MiddleCategoryRequestVo: {}", middleCategoryRequestVo);
         MiddleCategoryRequestDto middleCategoryRequestDto = MiddleCategoryRequestDto.builder()
@@ -61,14 +51,56 @@ public class CategoryController {
                 null);
     }
 
-    @GetMapping("/middle-category/{middleCategoryCode}")
-    public CommonResponseEntity<MiddleCategoryResponseVo> getMiddleCategoryByCategoryCode (
-            @PathVariable String middleCategoryCode) {
-        log.info("middleCategoryCode : {}", middleCategoryCode);
+    @PostMapping("/bottom-category")
+    public CommonResponseEntity<Void> createBottomCategory (
+            @RequestBody BottomCategoryRequestVo bottomCategoryRequestVo) {
+        log.info("BottomCategoryRequestVo: {}", bottomCategoryRequestVo);
+        BottomCategoryRequestDto bottomCategoryRequestDto = BottomCategoryRequestDto.builder()
+                .bottomCategoryName(bottomCategoryRequestVo.getBottomCategoryName())
+                .middleCategoryCode(bottomCategoryRequestVo.getMiddleCategoryCode())
+                .build();
+        categoryService.createBottomCategory(bottomCategoryRequestDto);
+
         return new CommonResponseEntity<>(
                 HttpStatus.OK,
                 CommonResponseMessage.SUCCESS.getMessage(),
-                categoryService.getMiddleCategoryByCode(middleCategoryCode).toVo());
+                null);
+    }
+
+    @PostMapping("/sub-category")
+    public CommonResponseEntity<Void> createSubCategory (
+            @RequestBody SubCategoryRequestVo subCategoryRequestVo) {
+        log.info("SubCategoryRequestVo: {}", subCategoryRequestVo);
+        SubCategoryRequestDto subCategoryRequestDto = SubCategoryRequestDto.builder()
+                .subCategoryName(subCategoryRequestVo.getSubCategoryName())
+                .bottomCategoryCode(subCategoryRequestVo.getBottomCategoryCode())
+                .build();
+        categoryService.createSubCategory(subCategoryRequestDto);
+
+        return new CommonResponseEntity<>(
+                HttpStatus.OK,
+                CommonResponseMessage.SUCCESS.getMessage(),
+                null);
+    }
+
+    @GetMapping("/top-categoryList")
+    public CommonResponseEntity<List<TopCategoryResponseVo>> getTopCategoryList() {
+        List<TopCategoryResponseDto> topCategoryResponseDtoList = categoryService.getTopCategoryList();
+//       return categoryService.getTopCategoryList().stream().map(TopCategoryResponseDto::toVo).toList();
+        return new CommonResponseEntity<>(
+                HttpStatus.OK,
+                "상품 조회 성공",
+                topCategoryResponseDtoList.stream().map(TopCategoryResponseDto::toVo).toList());
+    }
+
+    @GetMapping("/middle-categoryList/{topCategoryCode}")
+    public CommonResponseEntity<List<MiddleCategoryResponseVo>> getMiddleCategoryList(
+            @PathVariable String topCategoryCode) {
+        List<MiddleCategoryResponseDto> middleCategoryResponseDtoList = categoryService.getMiddleCategoryListByTopCategoryCode(topCategoryCode);
+        return new CommonResponseEntity<>(
+                HttpStatus.OK,
+                "상품 조회 성공",
+                middleCategoryResponseDtoList.stream().map(MiddleCategoryResponseDto::toVo).toList());
     }
 
 }
