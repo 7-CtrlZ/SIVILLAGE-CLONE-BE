@@ -13,5 +13,11 @@ public class BottomCategoryRequestDto {
     private String bottomCategoryName;
     private String middleCategoryCode;
 
-
+    public BottomCategory toEntity(MiddleCategory middleCategory, String bottomCategoryCode) {
+        return BottomCategory.builder()
+                .categoryName(bottomCategoryName)
+                .categoryCode(bottomCategoryCode)
+                .middleCategory(middleCategory)
+                .build();
+    }
 }
