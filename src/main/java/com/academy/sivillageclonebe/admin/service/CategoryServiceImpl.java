@@ -5,19 +5,17 @@ import com.academy.sivillageclonebe.admin.entity.BottomCategory;
 import com.academy.sivillageclonebe.admin.entity.MiddleCategory;
 import com.academy.sivillageclonebe.admin.entity.SubCategory;
 import com.academy.sivillageclonebe.admin.entity.TopCategory;
-import com.academy.sivillageclonebe.admin.reponstity.BottomCategoryRepository;
-import com.academy.sivillageclonebe.admin.reponstity.MiddleCategoryRepository;
-import com.academy.sivillageclonebe.admin.reponstity.SubCategoryRepository;
-import com.academy.sivillageclonebe.admin.reponstity.TopCategoryRepository;
+import com.academy.sivillageclonebe.admin.repository.BottomCategoryRepository;
+import com.academy.sivillageclonebe.admin.repository.MiddleCategoryRepository;
+import com.academy.sivillageclonebe.admin.repository.SubCategoryRepository;
+import com.academy.sivillageclonebe.admin.repository.TopCategoryRepository;
 import com.academy.sivillageclonebe.common.utills.CategoryCodeGenerator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -110,7 +108,6 @@ public class CategoryServiceImpl implements CategoryService {
         List<TopCategory> topCategoryList = topCategoryRepository.findAll();
 //        return topCategoryList.stream()
 //                .map(TopCategoryResponseDto::toDto).toList();
-//    }
         return topCategoryList.stream()
                 .map(topCategory -> TopCategoryResponseDto.builder()
                         .topCategoryName(topCategory.getCategoryName())
@@ -128,6 +125,31 @@ public class CategoryServiceImpl implements CategoryService {
                         .middleCategoryName(middleCategory.getCategoryName())
                         .middleCategoryCode(middleCategory.getCategoryCode())
                         .topCategoryCode(middleCategory.getTopCategory().getCategoryCode())
+                        .build())
+                .toList();
+    }
+
+    @Transactional
+    @Override
+    public List<BottomCategoryResponseDto> getBottomCategoryListByMiddleCategoryCode(String middleCategoryCode) {
+        List<BottomCategory> bottomCategoryList = bottomCategoryRepository.findByMiddleCategoryCategoryCode(middleCategoryCode);
+        return bottomCategoryList.stream()
+                .map(bottomCategory -> BottomCategoryResponseDto.builder()
+                        .bottomCategoryCode(bottomCategory.getCategoryCode())
+                        .bottomCategoryName(bottomCategory.getCategoryName())
+                        .middleCategoryCode(bottomCategory.getMiddleCategory().getCategoryCode())
+                        .build())
+                .toList();
+    }
+    @Transactional
+    @Override
+    public List<SubCategoryResponseDto> getSubCategoryListByBottomCategoryCode(String bottomCategoryCode) {
+        List<SubCategory> subCategoryList = subCategoryRepository.findByBottomCategoryCategoryCode(bottomCategoryCode);
+        return subCategoryList.stream()
+                .map(subCategory -> SubCategoryResponseDto.builder()
+                        .subCategoryCode(subCategory.getCategoryCode())
+                        .subCategoryName(subCategory.getCategoryName())
+                        .bottomCategoryCode(subCategory.getBottomCategory().getCategoryCode())
                         .build())
                 .toList();
     }
