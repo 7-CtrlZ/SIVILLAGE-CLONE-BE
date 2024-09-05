@@ -28,8 +28,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductResponseDto getProduct(String productUuid) {
-        Product getProduct = productRepository.findByProductUuid(productUuid).orElseThrow(() -> new IllegalArgumentException("해당 상품이 존재하지 않습니다."));
+    public ProductResponseDto getProduct(String productCode) {
+        Product getProduct = productRepository.findByProductCode(productCode).orElseThrow(() -> new IllegalArgumentException("해당 상품이 존재하지 않습니다."));
         return ProductResponseDto.builder()
                 .productUuid(getProduct.getProductUuid())
                 .productCode(getProduct.getProductCode())
