@@ -10,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @ToString
-public class MemberAddressAddRequestDto {
+public class MemberAddressRequestDto {
 
     private Long id;
     private Member member;
@@ -31,6 +31,18 @@ public class MemberAddressAddRequestDto {
                 .receiverName(receiverName)
                 .receiverPhone(receiverPhone)
                 .isDefault(isDefault)
+                .build();
+    }
+
+    public static MemberAddressRequestDto fromEntity(MemberAddress address) {
+        return MemberAddressRequestDto.builder()
+                .id(address.getId())
+                .address(address.getAddress())
+                .zipCode(address.getZipCode())
+                .request(address.getRequest())
+                .receiverName(address.getReceiverName())
+                .receiverPhone(address.getReceiverPhone())
+                .isDefault(address.isDefault())
                 .build();
     }
 }

@@ -1,5 +1,6 @@
 package com.academy.sivillageclonebe.member.entity;
 
+import com.academy.sivillageclonebe.member.dto.MemberAddressDto;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -56,6 +57,15 @@ public class MemberAddress {
         this.receiverName = receiverName;
         this.receiverPhone = receiverPhone;
         this.isDefault = isDefault;
+    }
+
+    public void editMemberAddress(MemberAddressDto memberAddressDto) {
+        this.address = memberAddressDto.getAddress();
+        this.zipCode = memberAddressDto.getZipCode();
+        this.request = memberAddressDto.getRequest();
+        this.receiverName = memberAddressDto.getReceiverName();
+        this.receiverPhone = memberAddressDto.getReceiverPhone();
+        this.isDefault = memberAddressDto.isDefault();
     }
 
 }
