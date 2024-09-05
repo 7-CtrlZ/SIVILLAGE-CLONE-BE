@@ -1,6 +1,6 @@
 package com.academy.sivillageclonebe.member.vo;
 
-import com.academy.sivillageclonebe.member.dto.MemberAddressAddRequestDto;
+import com.academy.sivillageclonebe.member.dto.MemberAddressRequestDto;
 import com.academy.sivillageclonebe.member.entity.Member;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,8 +17,8 @@ public class MemberAddressAddRequestVo {
     private boolean isDefault;
 
     @Builder
-    public MemberAddressAddRequestDto toDto(Member member) {
-        return MemberAddressAddRequestDto.builder()
+    public MemberAddressRequestDto toDto(Member member) {
+        return MemberAddressRequestDto.builder()
                 .member(member)
                 .address(address)
                 .zipCode(zipCode)
