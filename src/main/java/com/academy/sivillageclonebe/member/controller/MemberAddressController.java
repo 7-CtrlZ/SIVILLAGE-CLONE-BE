@@ -3,9 +3,7 @@ package com.academy.sivillageclonebe.member.controller;
 import com.academy.sivillageclonebe.common.entity.CommonResponseEntity;
 import com.academy.sivillageclonebe.common.entity.CommonResponseMessage;
 import com.academy.sivillageclonebe.member.dto.MemberAddressDto;
-import com.academy.sivillageclonebe.member.dto.MemberAddressRequestDto;
 import com.academy.sivillageclonebe.member.entity.Member;
-import com.academy.sivillageclonebe.member.entity.MemberAddress;
 import com.academy.sivillageclonebe.member.service.MemberAddressService;
 import com.academy.sivillageclonebe.member.service.MemberService;
 import com.academy.sivillageclonebe.member.vo.MemberAddressRequestVo;
@@ -19,8 +17,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
