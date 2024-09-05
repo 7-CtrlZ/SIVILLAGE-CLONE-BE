@@ -11,15 +11,15 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MainCategory {
+public class TopCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length  = 100)
     private String categoryName;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length  = 100)
     private String categoryCode;
 }
