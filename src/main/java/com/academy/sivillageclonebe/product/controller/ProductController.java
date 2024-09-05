@@ -39,9 +39,9 @@ public class ProductController {
         );
     }
 
-    @GetMapping("/{productUuid}")
-    public CommonResponseEntity<ProductResponseVo> getProduct (@PathVariable String productUuid) {
-        ProductResponseDto productResponseDto = productService.getProduct(productUuid);
+    @GetMapping("/{productCode}")
+    public CommonResponseEntity<ProductResponseVo> getProduct (@PathVariable String productCode) {
+        ProductResponseDto productResponseDto = productService.getProduct(productCode);
         return new CommonResponseEntity<>(
                 HttpStatus.OK,
                 "상품 조회 성공",

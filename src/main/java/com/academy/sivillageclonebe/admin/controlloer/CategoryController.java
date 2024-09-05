@@ -5,6 +5,7 @@ import com.academy.sivillageclonebe.admin.service.CategoryService;
 import com.academy.sivillageclonebe.admin.vo.*;
 import com.academy.sivillageclonebe.common.entity.CommonResponseEntity;
 import com.academy.sivillageclonebe.common.entity.CommonResponseMessage;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -86,7 +87,7 @@ public class CategoryController {
     @GetMapping("/top-categoryList")
     public CommonResponseEntity<List<TopCategoryResponseVo>> getTopCategoryList() {
         List<TopCategoryResponseDto> topCategoryResponseDtoList = categoryService.getTopCategoryList();
-//       return categoryService.getTopCategoryList().stream().map(TopCategoryResponseDto::toVo).toList();
+//      return categoryService.getTopCategoryList().stream().map(TopCategoryResponseDto::toVo).toList();
         return new CommonResponseEntity<>(
                 HttpStatus.OK,
                 "상품 조회 성공",
@@ -117,11 +118,16 @@ public class CategoryController {
     public CommonResponseEntity<List<SubCategoryResponseVo>> getSubCategoryList(
             @PathVariable String bottomCategoryCode) {
         List<SubCategoryResponseDto> subCategoryResponseDtoList = categoryService.getSubCategoryListByBottomCategoryCode(bottomCategoryCode);
+
+        if (subCategoryResponseDtoList.isEmpty()) {
+            return new CommonResponseEntity<>(
+                    HttpStatus.NOT_FOUND,
+                    "해당 카테고리가 존재하지 않음",
+                    null);
+        }
         return new CommonResponseEntity<>(
                 HttpStatus.OK,
                 "상품 조회 성공",
                 subCategoryResponseDtoList.stream().map(SubCategoryResponseDto::toVo).toList());
     }
-
-
 }

@@ -7,5 +7,5 @@ import com.academy.sivillageclonebe.product.vo.ProductResponseVo;
 public interface ProductService {
 
     void addProduct(ProductRequestDto productDto);
-    ProductResponseDto getProduct(String productUuid);
+    ProductResponseDto getProduct(String productCode);
 }
