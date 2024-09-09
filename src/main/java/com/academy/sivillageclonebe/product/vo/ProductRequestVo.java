@@ -2,11 +2,10 @@ package com.academy.sivillageclonebe.product.vo;
 
 import lombok.Getter;
 
-import java.time.LocalDateTime;
-
 @Getter
 public class ProductRequestVo {
 
+    private String brandName;
     private String productName;
     private Double price;
     private String productDescription;

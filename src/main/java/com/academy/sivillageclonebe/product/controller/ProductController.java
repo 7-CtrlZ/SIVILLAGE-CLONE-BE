@@ -26,6 +26,7 @@ public class ProductController {
             @RequestBody ProductRequestVo productRequestVo) {
         log.info("productRequestVo : {}", productRequestVo);
         ProductRequestDto productRequestDto = ProductRequestDto.builder()
+                .brandName(productRequestVo.getBrandName())
                 .productName(productRequestVo.getProductName())
                 .productDescription(productRequestVo.getProductDescription())
                 .productDetailContent(productRequestVo.getProductDetailContent())

@@ -12,4 +12,3 @@ public interface ProductByCategoryRepositoryCustom {
             String topCategoryCode, String middleCategoryCode, String bottomCategoryCode, String subCategoryCode);
 
 }
-git commit -m "Feat: 카테고리 상품코드 리스트 조회, 상품 조회 기능 수정"
