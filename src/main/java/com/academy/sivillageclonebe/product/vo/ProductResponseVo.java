@@ -12,6 +12,7 @@ public class ProductResponseVo {
 
     private String productUuid;
     private String productCode;
+    private String brandName;
     private String productName;
     private String productDescription;
     private String productDetailContent;

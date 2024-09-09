@@ -33,6 +33,7 @@ public class ProductServiceImpl implements ProductService {
         return ProductResponseDto.builder()
                 .productUuid(getProduct.getProductUuid())
                 .productCode(getProduct.getProductCode())
+                .brandName(getProduct.getBrandName())
                 .productName(getProduct.getProductName())
                 .productDescription(getProduct.getProductDescription())
                 .productDetailContent(getProduct.getProductDetailContent())
