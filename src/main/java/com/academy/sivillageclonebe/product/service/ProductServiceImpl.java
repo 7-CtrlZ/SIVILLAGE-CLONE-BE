@@ -40,4 +40,15 @@ public class ProductServiceImpl implements ProductService {
                 .build();
     }
 
+
+//    @Override
+//    public Integer getBrandIdByProductId(Long productId) {
+//        // 예시: 실제 브랜드 ID를 찾는 로직을 구현
+//        Product product = productRepository.findById(productId)
+//                .orElseThrow(() -> new IllegalArgumentException("Product not found"));
+//
+//        브랜드 아이디가...
+//        return product.getBrandId();
+//    }
+
 }
