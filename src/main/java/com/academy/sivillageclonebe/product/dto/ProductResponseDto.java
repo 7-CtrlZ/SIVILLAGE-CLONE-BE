@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Builder
@@ -21,6 +22,8 @@ public class ProductResponseDto {
     private Double price;
     private String productDescription;
     private String productDetailContent;
+    private List<ProductByOptionDto> productByOptionDtoList;
+
 
     public ProductResponseVo toResponseVo() {
         return ProductResponseVo.builder()
@@ -31,6 +34,7 @@ public class ProductResponseDto {
                 .price(price)
                 .productDescription(productDescription)
                 .productDetailContent(productDetailContent)
+                .productByOptionList(productByOptionDtoList)
                 .build();
     }
 
