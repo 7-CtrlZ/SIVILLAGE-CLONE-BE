@@ -1,6 +1,6 @@
-package com.academy.sivillageclonebe.option.dto;
+package com.academy.sivillageclonebe.product.dto;
 
-import com.academy.sivillageclonebe.option.entity.Brand;
+import com.academy.sivillageclonebe.vendor.entity.Brand;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

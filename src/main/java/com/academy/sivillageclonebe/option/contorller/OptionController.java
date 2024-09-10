@@ -79,27 +79,20 @@ public class OptionController {
                 null
         );
     }
-    @PostMapping("/brand")
-    public CommonResponseEntity<Void> createBrand(
-            @RequestBody BrandRequestVo brandRequestVo) {
-        log.info("BrandRequestVo : {}", brandRequestVo);
-        BrandRequestDto brandRequestDto = BrandRequestDto.builder()
-                .brandName(brandRequestVo.getBrandName())
+
+    @PostMapping("/stocks")
+    public CommonResponseEntity<Void> createProductStocks(
+            @RequestBody ProductStocksRequestVo productStocksRequestVo) {
+        log.info("ProductStocksRequestVo : {}", productStocksRequestVo);
+        ProductStocksRequestDto productStocksRequestDto = ProductStocksRequestDto.builder()
+                .quantity(productStocksRequestVo.getQuantity())
+                .productByOptionId(productStocksRequestVo.getProductByOptionId())
                 .build();
-        optionService.createBrand(brandRequestDto);
+        optionService.createProductStocks(productStocksRequestDto);
         return new CommonResponseEntity<>(
                 HttpStatus.OK,
                 CommonResponseMessage.SUCCESS.getMessage(),
                 null
-        );
-    }
-    @GetMapping("/{brandId}")
-    public CommonResponseEntity<BrandResponseVo> getBrandNameById (@PathVariable Integer brandId) {
-        BrandResponseDto brandResponseDto = optionService.getBrandNameById(brandId);
-        return new CommonResponseEntity<>(
-                HttpStatus.OK,
-                "상품 조회 성공",
-                brandResponseDto.toVo()
         );
     }
 }

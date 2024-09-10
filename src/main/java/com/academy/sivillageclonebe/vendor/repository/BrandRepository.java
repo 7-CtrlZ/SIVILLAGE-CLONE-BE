@@ -1,6 +1,6 @@
-package com.academy.sivillageclonebe.option.repository;
+package com.academy.sivillageclonebe.vendor.repository;
 
-import com.academy.sivillageclonebe.option.entity.Brand;
+import com.academy.sivillageclonebe.vendor.entity.Brand;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

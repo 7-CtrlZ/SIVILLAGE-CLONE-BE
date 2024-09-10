@@ -12,6 +12,7 @@ import com.academy.sivillageclonebe.product.repository.ProductRepository;
 import com.academy.sivillageclonebe.vendor.dto.ProductByCategoryResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -36,6 +37,7 @@ public class ProductServiceImpl implements ProductService {
 
     }
 
+    @Transactional
     @Override
     public ProductResponseDto getProduct(String productCode) {
         Product getProduct = productRepository.findByProductCode(productCode)
