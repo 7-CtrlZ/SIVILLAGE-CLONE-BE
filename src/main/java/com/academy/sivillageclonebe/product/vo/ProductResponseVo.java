@@ -16,7 +16,6 @@ public class ProductResponseVo {
     private String productCode;
     private Integer brandId;
     private String productName;
-    private Integer brandId;
     private String productDescription;
     private String productDetailContent;
     private Double price;

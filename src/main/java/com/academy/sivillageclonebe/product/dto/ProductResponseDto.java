@@ -19,7 +19,6 @@ public class ProductResponseDto {
     private String productCode;
     private Integer brandId;
     private String productName;
-    private Integer brandId;
     private Double price;
     private String productDescription;
     private String productDetailContent;
@@ -32,7 +31,6 @@ public class ProductResponseDto {
                 .productCode(productCode)
                 .brandId(brandId)
                 .productName(productName)
-                .brandId(brandId)
                 .price(price)
                 .productDescription(productDescription)
                 .productDetailContent(productDetailContent)
