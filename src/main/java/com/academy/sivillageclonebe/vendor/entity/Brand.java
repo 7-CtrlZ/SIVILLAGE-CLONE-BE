@@ -1,4 +1,4 @@
-package com.academy.sivillageclonebe.option.entity;
+package com.academy.sivillageclonebe.vendor.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

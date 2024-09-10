@@ -1,10 +1,7 @@
 package com.academy.sivillageclonebe.product.entity;
 
 import com.academy.sivillageclonebe.admin.entity.BottomCategory;
-import com.academy.sivillageclonebe.option.entity.ProductColors;
-import com.academy.sivillageclonebe.option.entity.ProductOptions;
-import com.academy.sivillageclonebe.option.entity.ProductSizes;
-import com.academy.sivillageclonebe.option.entity.ProductStatus;
+import com.academy.sivillageclonebe.option.entity.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -47,4 +44,8 @@ public class ProductByOption {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "productColorsId", nullable = false)
     private ProductColors productColors;
+
+    @OneToOne(mappedBy = "productByOption")
+    private ProductStocks productStocks;
+
 }
