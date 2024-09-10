@@ -30,6 +30,7 @@ public class ProductController {
                 .productName(productRequestVo.getProductName())
                 .productDescription(productRequestVo.getProductDescription())
                 .productDetailContent(productRequestVo.getProductDetailContent())
+                .brandId(productRequestVo.getBrandId())
                 .price(productRequestVo.getPrice())
                 .build();
         productService.addProduct(productRequestDto);

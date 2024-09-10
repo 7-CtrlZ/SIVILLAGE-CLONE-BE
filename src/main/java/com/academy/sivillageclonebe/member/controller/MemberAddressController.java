@@ -2,6 +2,7 @@ package com.academy.sivillageclonebe.member.controller;
 
 import com.academy.sivillageclonebe.common.entity.CommonResponseEntity;
 import com.academy.sivillageclonebe.common.entity.CommonResponseMessage;
+import com.academy.sivillageclonebe.common.utills.SecurityUtils;
 import com.academy.sivillageclonebe.member.dto.MemberAddressDto;
 import com.academy.sivillageclonebe.member.entity.Member;
 import com.academy.sivillageclonebe.member.service.MemberAddressService;
@@ -25,14 +26,14 @@ import java.util.List;
 public class MemberAddressController {
 
     private final MemberAddressService memberAddressService;
-    private final MemberService memberService;
+    private final SecurityUtils securityUtils;
 
     @PostMapping("/add")
     public ResponseEntity<CommonResponseEntity<Void>> saveAddress(
             @RequestBody MemberAddressRequestVo memberAddressRequestVo) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Member member = getAuthenticatedMember(authentication);
+        Member member = securityUtils.getAuthenticatedMember();
 
         memberAddressService.saveMemberAddress(memberAddressRequestVo.toDto(member));
 
@@ -47,12 +48,12 @@ public class MemberAddressController {
 
     @GetMapping
     public ResponseEntity<CommonResponseEntity<List<MemberAddressDto>>> getAllAddresses() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Member member = getAuthenticatedMember(authentication);
+
+        Member member = securityUtils.getAuthenticatedMember();
 
         List<MemberAddressDto> addresses = memberAddressService.findAllByMember(member)
                 .stream()
-                .map(MemberAddressDto::toEntity)
+                .map(MemberAddressDto::fromEntity)
                 .toList();
 
         return ResponseEntity.ok(
@@ -82,8 +83,8 @@ public class MemberAddressController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<CommonResponseEntity<Void>> deleteAddress(@PathVariable Long id) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Member member = getAuthenticatedMember(authentication);
+
+        Member member = securityUtils.getAuthenticatedMember();
 
         memberAddressService.deleteMemberAddress(id, member);
 
@@ -94,15 +95,5 @@ public class MemberAddressController {
                         null
                 )
         );
-    }
-
-    private Member getAuthenticatedMember(Authentication authentication) {
-        if (authentication == null || !(authentication.getPrincipal() instanceof UserDetails userDetails)) {
-            throw new IllegalArgumentException("User is not authenticated");
-        }
-
-        String email = userDetails.getUsername();
-        return memberService.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("Member not found"));
     }
 }

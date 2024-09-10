@@ -6,7 +6,6 @@ import com.academy.sivillageclonebe.option.vo.BrandRequestVo;
 import com.academy.sivillageclonebe.option.vo.BrandResponseVo;
 import com.academy.sivillageclonebe.vendor.dto.BrandRequestDto;
 import com.academy.sivillageclonebe.vendor.dto.BrandResponseDto;
-import com.academy.sivillageclonebe.vendor.repository.BrandRepository;
 import com.academy.sivillageclonebe.vendor.service.BrandService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/vendor")
-public class BrandCategoryController {
+public class BrandController {
 
     private final BrandService brandService;
 

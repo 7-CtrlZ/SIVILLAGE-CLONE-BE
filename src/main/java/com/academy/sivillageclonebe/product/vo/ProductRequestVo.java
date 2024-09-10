@@ -8,6 +8,7 @@ public class ProductRequestVo {
     private Integer brandId;
     private String productName;
     private Double price;
+    private Integer brandId;
     private String productDescription;
     private String productDetailContent;
 
