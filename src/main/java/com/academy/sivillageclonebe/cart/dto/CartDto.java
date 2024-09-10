@@ -1,7 +1,11 @@
 package com.academy.sivillageclonebe.cart.dto;
 
 import com.academy.sivillageclonebe.cart.entity.Cart;
+import com.academy.sivillageclonebe.cart.entity.ProductsByCart;
 import lombok.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -14,21 +18,25 @@ public class CartDto {
     private Long id;
     private Long memberId;
     private Integer brandId;
+    private List<ProductsByCartDto> products;
 
-    // Cart 엔티티를 CartDto로 변환하는 메서드
-    public static CartDto fromEntity(Cart cart) {
+    public static CartDto fromEntity(Cart cart, List<ProductsByCart> productsByCartList) {
+        List<ProductsByCartDto> products = productsByCartList.stream()
+                .map(ProductsByCartDto::fromEntity)
+                .collect(Collectors.toList());
+
         return CartDto.builder()
                 .id(cart.getId())
                 .memberId(cart.getMemberId())
                 .brandId(cart.getBrandId())
+                .products(products)
                 .build();
     }
 
-    // CartDto를 Cart 엔티티로 변환하는 메서드
     public Cart toEntity() {
         return Cart.builder()
-                .memberId(this.memberId)
-                .brandId(this.brandId)
+                .memberId(memberId)
+                .brandId(brandId)
                 .build();
     }
 

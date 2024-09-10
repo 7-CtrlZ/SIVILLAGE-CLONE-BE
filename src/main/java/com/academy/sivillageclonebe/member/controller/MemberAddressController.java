@@ -53,7 +53,7 @@ public class MemberAddressController {
 
         List<MemberAddressDto> addresses = memberAddressService.findAllByMember(member)
                 .stream()
-                .map(MemberAddressDto::toEntity)
+                .map(MemberAddressDto::fromEntity)
                 .toList();
 
         return ResponseEntity.ok(

@@ -33,16 +33,4 @@ public class MemberAddressRequestDto {
                 .isDefault(isDefault)
                 .build();
     }
-
-    public static MemberAddressRequestDto fromEntity(MemberAddress address) {
-        return MemberAddressRequestDto.builder()
-                .id(address.getId())
-                .address(address.getAddress())
-                .zipCode(address.getZipCode())
-                .request(address.getRequest())
-                .receiverName(address.getReceiverName())
-                .receiverPhone(address.getReceiverPhone())
-                .isDefault(address.isDefault())
-                .build();
-    }
 }

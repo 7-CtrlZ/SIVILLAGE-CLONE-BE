@@ -19,7 +19,6 @@ public class ProductsByCartDto {
     private Integer quantity;
     private boolean isChecked;
 
-    // ProductsByCart 엔티티를 ProductsByCartDto로 변환하는 메서드
     public static ProductsByCartDto fromEntity(ProductsByCart productsByCart) {
         return ProductsByCartDto.builder()
                 .id(productsByCart.getId())
@@ -31,13 +30,12 @@ public class ProductsByCartDto {
                 .build();
     }
 
-    // ProductsByCartDto를 ProductsByCart 엔티티로 변환하는 메서드
     public ProductsByCart toEntity(Cart cart) {
         return ProductsByCart.builder()
                 .cart(cart)
-                .productsId(this.productsId)
-                .productsByOptionId(this.productsByOptionId)
-                .quantity(this.quantity)
+                .productsId(productsId)
+                .productsByOptionId(productsByOptionId)
+                .quantity(quantity)
                 .isChecked(true)
                 .build();
     }

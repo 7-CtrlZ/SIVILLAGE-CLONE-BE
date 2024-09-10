@@ -9,5 +9,4 @@ public interface ProductService {
     void addProduct(ProductRequestDto productDto);
     ProductResponseDto getProduct(String productUuid);
 
-//    Integer getBrandIdByProductId(Long productsId);
 }
