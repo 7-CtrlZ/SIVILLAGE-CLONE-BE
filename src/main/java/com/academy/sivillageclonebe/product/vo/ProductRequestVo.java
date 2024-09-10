@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public class ProductRequestVo {
 
-    private String brandName;
+    private Integer brandId;
     private String productName;
     private Double price;
     private String productDescription;

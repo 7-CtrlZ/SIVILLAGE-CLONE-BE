@@ -4,19 +4,13 @@ import com.academy.sivillageclonebe.common.entity.CommonResponseEntity;
 import com.academy.sivillageclonebe.common.entity.CommonResponseMessage;
 import com.academy.sivillageclonebe.option.dto.*;
 import com.academy.sivillageclonebe.option.service.OptionService;
-import com.academy.sivillageclonebe.option.vo.ProductColorsRequestVo;
-import com.academy.sivillageclonebe.option.vo.ProductOptionsRequestVo;
-import com.academy.sivillageclonebe.option.vo.ProductSizesRequestVo;
-import com.academy.sivillageclonebe.option.vo.ProductStatusRequestVo;
+import com.academy.sivillageclonebe.option.vo.*;
 import com.academy.sivillageclonebe.product.vo.ProductRequestVo;
 import com.academy.sivillageclonebe.vendor.service.ProductByCategoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -85,5 +79,27 @@ public class OptionController {
                 null
         );
     }
-
+    @PostMapping("/brand")
+    public CommonResponseEntity<Void> createBrand(
+            @RequestBody BrandRequestVo brandRequestVo) {
+        log.info("BrandRequestVo : {}", brandRequestVo);
+        BrandRequestDto brandRequestDto = BrandRequestDto.builder()
+                .brandName(brandRequestVo.getBrandName())
+                .build();
+        optionService.createBrand(brandRequestDto);
+        return new CommonResponseEntity<>(
+                HttpStatus.OK,
+                CommonResponseMessage.SUCCESS.getMessage(),
+                null
+        );
+    }
+    @GetMapping("/{brandId}")
+    public CommonResponseEntity<BrandResponseVo> getBrandNameById (@PathVariable Integer brandId) {
+        BrandResponseDto brandResponseDto = optionService.getBrandNameById(brandId);
+        return new CommonResponseEntity<>(
+                HttpStatus.OK,
+                "상품 조회 성공",
+                brandResponseDto.toVo()
+        );
+    }
 }
