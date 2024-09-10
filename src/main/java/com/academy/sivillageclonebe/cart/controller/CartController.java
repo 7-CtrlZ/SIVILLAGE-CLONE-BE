@@ -36,7 +36,10 @@ public class CartController {
     public CommonResponseEntity<ProductsByCartDto> addProductToCart(@RequestBody CartRequestVo cartRequestVo) {
 
         Member member = securityUtils.getAuthenticatedMember();
-        CartDto cartDto = cartRequestVo.toDto(member.getId(), productService.getBrandIdByProductId(cartRequestVo.getProductsId()));
+        CartDto cartDto = CartDto.builder()
+                .memberId(member.getId())
+                .brandId(productService.getBrandIdByProductId(cartRequestVo.getProductsId()))
+                .build();
         ProductsByCartDto productsByCartDto = cartRequestVo.toProductsByCartDto();
 
         ProductsByCartDto responseDto = productsByCartService.addProductToCart(cartDto, productsByCartDto);

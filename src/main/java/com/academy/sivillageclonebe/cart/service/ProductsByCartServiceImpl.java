@@ -6,6 +6,7 @@ import com.academy.sivillageclonebe.cart.entity.Cart;
 import com.academy.sivillageclonebe.cart.entity.ProductsByCart;
 import com.academy.sivillageclonebe.cart.repository.CartRepository;
 import com.academy.sivillageclonebe.cart.repository.ProductsByCartRepository;
+import com.academy.sivillageclonebe.product.service.ProductService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,7 @@ public class ProductsByCartServiceImpl implements ProductsByCartService{
 
     private final ProductsByCartRepository productsByCartRepository;
     private final CartRepository cartRepository;
+    private final ProductService productService;
 
     @Transactional
     @Override

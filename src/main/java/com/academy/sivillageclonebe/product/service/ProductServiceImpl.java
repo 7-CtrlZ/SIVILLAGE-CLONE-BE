@@ -34,10 +34,17 @@ public class ProductServiceImpl implements ProductService {
                 .productUuid(getProduct.getProductUuid())
                 .productCode(getProduct.getProductCode())
                 .productName(getProduct.getProductName())
+                .brandId(getProduct.getBrandId())
                 .productDescription(getProduct.getProductDescription())
                 .productDetailContent(getProduct.getProductDetailContent())
                 .price(getProduct.getPrice())
                 .build();
+    }
+
+    @Override
+    public Integer getBrandIdByProductId(Long productsId) {
+        Product product = productRepository.findById(productsId).orElseThrow();
+        return product.getBrandId();
     }
 
 }
