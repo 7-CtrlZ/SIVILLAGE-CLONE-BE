@@ -1,13 +1,8 @@
 package com.academy.sivillageclonebe.option.service;
 
-import com.academy.sivillageclonebe.option.dto.ProductColorsRequestDto;
-import com.academy.sivillageclonebe.option.dto.ProductOptionsRequestDto;
-import com.academy.sivillageclonebe.option.dto.ProductSizesRequestDto;
-import com.academy.sivillageclonebe.option.dto.ProductStatusRequestDto;
-import com.academy.sivillageclonebe.option.repository.ProductColorsRepository;
-import com.academy.sivillageclonebe.option.repository.ProductOptionsRepository;
-import com.academy.sivillageclonebe.option.repository.ProductSizesRepository;
-import com.academy.sivillageclonebe.option.repository.ProductStatusRepository;
+import com.academy.sivillageclonebe.option.dto.*;
+import com.academy.sivillageclonebe.option.entity.Brand;
+import com.academy.sivillageclonebe.option.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +14,7 @@ public class OptionServiceImpl implements OptionService{
     private final ProductOptionsRepository productOptionsRepository;
     private final ProductSizesRepository productSizesRepository;
     private final ProductStatusRepository productStatusRepository;
-
+    private final BrandRepository brandRepository;
 
     @Override
     public void createProductColors(ProductColorsRequestDto productColorsRequestDto) {
@@ -39,5 +34,20 @@ public class OptionServiceImpl implements OptionService{
     @Override
     public void createProductStatus(ProductStatusRequestDto productStatusRequestDto) {
         productStatusRepository.save(productStatusRequestDto.toEntity());
+    }
+
+
+    @Override
+    public void createBrand(BrandRequestDto brandRequestDto) {
+        brandRepository.save(brandRequestDto.toEntity());
+    }
+
+    @Override
+    public BrandResponseDto getBrandNameById(Integer Id) {
+        Brand getBrand = brandRepository.findById(Id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 브랜드가 존재하지 않습니다."));
+        return BrandResponseDto.builder()
+                .brandName(getBrand.getBrandName())
+                .build();
     }
 }

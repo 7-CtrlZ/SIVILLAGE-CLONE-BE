@@ -1,9 +1,6 @@
 package com.academy.sivillageclonebe.option.service;
 
-import com.academy.sivillageclonebe.option.dto.ProductColorsRequestDto;
-import com.academy.sivillageclonebe.option.dto.ProductOptionsRequestDto;
-import com.academy.sivillageclonebe.option.dto.ProductSizesRequestDto;
-import com.academy.sivillageclonebe.option.dto.ProductStatusRequestDto;
+import com.academy.sivillageclonebe.option.dto.*;
 
 public interface OptionService {
 
@@ -11,5 +8,9 @@ public interface OptionService {
     void createProductOptions(ProductOptionsRequestDto productOptionsRequestDto);
     void createProductSizes(ProductSizesRequestDto productSizesRequestDto);
     void createProductStatus(ProductStatusRequestDto productStatusRequestDto);
+
+    void createBrand(BrandRequestDto brandRequestDto);
+
+    BrandResponseDto getBrandNameById(Integer Id);
 
 }
