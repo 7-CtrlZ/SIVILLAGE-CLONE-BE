@@ -28,11 +28,11 @@ public class Product extends BaseEntity {
     @Column(nullable = false, length  = 100)
     private String productCode;
 
-    @Column(nullable = false, length = 100)
-    private String productName;
+    @Column(nullable = false)
+    private Integer brandId;
 
     @Column(nullable = false, length = 100)
-    private Integer brandId;
+    private String productName;
 
     @Column(nullable = false)
     private Double price;

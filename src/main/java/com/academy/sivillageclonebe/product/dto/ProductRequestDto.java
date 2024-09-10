@@ -12,6 +12,7 @@ public class ProductRequestDto {
 
     private String productUuid;
     private String productCode;
+    private Integer brandId;
     private String productName;
     private Integer brandId;
     private Double price;
@@ -22,6 +23,7 @@ public class ProductRequestDto {
         return Product.builder()
                 .productUuid(productUuid)
                 .productCode(productCode)
+                .brandId(brandId)
                 .productName(productName)
                 .brandId(brandId)
                 .price(price)

@@ -30,6 +30,7 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
+        config.addAllowedOrigin("http://localhost:3000");
         config.addAllowedOriginPattern("*");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
@@ -46,9 +47,11 @@ public class SecurityConfig {
                         authorizeRequests -> authorizeRequests
                                 .requestMatchers(
                                         "/api/v1/auth/**",
+                                        "/api/v1/vendor/**",
                                         "/api/v1/member/**",
                                         "/api/v1/admin/**",
                                         "/api/v1/product/**",
+                                        "/api/v1/option/**",
                                         "/swagger-ui/**",
                                         "/v3/api-docs/**",
                                         "/error"
