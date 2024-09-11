@@ -6,7 +6,6 @@ public interface OptionService {
 
     void createProductColors(ProductColorsRequestDto productColorsRequestDto);
     void createProductOptions(ProductOptionsRequestDto productOptionsRequestDto);
-    void createProductSizes(ProductSizesRequestDto productSizesRequestDto);
     void createProductStatus(ProductStatusRequestDto productStatusRequestDto);
     void createProductStocks(ProductStocksRequestDto productStocksRequestDto);
 

@@ -1,7 +1,6 @@
 package com.academy.sivillageclonebe.vendor.dto;
 
-import com.academy.sivillageclonebe.option.vo.BrandResponseVo;
-import com.academy.sivillageclonebe.option.vo.ProductColorsResponseVo;
+import com.academy.sivillageclonebe.vendor.vo.BrandResponseVo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

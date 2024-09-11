@@ -4,7 +4,6 @@ import com.academy.sivillageclonebe.product.entity.Product;
 import lombok.*;
 
 @Getter
-@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

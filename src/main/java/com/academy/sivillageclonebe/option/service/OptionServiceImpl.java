@@ -15,7 +15,6 @@ public class OptionServiceImpl implements OptionService{
 
     private final ProductColorsRepository productColorsRepository;
     private final ProductOptionsRepository productOptionsRepository;
-    private final ProductSizesRepository productSizesRepository;
     private final ProductStatusRepository productStatusRepository;
     private final ProductStocksRepository productStocksRepository;
     private final ProductByOptionRepository productByOptionRepository;
@@ -31,30 +30,16 @@ public class OptionServiceImpl implements OptionService{
     }
 
     @Override
-    public void createProductSizes(ProductSizesRequestDto productSizesRequestDto) {
-        productSizesRepository.save(productSizesRequestDto.toEntity());
-    }
-
-    @Override
     public void createProductStatus(ProductStatusRequestDto productStatusRequestDto) {
         productStatusRepository.save(productStatusRequestDto.toEntity());
     }
 
     @Override
     public void createProductStocks(ProductStocksRequestDto productStocksRequestDto) {
-        try {
-            ProductByOption productByOption = productByOptionRepository.findById(
-                    productStocksRequestDto.getProductByOptionId()).orElseThrow(() -> new IllegalArgumentException("해당 카테고리가 존재하지 않습니다.")
-            );
-            productStocksRepository.save(productStocksRequestDto.toEntity());
-
-        } catch (IllegalArgumentException e) {
-            log.warn("Validation failed: {}", e.getMessage());
-            throw e;
-        } catch (Exception e) {
-            log.error("An unexpected error occurred: ", e);
-            throw new RuntimeException("카테고리 생성 중 오류가 발생했습니다.", e);
-        }
+        ProductByOption productByOption = productByOptionRepository.findById(
+                productStocksRequestDto.getProductByOptionId()).orElseThrow(() -> new IllegalArgumentException("해당 옵션이 존재하지 않습니다.")
+        );
+        productStocksRepository.save(productStocksRequestDto.toEntity());
     }
 
 }

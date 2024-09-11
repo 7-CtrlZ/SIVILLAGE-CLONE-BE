@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
-    private final ProductByOptionRepository productByOptionRepository;
+
 
     @Override
     public void addProduct(ProductRequestDto productDto) {
@@ -43,16 +43,6 @@ public class ProductServiceImpl implements ProductService {
         Product getProduct = productRepository.findByProductCode(productCode)
                 .orElseThrow(() -> new IllegalArgumentException("해당 상품이 존재하지 않습니다."));
 
-        List<ProductByOption> productByOptionList = productByOptionRepository.findByProductId(getProduct.getId());
-        List<ProductByOptionDto> productByOptionDtoList = productByOptionList.stream()
-                .map(productByOption -> ProductByOptionDto.builder()
-                        .sizeName(productByOption.getProductSizes().getSizeName())
-                        .colorName(productByOption.getProductColors().getColorName())
-                        .optionName(productByOption.getProductOptions().getOptionName())
-                        .statusName(productByOption.getProductStatus().getStatuesName())
-                        .build())
-                .toList();
-
         return ProductResponseDto.builder()
                 .productUuid(getProduct.getProductUuid())
                 .productCode(getProduct.getProductCode())
@@ -62,7 +52,6 @@ public class ProductServiceImpl implements ProductService {
                 .productDescription(getProduct.getProductDescription())
                 .productDetailContent(getProduct.getProductDetailContent())
                 .price(getProduct.getPrice())
-                .productByOptionDtoList(productByOptionDtoList)
                 .build();
     }
 
