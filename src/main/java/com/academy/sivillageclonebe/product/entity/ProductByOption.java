@@ -30,10 +30,6 @@ public class ProductByOption {
     private Product product;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "productSizeId", nullable = false)
-    private ProductSizes productSizes;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "productOptionId", nullable = false)
     private ProductOptions productOptions;
 

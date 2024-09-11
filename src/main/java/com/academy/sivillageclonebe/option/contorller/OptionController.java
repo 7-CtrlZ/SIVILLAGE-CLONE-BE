@@ -50,21 +50,6 @@ public class OptionController {
         );
     }
 
-    @PostMapping("/sizes")
-    public CommonResponseEntity<Void> createProductSizes(
-            @RequestBody ProductSizesRequestVo productSizesRequestVo) {
-        log.info("productSizesRequestVo : {}", productSizesRequestVo);
-        ProductSizesRequestDto productSizesRequestDto = ProductSizesRequestDto.builder()
-                .sizeName(productSizesRequestVo.getSizeName())
-                .build();
-        optionService.createProductSizes(productSizesRequestDto);
-        return new CommonResponseEntity<>(
-                HttpStatus.OK,
-                CommonResponseMessage.SUCCESS.getMessage(),
-                null
-        );
-    }
-
     @PostMapping("/status")
     public CommonResponseEntity<Void> createProductStatus(
             @RequestBody ProductStatusRequestVo productStatusRequestVo) {
