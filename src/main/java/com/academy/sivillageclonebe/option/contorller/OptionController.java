@@ -80,4 +80,21 @@ public class OptionController {
                 null
         );
     }
+    @PostMapping("/images")
+    public CommonResponseEntity<Void> createProductImages(
+            @RequestBody ProductImagesRequestVo productImagesRequestVo) {
+        log.info("ProductImagesRequestVo : {}", productImagesRequestVo);
+        ProductImagesRequestDto productImagesRequestDto = ProductImagesRequestDto.builder()
+                .productId(productImagesRequestVo.getProductId())
+                .imageUrl(productImagesRequestVo.getImageUrl())
+                .imageDescription(productImagesRequestVo.getImageDescription())
+                .isMainImage(productImagesRequestVo.getIsMainImage())
+                .build();
+        optionService.createProductImages(productImagesRequestDto);
+        return new CommonResponseEntity<>(
+                HttpStatus.OK,
+                CommonResponseMessage.SUCCESS.getMessage(),
+                null
+        );
+    }
 }
