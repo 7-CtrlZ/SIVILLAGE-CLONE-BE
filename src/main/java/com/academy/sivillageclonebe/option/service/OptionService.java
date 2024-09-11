@@ -8,6 +8,7 @@ public interface OptionService {
     void createProductOptions(ProductOptionsRequestDto productOptionsRequestDto);
     void createProductStatus(ProductStatusRequestDto productStatusRequestDto);
     void createProductStocks(ProductStocksRequestDto productStocksRequestDto);
+    void createProductImages(ProductImagesRequestDto productImagesRequestDto);
 
 
 }

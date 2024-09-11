@@ -2,8 +2,10 @@ package com.academy.sivillageclonebe.option.service;
 
 import com.academy.sivillageclonebe.option.dto.*;
 import com.academy.sivillageclonebe.option.repository.*;
+import com.academy.sivillageclonebe.product.entity.Product;
 import com.academy.sivillageclonebe.product.entity.ProductByOption;
 import com.academy.sivillageclonebe.product.repository.ProductByOptionRepository;
+import com.academy.sivillageclonebe.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,9 @@ public class OptionServiceImpl implements OptionService{
     private final ProductStatusRepository productStatusRepository;
     private final ProductStocksRepository productStocksRepository;
     private final ProductByOptionRepository productByOptionRepository;
+    private final ProductImagesRepository productImagesRepository;
+    private final ProductRepository productRepository;
+
 
     @Override
     public void createProductColors(ProductColorsRequestDto productColorsRequestDto) {
@@ -40,6 +45,15 @@ public class OptionServiceImpl implements OptionService{
                 productStocksRequestDto.getProductByOptionId()).orElseThrow(() -> new IllegalArgumentException("해당 옵션이 존재하지 않습니다.")
         );
         productStocksRepository.save(productStocksRequestDto.toEntity());
+    }
+
+    @Override
+    public void createProductImages(ProductImagesRequestDto productImagesRequestDto) {
+
+        Product product = productRepository.findById(productImagesRequestDto.getProductId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 상품이 존재하지 않습니다.")
+                );
+        productImagesRepository.save(productImagesRequestDto.toEntity(product));
     }
 
 }
