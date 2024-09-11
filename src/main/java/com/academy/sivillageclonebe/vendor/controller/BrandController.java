@@ -34,9 +34,9 @@ public class BrandController {
                 null
         );
     }
-    @GetMapping("/{brandId}")
-    public CommonResponseEntity<BrandResponseVo> getBrandNameById (@PathVariable Integer brandId) {
-        BrandResponseDto brandResponseDto = brandService.getBrandNameById(brandId);
+    @GetMapping("brand/{brandId}")
+    public CommonResponseEntity<BrandResponseVo> getBrandById (@PathVariable Integer brandId) {
+        BrandResponseDto brandResponseDto = brandService.getBrandById(brandId);
         return new CommonResponseEntity<>(
                 HttpStatus.OK,
                 "브랜드 조회 성공",
