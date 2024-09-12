@@ -21,7 +21,6 @@ public class CategoryController {
 
     public final CategoryService categoryService;
 
-    /*category create*/
     @PostMapping("/top-category")
     public CommonResponseEntity<Void> creteTopCategory (
             @RequestBody TopCategoryRequestVo topCategoryRequestVo) {
@@ -94,7 +93,7 @@ public class CategoryController {
                 topCategoryResponseDtoList.stream().map(TopCategoryResponseDto::toVo).toList());
     }
 
-    @GetMapping("/middle-categoryList/{topCategoryCode}")
+    @GetMapping("topCategoryCode/{topCategoryCode}/middle-categoryList")
     public CommonResponseEntity<List<MiddleCategoryResponseVo>> getMiddleCategoryList(
             @PathVariable String topCategoryCode) {
         List<MiddleCategoryResponseDto> middleCategoryResponseDtoList = categoryService.getMiddleCategoryListByTopCategoryCode(topCategoryCode);
@@ -104,7 +103,7 @@ public class CategoryController {
                 middleCategoryResponseDtoList.stream().map(MiddleCategoryResponseDto::toVo).toList());
     }
 
-    @GetMapping("/bottom-categoryList/{middleCategoryCode}")
+    @GetMapping("middleCategoryCode/{middleCategoryCode}/bottom-categoryList")
     public CommonResponseEntity<List<BottomCategoryResponseVo>> getBottomCategoryList(
             @PathVariable String middleCategoryCode) {
         List<BottomCategoryResponseDto> bottomCategoryResponseDtoList = categoryService.getBottomCategoryListByMiddleCategoryCode(middleCategoryCode);
@@ -114,17 +113,10 @@ public class CategoryController {
                 bottomCategoryResponseDtoList.stream().map(BottomCategoryResponseDto::toVo).toList());
     }
 
-    @GetMapping("/sub-categoryList/{bottomCategoryCode}")
+    @GetMapping("bottomCategoryCode/{bottomCategoryCode}/sub-categoryList")
     public CommonResponseEntity<List<SubCategoryResponseVo>> getSubCategoryList(
             @PathVariable String bottomCategoryCode) {
         List<SubCategoryResponseDto> subCategoryResponseDtoList = categoryService.getSubCategoryListByBottomCategoryCode(bottomCategoryCode);
-
-        if (subCategoryResponseDtoList.isEmpty()) {
-            return new CommonResponseEntity<>(
-                    HttpStatus.NOT_FOUND,
-                    "해당 카테고리가 존재하지 않음",
-                    null);
-        }
         return new CommonResponseEntity<>(
                 HttpStatus.OK,
                 "상품 조회 성공",

@@ -1,7 +1,5 @@
-package com.academy.sivillageclonebe.product.entity;
+package com.academy.sivillageclonebe.option.entity;
 
-import com.academy.sivillageclonebe.admin.entity.BottomCategory;
-import com.academy.sivillageclonebe.option.entity.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductByOption {
+public class SubOption {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,10 +24,6 @@ public class ProductByOption {
     private Boolean isDeleted;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "productId", nullable = false)
-    private Product product;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "productOptionId", nullable = false)
     private ProductOptions productOptions;
 
@@ -38,10 +32,10 @@ public class ProductByOption {
     private ProductStatus productStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "productColorsId", nullable = false)
-    private ProductColors productColors;
+    @JoinColumn(name = "mainOptionId", nullable = false)
+    private MainOption mainOption;
 
-    @OneToOne(mappedBy = "productByOption")
+    @OneToOne(mappedBy = "subOption")
     private ProductStocks productStocks;
 
 }

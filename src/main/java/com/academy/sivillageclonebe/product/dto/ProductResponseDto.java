@@ -22,7 +22,6 @@ public class ProductResponseDto {
     private Double price;
     private String productDescription;
     private String productDetailContent;
-    private List<ProductByOptionDto> productByOptionDtoList;
 
 
     public ProductResponseVo toResponseVo() {
@@ -34,7 +33,6 @@ public class ProductResponseDto {
                 .price(price)
                 .productDescription(productDescription)
                 .productDetailContent(productDetailContent)
-                .productByOptionList(productByOptionDtoList)
                 .build();
     }
 

@@ -1,7 +1,6 @@
 package com.academy.sivillageclonebe.option.entity;
 
 
-import com.academy.sivillageclonebe.product.entity.ProductByOption;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,11 +15,10 @@ import lombok.NoArgsConstructor;
 public class ProductStocks {
 
     @Id
-    private Long productsByOptionId;
-
+    private Long subOptionId;
     private Integer quantity;
 
     @OneToOne
-    @JoinColumn(name = "productsByOptionId")
-    private ProductByOption productByOption;
+    @JoinColumn(name = "subOptionId")
+    private SubOption subOption;
 }

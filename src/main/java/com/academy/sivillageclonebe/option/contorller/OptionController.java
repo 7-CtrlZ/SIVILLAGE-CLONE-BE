@@ -5,8 +5,6 @@ import com.academy.sivillageclonebe.common.entity.CommonResponseMessage;
 import com.academy.sivillageclonebe.option.dto.*;
 import com.academy.sivillageclonebe.option.service.OptionService;
 import com.academy.sivillageclonebe.option.vo.*;
-import com.academy.sivillageclonebe.product.vo.ProductRequestVo;
-import com.academy.sivillageclonebe.vendor.service.ProductByCategoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -20,14 +18,34 @@ public class OptionController {
 
     public final OptionService optionService;
 
-    @PostMapping("/colors")
-    public CommonResponseEntity<Void> createProductColors(
-            @RequestBody ProductColorsRequestVo productColorsRequestVo) {
-        log.info("productColorsRequestVo : {}", productColorsRequestVo);
-        ProductColorsRequestDto productColorsRequestDto = ProductColorsRequestDto.builder()
-                .colorName(productColorsRequestVo.getColorName())
+    @PostMapping("/mainOptions")
+    public CommonResponseEntity<Void> createMainOptions(
+            @RequestBody MainOptionRequestVo mainOptionRequestVo) {
+        log.info("mainOptionRequestVo: {}", mainOptionRequestVo);
+        MainOptionRequestDto mainOptionRequestDto = MainOptionRequestDto.builder()
+                .productId(mainOptionRequestVo.getProductId())
+                .mainOptionName(mainOptionRequestVo.getMainOptionName())
                 .build();
-        optionService.createProductColors(productColorsRequestDto);
+        optionService.createMainOptions(mainOptionRequestDto);
+        return new CommonResponseEntity<>(
+                HttpStatus.OK,
+                CommonResponseMessage.SUCCESS.getMessage(),
+                null
+        );
+    }
+
+    @PostMapping("/subOptions")
+    public CommonResponseEntity<Void> createSubOptions(
+            @RequestBody SubOptionRequestVo subOptionRequestVo) {
+        log.info("subOptionRequestVo: {}", subOptionRequestVo);
+        SubOptionRequestDto subOptionRequestDto = SubOptionRequestDto.builder()
+                .mainOptionId(subOptionRequestVo.getMainOptionId())
+                .productOptionId(subOptionRequestVo.getProductOptionId())
+                .productStatusId(subOptionRequestVo.getProductStatusId())
+                .isActive(subOptionRequestVo.getIsActive())
+                .isDeleted(subOptionRequestVo.getIsDeleted())
+                .build();
+        optionService.createSubOptions(subOptionRequestDto);
         return new CommonResponseEntity<>(
                 HttpStatus.OK,
                 CommonResponseMessage.SUCCESS.getMessage(),
@@ -71,7 +89,7 @@ public class OptionController {
         log.info("ProductStocksRequestVo : {}", productStocksRequestVo);
         ProductStocksRequestDto productStocksRequestDto = ProductStocksRequestDto.builder()
                 .quantity(productStocksRequestVo.getQuantity())
-                .productByOptionId(productStocksRequestVo.getProductByOptionId())
+                .subOptionId(productStocksRequestVo.getSubOptionId())
                 .build();
         optionService.createProductStocks(productStocksRequestDto);
         return new CommonResponseEntity<>(
@@ -80,12 +98,13 @@ public class OptionController {
                 null
         );
     }
+
     @PostMapping("/images")
     public CommonResponseEntity<Void> createProductImages(
             @RequestBody ProductImagesRequestVo productImagesRequestVo) {
         log.info("ProductImagesRequestVo : {}", productImagesRequestVo);
         ProductImagesRequestDto productImagesRequestDto = ProductImagesRequestDto.builder()
-                .productId(productImagesRequestVo.getProductId())
+                .mainOptionId(productImagesRequestVo.getMainOptionId())
                 .imageUrl(productImagesRequestVo.getImageUrl())
                 .imageDescription(productImagesRequestVo.getImageDescription())
                 .isMainImage(productImagesRequestVo.getIsMainImage())

@@ -7,10 +7,11 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class ProductColorsResponseVo {
+@NoArgsConstructor
+public class MainOptionResponseVo {
 
-    private Integer id;
-    private String colorName;
+    private Long productId;
+    private String mainOptionName;
+
 }

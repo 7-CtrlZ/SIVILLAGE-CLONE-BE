@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProductImagesResponseVo {
 
-    private Long productId;
+    private Long mainOptionId;
     private String imageUrl;
     private String imageDescription;
     private Boolean isMainImage;

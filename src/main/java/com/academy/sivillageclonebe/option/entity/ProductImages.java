@@ -22,7 +22,7 @@ public class ProductImages {
     private Boolean isMainImage;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "productId", nullable = false)
-    private Product product;
+    @JoinColumn(name = "mainOptionId", nullable = false)
+    private MainOption mainOption;
 
 }

@@ -1,6 +1,5 @@
 package com.academy.sivillageclonebe.vendor.dto;
 
-import com.academy.sivillageclonebe.option.entity.ProductColors;
 import com.academy.sivillageclonebe.vendor.entity.Brand;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
