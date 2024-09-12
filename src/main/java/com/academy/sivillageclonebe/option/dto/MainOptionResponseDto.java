@@ -10,9 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class MainOptionResponseDto {
-
     private Long productId;
     private String mainOptionName;
 

@@ -1,21 +1,20 @@
 package com.academy.sivillageclonebe.option.service;
 
 import com.academy.sivillageclonebe.option.dto.*;
-import com.academy.sivillageclonebe.option.entity.MainOption;
-import com.academy.sivillageclonebe.option.entity.ProductOptions;
-import com.academy.sivillageclonebe.option.entity.ProductStatus;
+import com.academy.sivillageclonebe.option.entity.*;
 import com.academy.sivillageclonebe.option.repository.*;
 import com.academy.sivillageclonebe.product.entity.Product;
-import com.academy.sivillageclonebe.option.entity.SubOption;
 import com.academy.sivillageclonebe.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class OptionServiceImpl implements OptionService{
+public class OptionServiceImpl implements OptionService {
 
     private final ProductOptionsRepository productOptionsRepository;
     private final ProductStatusRepository productStatusRepository;
@@ -58,19 +57,42 @@ public class OptionServiceImpl implements OptionService{
 
     @Override
     public void createProductStocks(ProductStocksRequestDto productStocksRequestDto) {
-        SubOption subOption= subOptionRepository.findById(
-                productStocksRequestDto.getSubOptionId())
+        SubOption subOption = subOptionRepository.findById(
+                        productStocksRequestDto.getSubOptionId())
                 .orElseThrow(() -> new IllegalArgumentException("해당 옵션이 존재하지 않습니다.")
-        );
+                );
         productStocksRepository.save(productStocksRequestDto.toEntity());
     }
 
     @Override
     public void createProductImages(ProductImagesRequestDto productImagesRequestDto) {
-
         MainOption mainOption = mainOptionRepository.findById(productImagesRequestDto.getMainOptionId())
                 .orElseThrow(() -> new IllegalArgumentException("해당 옵션이 존재하지 않습니다.")
                 );
         productImagesRepository.save(productImagesRequestDto.toEntity(mainOption));
     }
+
+    @Override
+    public List<MainOptionResponseDto> getMainOptionListByProductId(Long productId) {
+        List<MainOption> mainOptionList = mainOptionRepository.findByProductId(productId);
+        return mainOptionList.stream().map(mainOption -> MainOptionResponseDto.builder()
+                .mainOptionName(mainOption.getMainOptionName())
+                .productId(mainOption.getProduct().getId())
+                .build())
+        .toList();
+    }
+
+    @Override
+    public List<ProductImagesResponseDto> getProductImageListByMainOptionId(Long mainOptionId) {
+
+        List<ProductImages> productImagesList = productImagesRepository.findByMainOptionId(mainOptionId);
+        return productImagesList.stream().map(productImages -> ProductImagesResponseDto.builder()
+                        .isMainImage(productImages.getIsMainImage())
+                        .imageDescription(productImages.getImageDescription())
+                        .imageUrl(productImages.getImageUrl())
+                        .mainOptionId(productImages.getMainOption().getId())
+                        .build())
+                .toList();
+    }
+
 }

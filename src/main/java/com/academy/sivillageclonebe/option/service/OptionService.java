@@ -1,6 +1,9 @@
 package com.academy.sivillageclonebe.option.service;
 
+
 import com.academy.sivillageclonebe.option.dto.*;
+
+import java.util.List;
 
 public interface OptionService {
 
@@ -11,5 +14,7 @@ public interface OptionService {
     void createProductStocks(ProductStocksRequestDto productStocksRequestDto);
     void createProductImages(ProductImagesRequestDto productImagesRequestDto);
 
+    List<MainOptionResponseDto> getMainOptionListByProductId(Long productId);
+  List<ProductImagesResponseDto> getProductImageListByMainOptionId(Long mainOptionId);
 
 }
