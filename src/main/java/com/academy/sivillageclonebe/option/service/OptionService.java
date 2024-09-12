@@ -4,7 +4,8 @@ import com.academy.sivillageclonebe.option.dto.*;
 
 public interface OptionService {
 
-    void createProductColors(ProductColorsRequestDto productColorsRequestDto);
+    void createSubOptions(SubOptionRequestDto subOptionRequestDto);
+    void createMainOptions(MainOptionRequestDto mainOptionRequestDto);
     void createProductOptions(ProductOptionsRequestDto productOptionsRequestDto);
     void createProductStatus(ProductStatusRequestDto productStatusRequestDto);
     void createProductStocks(ProductStocksRequestDto productStocksRequestDto);

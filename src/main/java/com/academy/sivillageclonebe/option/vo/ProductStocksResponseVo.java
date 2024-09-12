@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProductStocksResponseVo {
 
-    private Long productByOptionId;
+    private Long subOptionId;
     private Integer quantity;
 }

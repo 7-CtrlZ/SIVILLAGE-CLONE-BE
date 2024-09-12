@@ -7,7 +7,7 @@ import lombok.ToString;
 @ToString
 public class ProductImagesRequestVo {
 
-    private Long productId;
+    private Long mainOptionId;
     private String imageUrl;
     private String imageDescription;
     private Boolean isMainImage;

@@ -1,22 +1,14 @@
 package com.academy.sivillageclonebe.product.service;
 
-import com.academy.sivillageclonebe.admin.dto.SubCategoryResponseDto;
-import com.academy.sivillageclonebe.admin.entity.SubCategory;
-import com.academy.sivillageclonebe.product.dto.ProductByOptionDto;
 import com.academy.sivillageclonebe.product.dto.ProductRequestDto;
 import com.academy.sivillageclonebe.product.dto.ProductResponseDto;
 import com.academy.sivillageclonebe.product.entity.Product;
-import com.academy.sivillageclonebe.product.entity.ProductByOption;
-import com.academy.sivillageclonebe.product.repository.ProductByOptionRepository;
 import com.academy.sivillageclonebe.product.repository.ProductRepository;
-import com.academy.sivillageclonebe.vendor.dto.ProductByCategoryResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
