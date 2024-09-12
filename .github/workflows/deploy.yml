@@ -56,5 +56,5 @@ jobs:
           sudo docker stop sivil5
           sudo docker rm sivil5
           sudo docker pull ${{ secrets.DOCKER_USERNAME }}/sivil5
-          sudo docker run -d —name sivil5 -p 8080:8080 —network spharos45 ${{ secrets.DOCKER_USERNAME }}/sivil5
+          sudo docker run -d --name sivil5 -p 8080:8080 --network spharos45 ${{ secrets.DOCKER_USERNAME }}/sivil5
           sudo docker image prune -f
