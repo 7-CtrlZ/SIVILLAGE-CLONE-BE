@@ -13,5 +13,4 @@ public class MainOptionResponseVo {
 
     private Long productId;
     private String mainOptionName;
-
 }

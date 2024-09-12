@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RequiredArgsConstructor
 @RestController
@@ -115,5 +117,23 @@ public class OptionController {
                 CommonResponseMessage.SUCCESS.getMessage(),
                 null
         );
+    }
+
+    @GetMapping("/product/{productId}/mainOption")
+    public CommonResponseEntity<List<MainOptionResponseVo>> getMainOption(@PathVariable Long productId) {
+        List<MainOptionResponseDto> mainOptionResponseDtoList = optionService.getMainOptionListByProductId(productId);
+        return new CommonResponseEntity<>(
+                HttpStatus.OK,
+                "메인 옵션 조회 성공",
+                mainOptionResponseDtoList.stream().map(MainOptionResponseDto::toVo).toList());
+    }
+
+    @GetMapping("/mainOption/{mainOptionId}/images")
+    public CommonResponseEntity<List<ProductImagesResponseVo>> getImage(@PathVariable Long mainOptionId) {
+        List<ProductImagesResponseDto> productImagesResponseDtoList = optionService.getProductImageListByMainOptionId(mainOptionId);
+        return new CommonResponseEntity<>(
+                HttpStatus.OK,
+                "상품 사진 조회 성공",
+                productImagesResponseDtoList.stream().map(ProductImagesResponseDto::toVo).toList());
     }
 }
