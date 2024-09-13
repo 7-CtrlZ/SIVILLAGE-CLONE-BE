@@ -9,8 +9,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductStatusRequestVo {
+public class SubOptionResponseVo {
 
+    private String optionName;
     private String statusName;
+    private Long mainOptionId;
 
 }

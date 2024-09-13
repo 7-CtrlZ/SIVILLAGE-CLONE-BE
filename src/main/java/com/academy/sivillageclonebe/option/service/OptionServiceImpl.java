@@ -16,8 +16,6 @@ import java.util.List;
 @Service
 public class OptionServiceImpl implements OptionService {
 
-    private final ProductOptionsRepository productOptionsRepository;
-    private final ProductStatusRepository productStatusRepository;
     private final ProductStocksRepository productStocksRepository;
     private final ProductImagesRepository productImagesRepository;
     private final MainOptionRepository mainOptionRepository;
@@ -32,28 +30,13 @@ public class OptionServiceImpl implements OptionService {
         mainOptionRepository.save(mainOptionRequestDto.toEntity(product));
     }
 
-    @Override
-    public void createSubOptions(SubOptionRequestDto subOptionRequestDto) {
-        MainOption mainOption = mainOptionRepository.findById(subOptionRequestDto.getMainOptionId())
-                .orElseThrow(() -> new RuntimeException("해당 메인 옵션이 없습니다."));
-
-        ProductOptions productOptions = productOptionsRepository.findById(subOptionRequestDto.getProductOptionId())
-                .orElseThrow(() -> new RuntimeException("해당 상품 옵션이 없습니다."));
-
-        ProductStatus productStatus = productStatusRepository.findById(subOptionRequestDto.getProductStatusId())
-                .orElseThrow(() -> new RuntimeException("해당 상품 상태가 없습니다."));
-        subOptionRepository.save(subOptionRequestDto.toEntity(mainOption, productOptions, productStatus));
-    }
-
-    @Override
-    public void createProductOptions(ProductOptionsRequestDto productOptionsRequestDto) {
-        productOptionsRepository.save(productOptionsRequestDto.toEntity());
-    }
-
-    @Override
-    public void createProductStatus(ProductStatusRequestDto productStatusRequestDto) {
-        productStatusRepository.save(productStatusRequestDto.toEntity());
-    }
+//    @Override
+//    public void createSubOptions(SubOptionRequestDto subOptionRequestDto) {
+//        MainOption mainOption = mainOptionRepository.findById(subOptionRequestDto.getMainOptionId())
+//                .orElseThrow(() -> new RuntimeException("해당 메인 옵션이 없습니다."));
+//
+//        subOptionRepository.save(subOptionRequestDto.toEntity(mainOption));
+//    }
 
     @Override
     public void createProductStocks(ProductStocksRequestDto productStocksRequestDto) {
@@ -78,6 +61,7 @@ public class OptionServiceImpl implements OptionService {
         return mainOptionList.stream().map(mainOption -> MainOptionResponseDto.builder()
                 .mainOptionName(mainOption.getMainOptionName())
                 .productId(mainOption.getProduct().getId())
+                .mainOptionId(mainOption.getId())
                 .build())
         .toList();
     }

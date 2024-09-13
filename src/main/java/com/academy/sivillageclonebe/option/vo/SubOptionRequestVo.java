@@ -8,8 +8,6 @@ import lombok.ToString;
 public class SubOptionRequestVo {
 
     private Long mainOptionId;
-    private Integer productOptionId;
-    private Integer productStatusId;
     private Boolean isActive;
     private Boolean isDeleted;
 }

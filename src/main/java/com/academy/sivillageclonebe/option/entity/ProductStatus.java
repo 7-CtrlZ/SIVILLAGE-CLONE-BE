@@ -1,22 +1,33 @@
 package com.academy.sivillageclonebe.option.entity;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import com.academy.sivillageclonebe.member.entity.Role;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
-@Entity
 @Getter
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class ProductStatus {
+@RequiredArgsConstructor
+public enum ProductStatus {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    SOLD_OUT("품절"),
+    ON_SALE("판매 중");
 
-    @Column(nullable = false, length  = 100)
-    private String statuesName;
+    private final String productStatus;
+
+    @JsonValue
+    public String getProductStatus() {
+        return productStatus;
+    }
+
+    @JsonCreator
+    public static ProductStatus fromProductStatus(String value) {
+        for (ProductStatus productStatus : ProductStatus.values()) {
+            if (productStatus.getProductStatus().equals(value)) {
+                return productStatus;
+            }
+        }
+        throw new IllegalArgumentException("Unknown role: " + value);
+    }
+
 }
