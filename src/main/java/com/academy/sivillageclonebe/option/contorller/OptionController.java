@@ -36,54 +36,22 @@ public class OptionController {
         );
     }
 
-    @PostMapping("/subOptions")
-    public CommonResponseEntity<Void> createSubOptions(
-            @RequestBody SubOptionRequestVo subOptionRequestVo) {
-        log.info("subOptionRequestVo: {}", subOptionRequestVo);
-        SubOptionRequestDto subOptionRequestDto = SubOptionRequestDto.builder()
-                .mainOptionId(subOptionRequestVo.getMainOptionId())
-                .productOptionId(subOptionRequestVo.getProductOptionId())
-                .productStatusId(subOptionRequestVo.getProductStatusId())
-                .isActive(subOptionRequestVo.getIsActive())
-                .isDeleted(subOptionRequestVo.getIsDeleted())
-                .build();
-        optionService.createSubOptions(subOptionRequestDto);
-        return new CommonResponseEntity<>(
-                HttpStatus.OK,
-                CommonResponseMessage.SUCCESS.getMessage(),
-                null
-        );
-    }
-
-    @PostMapping("/options")
-    public CommonResponseEntity<Void> createProductOptions(
-            @RequestBody ProductOptionsRequestVo productOptionsRequestVo) {
-        log.info("productOptionsRequestVo : {}", productOptionsRequestVo);
-        ProductOptionsRequestDto productOptionsRequestDto = ProductOptionsRequestDto.builder()
-                .optionName(productOptionsRequestVo.getOptionName())
-                .build();
-        optionService.createProductOptions(productOptionsRequestDto);
-        return new CommonResponseEntity<>(
-                HttpStatus.OK,
-                CommonResponseMessage.SUCCESS.getMessage(),
-                null
-        );
-    }
-
-    @PostMapping("/status")
-    public CommonResponseEntity<Void> createProductStatus(
-            @RequestBody ProductStatusRequestVo productStatusRequestVo) {
-        log.info("productStatusRequestVo : {}", productStatusRequestVo);
-        ProductStatusRequestDto productStatusRequestDto = ProductStatusRequestDto.builder()
-                .statusName(productStatusRequestVo.getStatusName())
-                .build();
-        optionService.createProductStatus(productStatusRequestDto);
-        return new CommonResponseEntity<>(
-                HttpStatus.OK,
-                CommonResponseMessage.SUCCESS.getMessage(),
-                null
-        );
-    }
+//    @PostMapping("/subOptions")
+//    public CommonResponseEntity<Void> createSubOptions(
+//            @RequestBody SubOptionRequestVo subOptionRequestVo) {
+//        log.info("subOptionRequestVo: {}", subOptionRequestVo);
+//        SubOptionRequestDto subOptionRequestDto = SubOptionRequestDto.builder()
+//                .mainOptionId(subOptionRequestVo.getMainOptionId())
+//                .isActive(subOptionRequestVo.getIsActive())
+//                .isDeleted(subOptionRequestVo.getIsDeleted())
+//                .build();
+//        optionService.createSubOptions(subOptionRequestDto);
+//        return new CommonResponseEntity<>(
+//                HttpStatus.OK,
+//                CommonResponseMessage.SUCCESS.getMessage(),
+//                null
+//        );
+//    }
 
     @PostMapping("/stocks")
     public CommonResponseEntity<Void> createProductStocks(
@@ -136,4 +104,5 @@ public class OptionController {
                 "상품 사진 조회 성공",
                 productImagesResponseDtoList.stream().map(ProductImagesResponseDto::toVo).toList());
     }
+
 }
