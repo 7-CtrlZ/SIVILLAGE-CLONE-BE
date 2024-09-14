@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface OptionService {
 
-//    void createSubOptions(SubOptionRequestDto subOptionRequestDto);
+    void createSubOptions(SubOptionRequestDto subOptionRequestDto);
     void createMainOptions(MainOptionRequestDto mainOptionRequestDto);
     void createProductStocks(ProductStocksRequestDto productStocksRequestDto);
     void createProductImages(ProductImagesRequestDto productImagesRequestDto);

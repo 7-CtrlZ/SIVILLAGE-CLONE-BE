@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 public enum ProductStatus {
 
     SOLD_OUT("품절"),
-    ON_SALE("판매 중");
+    ON_SALE("판매중");
 
     private final String productStatus;
 
@@ -27,7 +27,7 @@ public enum ProductStatus {
                 return productStatus;
             }
         }
-        throw new IllegalArgumentException("Unknown role: " + value);
+        throw new IllegalArgumentException("Unknown productStatus: " + value);
     }
 
 }

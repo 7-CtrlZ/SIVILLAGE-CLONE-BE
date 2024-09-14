@@ -30,13 +30,13 @@ public class OptionServiceImpl implements OptionService {
         mainOptionRepository.save(mainOptionRequestDto.toEntity(product));
     }
 
-//    @Override
-//    public void createSubOptions(SubOptionRequestDto subOptionRequestDto) {
-//        MainOption mainOption = mainOptionRepository.findById(subOptionRequestDto.getMainOptionId())
-//                .orElseThrow(() -> new RuntimeException("해당 메인 옵션이 없습니다."));
-//
-//        subOptionRepository.save(subOptionRequestDto.toEntity(mainOption));
-//    }
+    @Override
+    public void createSubOptions(SubOptionRequestDto subOptionRequestDto) {
+        MainOption mainOption = mainOptionRepository.findById(subOptionRequestDto.getMainOptionId())
+                .orElseThrow(() -> new RuntimeException("해당 메인 옵션이 없습니다."));
+
+        subOptionRepository.save(subOptionRequestDto.toEntity(mainOption));
+    }
 
     @Override
     public void createProductStocks(ProductStocksRequestDto productStocksRequestDto) {
