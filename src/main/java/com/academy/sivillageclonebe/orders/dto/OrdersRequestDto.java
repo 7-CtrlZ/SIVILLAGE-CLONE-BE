@@ -23,6 +23,7 @@ public class OrdersRequestDto {
     public Orders toEntity(Member member) {
         return Orders.builder()
                 .orderStatus(OrderStatus.DONE)
+                .memberUuid(member.getUuid())
                 .ordererName(member.getName())
                 .ordererPhone(member.getPhone())
                 .receiverName(receiverName)
