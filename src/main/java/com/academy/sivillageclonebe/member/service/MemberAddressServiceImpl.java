@@ -45,8 +45,6 @@ public class MemberAddressServiceImpl implements MemberAddressService{
                 .orElseThrow(() -> new IllegalArgumentException("Address not found"));
 
         existingAddress.editMemberAddress(memberAddressDto);
-
-        memberAddressRepository.save(existingAddress);
     }
 
     @Override
