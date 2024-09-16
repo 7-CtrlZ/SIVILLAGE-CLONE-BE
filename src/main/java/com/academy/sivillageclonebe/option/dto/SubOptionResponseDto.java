@@ -14,12 +14,14 @@ import lombok.NoArgsConstructor;
 public class SubOptionResponseDto {
 
     private Long mainOptionId;
+    private Long subOptionId;
     private String optionName;
     private ProductStatus productStatus;
 
     public SubOptionResponseVo toVo() {
         return SubOptionResponseVo.builder()
                 .mainOptionId(mainOptionId)
+                .subOptionId(subOptionId)
                 .optionName(optionName)
                 .productStatus(productStatus)
                 .build();
