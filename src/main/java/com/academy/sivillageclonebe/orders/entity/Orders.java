@@ -1,6 +1,8 @@
 package com.academy.sivillageclonebe.orders.entity;
 
 import com.academy.sivillageclonebe.common.entity.BaseEntity;
+import com.academy.sivillageclonebe.orders.dto.OrdersRequestDto;
+import com.academy.sivillageclonebe.orders.dto.OrdersUpdateDto;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,6 +24,9 @@ public class Orders extends BaseEntity {
     private Long id;
     @Column(nullable = false, updatable = false, unique = true)
     private String uuid;
+
+    @Column(nullable = false)
+    private String memberUuid;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -47,6 +52,7 @@ public class Orders extends BaseEntity {
     @Builder
     public Orders(
             OrderStatus orderStatus,
+            String memberUuid,
             String ordererName,
             String ordererPhone,
             String receiverName,
@@ -57,6 +63,7 @@ public class Orders extends BaseEntity {
             String request
     ) {
         this.orderStatus = orderStatus;
+        this.memberUuid = memberUuid;
         this.ordererName = ordererName;
         this.ordererPhone = ordererPhone;
         this.receiverName = receiverName;
@@ -65,6 +72,15 @@ public class Orders extends BaseEntity {
         this.address = address;
         this.zipCode = zipCode;
         this.request = request;
+    }
+
+    public void editOrders(OrdersUpdateDto ordersUpdateDto) {
+        this.receiverName = ordersUpdateDto.getReceiverName();
+        this.receiverPhone = ordersUpdateDto.getReceiverPhone();
+        this.totalPrice = ordersUpdateDto.getTotalPrice();
+        this.address = ordersUpdateDto.getAddress();
+        this.zipCode = ordersUpdateDto.getZipCode();
+        this.request = ordersUpdateDto.getRequest();
     }
 
     @PrePersist

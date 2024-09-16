@@ -21,9 +21,7 @@ import java.util.Map;
 @Transactional
 public class MemberAddressServiceImpl implements MemberAddressService{
 
-    private final MemberRepository memberRepository;
     private final MemberAddressRepository memberAddressRepository;
-    private final JwtTokenProvider jwtTokenProvider;
 
     @Override
     public void saveMemberAddress(MemberAddressRequestDto memberAddressRequestDto) {
@@ -41,6 +39,7 @@ public class MemberAddressServiceImpl implements MemberAddressService{
                 .orElseThrow(() -> new IllegalArgumentException("Address not found"));
     }
 
+    @Override
     public void updateMemberAddress(Long id, MemberAddressDto memberAddressDto) {
         MemberAddress existingAddress = memberAddressRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Address not found"));
