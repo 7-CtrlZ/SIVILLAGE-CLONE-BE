@@ -1,5 +1,7 @@
-package com.academy.sivillageclonebe.option.vo;
+package com.academy.sivillageclonebe.option.dto;
 
+import com.academy.sivillageclonebe.option.entity.ProductStocks;
+import com.academy.sivillageclonebe.option.vo.ProductStocksResponseVo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductStocksResponseVo {
+public class ProductStocksResponseDto {
 
     private Long subOptionId;
     private Integer quantity;
@@ -20,5 +22,4 @@ public class ProductStocksResponseVo {
                 .quantity(quantity)
                 .build();
     }
-
 }

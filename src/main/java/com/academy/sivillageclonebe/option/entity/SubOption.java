@@ -1,6 +1,8 @@
 package com.academy.sivillageclonebe.option.entity;
 
+import com.academy.sivillageclonebe.member.dto.MemberAddressDto;
 import com.academy.sivillageclonebe.member.entity.Role;
+import com.academy.sivillageclonebe.option.dto.SubOptionRequestDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,4 +39,7 @@ public class SubOption {
     @OneToOne(mappedBy = "subOption")
     private ProductStocks productStocks;
 
+    public void getProductStatus(ProductStatus productStatus) {
+        this.productStatus = productStatus;
+    }
 }

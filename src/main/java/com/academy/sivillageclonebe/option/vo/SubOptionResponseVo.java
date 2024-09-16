@@ -12,8 +12,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SubOptionResponseVo {
 
+    private Long mainOptionId;
+    private Long subOptionId;
     private String optionName;
     private ProductStatus productStatus;
-    private Long mainOptionId;
 
 }
