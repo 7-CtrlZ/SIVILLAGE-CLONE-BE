@@ -22,7 +22,7 @@ public class OrdersController {
 
     private final OrdersService ordersService;
 
-    @Operation(summary = "SignUp API", description = "SignUp API 입니다.", tags = {"Auth"})
+    @Operation(summary = "Create Order API", description = "Create Order API", tags = {"Orders"})
     @PostMapping("/create")
     public CommonResponseEntity<Void> createOrders(
             @RequestBody OrdersRequestVo ordersRequestVo) {

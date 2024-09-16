@@ -44,7 +44,6 @@ public class OrdersServiceImpl implements OrdersService {
     public void updateOrder(String uuid, OrdersUpdateDto ordersUpdateDto) {
         Orders orders = ordersRepository.findByUuid(uuid).orElseThrow(() -> new RuntimeException("Order not found"));
         orders.editOrders(ordersUpdateDto);
-        ordersRepository.save(orders);
     }
 
     @Override
