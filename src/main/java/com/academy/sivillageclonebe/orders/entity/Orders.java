@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 @Getter
@@ -67,6 +69,14 @@ public class Orders extends BaseEntity {
 
     @PrePersist
     public void generateUUID() {
-        this.uuid = UUID.randomUUID().toString();
+        this.uuid = generateCustomUUID();
+    }
+
+    private String generateCustomUUID() {
+        String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+
+        String uuid = UUID.randomUUID().toString().replace("-", "").substring(0, 8);
+
+        return date + uuid;
     }
 }
