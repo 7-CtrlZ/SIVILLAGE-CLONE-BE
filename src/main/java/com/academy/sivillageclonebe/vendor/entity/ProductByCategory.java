@@ -28,8 +28,4 @@ public class ProductByCategory {
 
     private String productCode;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "productId", nullable = false)
-//    private Product product;
-
 }

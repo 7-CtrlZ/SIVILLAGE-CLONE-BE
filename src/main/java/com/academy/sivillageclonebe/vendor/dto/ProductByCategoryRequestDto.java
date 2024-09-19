@@ -23,6 +23,7 @@ public class ProductByCategoryRequestDto {
                 .topCategoryCode(topCategoryCode)
                 .middleCategoryCode(middleCategoryCode)
                 .bottomCategoryCode(bottomCategoryCode)
+                .subCategoryCode(subCategoryCode)
                 .productCode(productCode)
                 .build();
     }
