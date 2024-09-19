@@ -1,5 +1,6 @@
 package com.academy.sivillageclonebe.option.entity;
 
+import com.academy.sivillageclonebe.product.entity.Product;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,13 +12,17 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductSizes {
+
+public class MainOption {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
-    @Column(nullable = false, length  = 100)
-    private String sizeName;
+    @Column(nullable = false, length = 100)
+    private String mainOptionName;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "productId", nullable = false)
+    private Product product;
 }

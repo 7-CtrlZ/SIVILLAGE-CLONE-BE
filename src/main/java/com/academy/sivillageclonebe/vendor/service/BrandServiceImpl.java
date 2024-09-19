@@ -20,7 +20,7 @@ public class BrandServiceImpl implements BrandService{
     }
 
     @Override
-    public BrandResponseDto getBrandNameById(Integer Id) {
+    public BrandResponseDto getBrandById(Integer Id) {
         Brand getBrand = brandRepository.findById(Id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 브랜드가 존재하지 않습니다."));
         return BrandResponseDto.builder()

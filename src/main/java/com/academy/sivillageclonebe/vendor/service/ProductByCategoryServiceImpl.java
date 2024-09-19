@@ -1,5 +1,6 @@
 package com.academy.sivillageclonebe.vendor.service;
 
+import com.academy.sivillageclonebe.vendor.dto.ProductByCategoryRequestDto;
 import com.academy.sivillageclonebe.vendor.dto.ProductByCategoryResponseDto;
 import com.academy.sivillageclonebe.vendor.repository.ProductByCategoryRepository;
 import com.academy.sivillageclonebe.vendor.repository.ProductByCategoryRepositoryCustom;
@@ -16,6 +17,11 @@ public class ProductByCategoryServiceImpl implements ProductByCategoryService{
 
     private final ProductByCategoryRepository productByCategoryRepository;
     private final ProductByCategoryRepositoryCustom productCategoryListRepositoryCustom;
+
+    @Override
+    public void createCategoryProduct(ProductByCategoryRequestDto productByCategoryRequestDto) {
+        productByCategoryRepository.save(productByCategoryRequestDto.toEntity());
+    }
 
     @Override
     public List<ProductByCategoryResponseDto> getProductCategoryListByCategories

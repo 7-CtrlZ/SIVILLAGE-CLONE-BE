@@ -6,5 +6,5 @@ import com.academy.sivillageclonebe.vendor.dto.BrandResponseDto;
 public interface BrandService {
 
     void createBrand(BrandRequestDto brandRequestDto);
-    BrandResponseDto getBrandNameById(Integer Id);
+    BrandResponseDto getBrandById(Integer Id);
 }

@@ -2,11 +2,11 @@ package com.academy.sivillageclonebe.vendor.controller;
 
 import com.academy.sivillageclonebe.common.entity.CommonResponseEntity;
 import com.academy.sivillageclonebe.common.entity.CommonResponseMessage;
-import com.academy.sivillageclonebe.option.vo.BrandRequestVo;
-import com.academy.sivillageclonebe.option.vo.BrandResponseVo;
 import com.academy.sivillageclonebe.vendor.dto.BrandRequestDto;
 import com.academy.sivillageclonebe.vendor.dto.BrandResponseDto;
 import com.academy.sivillageclonebe.vendor.service.BrandService;
+import com.academy.sivillageclonebe.vendor.vo.BrandRequestVo;
+import com.academy.sivillageclonebe.vendor.vo.BrandResponseVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -34,9 +34,9 @@ public class BrandController {
                 null
         );
     }
-    @GetMapping("/{brandId}")
-    public CommonResponseEntity<BrandResponseVo> getBrandNameById (@PathVariable Integer brandId) {
-        BrandResponseDto brandResponseDto = brandService.getBrandNameById(brandId);
+    @GetMapping("brand/{brandId}")
+    public CommonResponseEntity<BrandResponseVo> getBrandById (@PathVariable Integer brandId) {
+        BrandResponseDto brandResponseDto = brandService.getBrandById(brandId);
         return new CommonResponseEntity<>(
                 HttpStatus.OK,
                 "브랜드 조회 성공",

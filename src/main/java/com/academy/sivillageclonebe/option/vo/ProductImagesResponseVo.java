@@ -7,10 +7,12 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class ProductColorsResponseVo {
+@NoArgsConstructor
+public class ProductImagesResponseVo {
 
-    private Integer id;
-    private String colorName;
+    private Long mainOptionId;
+    private String imageUrl;
+    private String imageDescription;
+    private Boolean isMainImage;
 }

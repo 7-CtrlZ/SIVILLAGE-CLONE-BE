@@ -11,6 +11,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProductStocksResponseVo {
 
-    private Long productByOptionId;
+    private Long subOptionId;
     private Integer quantity;
+
+    public ProductStocksResponseVo toVo() {
+        return ProductStocksResponseVo.builder()
+                .subOptionId(subOptionId)
+                .quantity(quantity)
+                .build();
+    }
+
 }
