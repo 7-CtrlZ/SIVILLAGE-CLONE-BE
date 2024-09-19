@@ -24,7 +24,7 @@ public class Member extends BaseEntity implements UserDetails {
     private Long id;
 
     @Column(nullable = false, updatable = false, unique = true)
-    private UUID uuid;
+    private String uuid;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -67,7 +67,7 @@ public class Member extends BaseEntity implements UserDetails {
 
     @PrePersist
     public void generateUUID() {
-        this.uuid = UUID.randomUUID();
+        this.uuid = UUID.randomUUID().toString();
     }
 
     public void hashPassword(String password) {

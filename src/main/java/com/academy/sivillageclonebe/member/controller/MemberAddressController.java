@@ -8,6 +8,7 @@ import com.academy.sivillageclonebe.member.entity.Member;
 import com.academy.sivillageclonebe.member.service.MemberAddressService;
 import com.academy.sivillageclonebe.member.service.MemberService;
 import com.academy.sivillageclonebe.member.vo.MemberAddressRequestVo;
+import com.academy.sivillageclonebe.member.vo.MemberAddressUpdateVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -32,7 +33,6 @@ public class MemberAddressController {
     public ResponseEntity<CommonResponseEntity<Void>> saveAddress(
             @RequestBody MemberAddressRequestVo memberAddressRequestVo) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Member member = securityUtils.getAuthenticatedMember();
 
         memberAddressService.saveMemberAddress(memberAddressRequestVo.toDto(member));
@@ -68,9 +68,9 @@ public class MemberAddressController {
     @PutMapping("/{id}")
     public ResponseEntity<CommonResponseEntity<Void>> updateAddress(
             @PathVariable Long id,
-            @RequestBody MemberAddressDto memberAddressDto) {
+            @RequestBody MemberAddressUpdateVo memberAddressUpdateVo) {
         
-        memberAddressService.updateMemberAddress(id, memberAddressDto);
+        memberAddressService.updateMemberAddress(id, memberAddressUpdateVo.toDto());
 
         return ResponseEntity.ok(
                 new CommonResponseEntity<>(

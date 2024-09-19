@@ -11,5 +11,6 @@ public interface MemberAddressRepository extends JpaRepository<MemberAddress, Lo
 
     List<MemberAddress> findAllByMember(Member member);
     Optional<MemberAddress> findByIdAndMember(Long id, Member member);
+    Optional<MemberAddress> findByMemberAndDefaultAddress(Member member, boolean defaultAddress);
 
 }

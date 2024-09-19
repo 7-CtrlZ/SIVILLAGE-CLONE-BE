@@ -1,19 +1,17 @@
 package com.academy.sivillageclonebe.member.service;
 
-import com.academy.sivillageclonebe.common.jwt.JwtTokenProvider;
 import com.academy.sivillageclonebe.member.dto.MemberAddressDto;
 import com.academy.sivillageclonebe.member.dto.MemberAddressRequestDto;
 import com.academy.sivillageclonebe.member.entity.Member;
 import com.academy.sivillageclonebe.member.entity.MemberAddress;
 import com.academy.sivillageclonebe.member.repository.MemberAddressRepository;
-import com.academy.sivillageclonebe.member.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -21,12 +19,17 @@ import java.util.Map;
 @Transactional
 public class MemberAddressServiceImpl implements MemberAddressService{
 
-    private final MemberRepository memberRepository;
     private final MemberAddressRepository memberAddressRepository;
-    private final JwtTokenProvider jwtTokenProvider;
 
     @Override
     public void saveMemberAddress(MemberAddressRequestDto memberAddressRequestDto) {
+        if (memberAddressRequestDto.isDefaultAddress()) {
+            Optional<MemberAddress> existingDefaultAddress = memberAddressRepository.findByMemberAndDefaultAddress(memberAddressRequestDto.getMember(), true);
+            existingDefaultAddress.ifPresent(address -> {
+                address.editDefaultAddress(false);
+                memberAddressRepository.save(address);
+            });
+        }
         memberAddressRepository.save(memberAddressRequestDto.toEntity());
     }
 
@@ -41,13 +44,20 @@ public class MemberAddressServiceImpl implements MemberAddressService{
                 .orElseThrow(() -> new IllegalArgumentException("Address not found"));
     }
 
+    @Override
     public void updateMemberAddress(Long id, MemberAddressDto memberAddressDto) {
         MemberAddress existingAddress = memberAddressRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Address not found"));
 
-        existingAddress.editMemberAddress(memberAddressDto);
+        if (memberAddressDto.isDefaultAddress()) {
+            Optional<MemberAddress> existingDefaultAddress = memberAddressRepository.findByMemberAndDefaultAddress(existingAddress.getMember(), true);
+            existingDefaultAddress.ifPresent(address -> {
+                address.editDefaultAddress(false);
+                memberAddressRepository.save(address);
+            });
+        }
 
-        memberAddressRepository.save(existingAddress);
+        existingAddress.editMemberAddress(memberAddressDto);
     }
 
     @Override

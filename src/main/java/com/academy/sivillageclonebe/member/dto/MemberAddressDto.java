@@ -15,7 +15,7 @@ public class MemberAddressDto {
     private String request;
     private String receiverName;
     private String receiverPhone;
-    private boolean isDefault;
+    private boolean defaultAddress;
 
     public static MemberAddressDto fromEntity(MemberAddress address) {
         return MemberAddressDto.builder()
@@ -24,7 +24,7 @@ public class MemberAddressDto {
                 .request(address.getRequest())
                 .receiverName(address.getReceiverName())
                 .receiverPhone(address.getReceiverPhone())
-                .isDefault(address.isDefault())
+                .defaultAddress(address.isDefaultAddress())
                 .build();
     }
 
@@ -35,7 +35,7 @@ public class MemberAddressDto {
                 .request(request)
                 .receiverName(receiverName)
                 .receiverPhone(receiverPhone)
-                .isDefault(isDefault)
+                .defaultAddress(defaultAddress)
                 .build();
     }
 }
