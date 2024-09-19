@@ -25,10 +25,10 @@ public class ProductByCategoryServiceImpl implements ProductByCategoryService{
 
     @Override
     public List<ProductByCategoryResponseDto> getProductCategoryListByCategories
-            (String topCategoryCode, String middleCategoryCode, String bottomCategoryCode, String subCategoryCode) {
+            (String topCategoryName, String middleCategoryName, String bottomCategoryName, String subCategoryName) {
 
         return productCategoryListRepositoryCustom.getProductByCategoryListByCategories(
-                topCategoryCode, middleCategoryCode, bottomCategoryCode, subCategoryCode).stream().map(
+                topCategoryName, middleCategoryName, bottomCategoryName, subCategoryName).stream().map(
                 productByCategory -> ProductByCategoryResponseDto.builder()
                         .productCode(productByCategory.getProductCode())
                         .build()

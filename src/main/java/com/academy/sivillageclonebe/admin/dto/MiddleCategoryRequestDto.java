@@ -11,12 +11,11 @@ import lombok.*;
 public class MiddleCategoryRequestDto {
 
     private String middleCategoryName;
-    private String topCategoryCode;
+    private String topCategoryName;
 
-    public MiddleCategory toEntity(TopCategory topCategory, String middleCategoryCode) {
+    public MiddleCategory toEntity(TopCategory topCategory) {
         return MiddleCategory.builder()
                 .categoryName(middleCategoryName)
-                .categoryCode(middleCategoryCode)
                 .topCategory(topCategory)
                 .build();
     }

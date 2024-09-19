@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MiddleCategoryResponseVo {
 
-    private String topCategoryCode;
-    private String middleCategoryCode;
+    private String topCategoryName;
     private String middleCategoryName;
 }

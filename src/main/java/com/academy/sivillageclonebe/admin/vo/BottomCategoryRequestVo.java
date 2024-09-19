@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BottomCategoryRequestVo {
 
-    private String middleCategoryCode;
+    private String middleCategoryName;
     private String bottomCategoryName;
 }

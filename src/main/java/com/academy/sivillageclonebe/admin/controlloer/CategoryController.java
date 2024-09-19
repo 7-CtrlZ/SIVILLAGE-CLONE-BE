@@ -40,8 +40,8 @@ public class CategoryController {
             @RequestBody MiddleCategoryRequestVo middleCategoryRequestVo) {
         log.info("MiddleCategoryRequestVo: {}", middleCategoryRequestVo);
         MiddleCategoryRequestDto middleCategoryRequestDto = MiddleCategoryRequestDto.builder()
+                .topCategoryName(middleCategoryRequestVo.getTopCategoryName())
                 .middleCategoryName(middleCategoryRequestVo.getMiddleCategoryName())
-                .topCategoryCode(middleCategoryRequestVo.getTopCategoryCode())
                 .build();
         categoryService.createMiddleCategory(middleCategoryRequestDto);
 
@@ -56,8 +56,8 @@ public class CategoryController {
             @RequestBody BottomCategoryRequestVo bottomCategoryRequestVo) {
         log.info("BottomCategoryRequestVo: {}", bottomCategoryRequestVo);
         BottomCategoryRequestDto bottomCategoryRequestDto = BottomCategoryRequestDto.builder()
+                .middleCategoryName(bottomCategoryRequestVo.getMiddleCategoryName())
                 .bottomCategoryName(bottomCategoryRequestVo.getBottomCategoryName())
-                .middleCategoryCode(bottomCategoryRequestVo.getMiddleCategoryCode())
                 .build();
         categoryService.createBottomCategory(bottomCategoryRequestDto);
 
@@ -72,8 +72,8 @@ public class CategoryController {
             @RequestBody SubCategoryRequestVo subCategoryRequestVo) {
         log.info("SubCategoryRequestVo: {}", subCategoryRequestVo);
         SubCategoryRequestDto subCategoryRequestDto = SubCategoryRequestDto.builder()
+                .bottomCategoryName(subCategoryRequestVo.getBottomCategoryName())
                 .subCategoryName(subCategoryRequestVo.getSubCategoryName())
-                .bottomCategoryCode(subCategoryRequestVo.getBottomCategoryCode())
                 .build();
         categoryService.createSubCategory(subCategoryRequestDto);
 
@@ -93,30 +93,30 @@ public class CategoryController {
                 topCategoryResponseDtoList.stream().map(TopCategoryResponseDto::toVo).toList());
     }
 
-    @GetMapping("topCategoryCode/{topCategoryCode}/middle-categoryList")
+    @GetMapping("topCategoryName/{topCategoryName}/middle-categoryList")
     public CommonResponseEntity<List<MiddleCategoryResponseVo>> getMiddleCategoryList(
-            @PathVariable String topCategoryCode) {
-        List<MiddleCategoryResponseDto> middleCategoryResponseDtoList = categoryService.getMiddleCategoryListByTopCategoryCode(topCategoryCode);
+            @PathVariable String topCategoryName) {
+        List<MiddleCategoryResponseDto> middleCategoryResponseDtoList = categoryService.getMiddleCategoryListByTopCategoryName(topCategoryName);
         return new CommonResponseEntity<>(
                 HttpStatus.OK,
                 "상품 조회 성공",
                 middleCategoryResponseDtoList.stream().map(MiddleCategoryResponseDto::toVo).toList());
     }
 
-    @GetMapping("middleCategoryCode/{middleCategoryCode}/bottom-categoryList")
+    @GetMapping("middleCategoryName/{middleCategoryName}/bottom-categoryList")
     public CommonResponseEntity<List<BottomCategoryResponseVo>> getBottomCategoryList(
-            @PathVariable String middleCategoryCode) {
-        List<BottomCategoryResponseDto> bottomCategoryResponseDtoList = categoryService.getBottomCategoryListByMiddleCategoryCode(middleCategoryCode);
+            @PathVariable String middleCategoryName) {
+        List<BottomCategoryResponseDto> bottomCategoryResponseDtoList = categoryService.getBottomCategoryListByMiddleCategoryName(middleCategoryName);
         return new CommonResponseEntity<>(
                 HttpStatus.OK,
                 "상품 조회 성공",
                 bottomCategoryResponseDtoList.stream().map(BottomCategoryResponseDto::toVo).toList());
     }
 
-    @GetMapping("bottomCategoryCode/{bottomCategoryCode}/sub-categoryList")
+    @GetMapping("bottomCategoryName/{bottomCategoryName}/sub-categoryList")
     public CommonResponseEntity<List<SubCategoryResponseVo>> getSubCategoryList(
-            @PathVariable String bottomCategoryCode) {
-        List<SubCategoryResponseDto> subCategoryResponseDtoList = categoryService.getSubCategoryListByBottomCategoryCode(bottomCategoryCode);
+            @PathVariable String bottomCategoryName) {
+        List<SubCategoryResponseDto> subCategoryResponseDtoList = categoryService.getSubCategoryListByBottomCategoryName(bottomCategoryName);
         return new CommonResponseEntity<>(
                 HttpStatus.OK,
                 "상품 조회 성공",

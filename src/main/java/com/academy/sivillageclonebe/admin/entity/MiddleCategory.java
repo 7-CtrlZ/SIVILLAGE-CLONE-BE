@@ -20,8 +20,8 @@ public class MiddleCategory {
     @Column(nullable = false, length  = 100)
     private String categoryName;
 
-    @Column(nullable = false, length  = 100)
-    private String categoryCode;
+//    @Column(nullable = false, length  = 100)
+//    private String categoryCode;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "topCategoryId", nullable = false)

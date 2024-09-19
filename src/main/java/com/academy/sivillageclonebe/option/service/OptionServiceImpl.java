@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.academy.sivillageclonebe.option.entity.QProductStocks.productStocks;
+
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -58,10 +60,39 @@ public class OptionServiceImpl implements OptionService {
         productImagesRepository.save(productImagesRequestDto.toEntity(mainOption));
     }
 
+//    @Override
+//    public void updateProductStocks(ProductStocksRequestDto productStocksRequestDto) {
+//        SubOption subOption = subOptionRepository.findById(productStocksRequestDto.getSubOptionId())
+//                .orElseThrow(() -> new IllegalArgumentException("해당 옵션이 존재하지 않습니다."));
+//
+//
+//        productStocksRepository.save(productStocksRequestDto.toEntity());
+//
+//        if (productStocksRequestDto.getQuantity() == 0) {
+//            subOption.getProductStatus(ProductStatus.SOLD_OUT);
+//        }
+//        else if (productStocksRequestDto.getQuantity() > 0) {
+//            subOption.getProductStatus(ProductStatus.ON_SALE);
+//        }
+//        subOptionRepository.save(subOption);
+//    }
+
     @Override
     public void updateProductStocks(ProductStocksRequestDto productStocksRequestDto) {
         SubOption subOption = subOptionRepository.findById(productStocksRequestDto.getSubOptionId())
                 .orElseThrow(() -> new IllegalArgumentException("해당 옵션이 존재하지 않습니다."));
+
+//        ProductStocks productStocks = productStocksRepository.findById(productStocksRequestDto.getSubOptionId())
+//                .orElseThrow(() -> new IllegalArgumentException("해당 재고 정보가 존재하지 않습니다."));
+//
+//        int currentStock = productStocks.getQuantity();
+//        int updatedStock;
+//
+//        if (productStocksRequestDto.getOrderQuantity() < 0) {
+//            updatedStock = currentStock - productStocksRequestDto.getOrderQuantity();
+//        } else if (productStocksRequestDto.getOrderQuantity() > 0) {
+//            updatedStock = currentStock + productStocksRequestDto.getOrderQuantity();
+//        }
 
         productStocksRepository.save(productStocksRequestDto.toEntity());
 
