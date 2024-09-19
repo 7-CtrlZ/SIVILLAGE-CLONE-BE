@@ -9,6 +9,6 @@ import java.util.List;
 public interface ProductByCategoryRepositoryCustom {
 
     List<ProductByCategory> getProductByCategoryListByCategories(
-            String topCategoryCode, String middleCategoryCode, String bottomCategoryCode, String subCategoryCode);
+            String topCategoryName, String middleCategoryName, String bottomCategoryName, String subCategoryName);
 
 }

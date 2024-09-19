@@ -9,6 +9,6 @@ import java.util.List;
 public interface ProductByCategoryService {
 
     List<ProductByCategoryResponseDto> getProductCategoryListByCategories
-            (String topCategoryCode, String middleCategoryCode, String bottomCategoryCode, String subCategoryCode);
+            (String topCategoryName, String middleCategoryName, String bottomCategoryName, String subCategoryName);
     void createCategoryProduct(ProductByCategoryRequestDto productByCategoryRequestDto);
 }

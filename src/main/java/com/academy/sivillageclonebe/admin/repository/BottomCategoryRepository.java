@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface BottomCategoryRepository extends JpaRepository <BottomCategory, Long> {
 
-    List<BottomCategory> findByMiddleCategoryCategoryCode(String middleCategoryCode);
-    Optional<BottomCategory> findByCategoryCode(String categoryCode);
-    boolean existsByCategoryCode(String categoryCode);
+    List<BottomCategory> findByMiddleCategoryCategoryName(String middleCategoryName);
+    Optional<BottomCategory> findByCategoryName(String categoryName);
+    boolean existsByCategoryName(String categoryName);
 }

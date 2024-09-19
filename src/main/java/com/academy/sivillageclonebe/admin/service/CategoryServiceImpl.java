@@ -9,7 +9,6 @@ import com.academy.sivillageclonebe.admin.repository.BottomCategoryRepository;
 import com.academy.sivillageclonebe.admin.repository.MiddleCategoryRepository;
 import com.academy.sivillageclonebe.admin.repository.SubCategoryRepository;
 import com.academy.sivillageclonebe.admin.repository.TopCategoryRepository;
-import com.academy.sivillageclonebe.common.utills.CategoryCodeGenerator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -33,10 +32,8 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional
     @Override
     public void createTopCategory(TopCategoryRequestDto topCategoryRequestDto) {
-
-        String categoryCode = generateUniquesCategoryCode("TC-");
         try {
-            topCategoryRepository.save(topCategoryRequestDto.toEntity(categoryCode));
+            topCategoryRepository.save(topCategoryRequestDto.toEntity());
         } catch (IllegalArgumentException e) {
             log.warn("Validation failed: {}", e.getMessage());
             throw e;
@@ -52,11 +49,10 @@ public class CategoryServiceImpl implements CategoryService {
     public void createMiddleCategory(MiddleCategoryRequestDto middleCategoryRequestDto) {
 
         try {
-            TopCategory topCategory = topCategoryRepository.findByCategoryCode(
-                    middleCategoryRequestDto.getTopCategoryCode()).orElseThrow(() -> new IllegalArgumentException("해당 카테고리가 존재하지 않습니다.")
+            TopCategory topCategory = topCategoryRepository.findByCategoryName(
+                    middleCategoryRequestDto.getTopCategoryName()).orElseThrow(() -> new IllegalArgumentException("해당 카테고리가 존재하지 않습니다.")
             );
-            String categoryCode = generateUniquesCategoryCode("MC-");
-            middleCategoryRepository.save(middleCategoryRequestDto.toEntity(topCategory, categoryCode));
+            middleCategoryRepository.save(middleCategoryRequestDto.toEntity(topCategory));
         } catch (IllegalArgumentException e) {
             log.warn("Validation failed: {}", e.getMessage());
             throw e;
@@ -70,11 +66,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void createBottomCategory(BottomCategoryRequestDto bottomCategoryRequestDto) {
         try {
-            MiddleCategory middleCategory = middleCategoryRepository.findByCategoryCode(
-                    bottomCategoryRequestDto.getMiddleCategoryCode()).orElseThrow(() -> new IllegalArgumentException("해당 카테고리가 존재하지 않습니다.")
+            MiddleCategory middleCategory = middleCategoryRepository.findByCategoryName(
+                    bottomCategoryRequestDto.getMiddleCategoryName()).orElseThrow(() -> new IllegalArgumentException("해당 카테고리가 존재하지 않습니다.")
             );
-            String categoryCode = generateUniquesCategoryCode("BC-");
-            bottomCategoryRepository.save(bottomCategoryRequestDto.toEntity(middleCategory, categoryCode));
+            bottomCategoryRepository.save(bottomCategoryRequestDto.toEntity(middleCategory));
         } catch (IllegalArgumentException e) {
             log.warn("Validation failed: {}", e.getMessage());
             throw e;
@@ -88,11 +83,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void createSubCategory(SubCategoryRequestDto subCategoryRequestDto) {
         try {
-            BottomCategory bottomCategory = bottomCategoryRepository.findByCategoryCode(
-                    subCategoryRequestDto.getBottomCategoryCode()).orElseThrow(() -> new IllegalArgumentException("해당 카테고리가 존재하지 않습니다.")
+            BottomCategory bottomCategory = bottomCategoryRepository.findByCategoryName(
+                    subCategoryRequestDto.getBottomCategoryName()).orElseThrow(() -> new IllegalArgumentException("해당 카테고리가 존재하지 않습니다.")
             );
-            String categoryCode = generateUniquesCategoryCode("SC-");
-            subCategoryRepository.save(subCategoryRequestDto.toEntity(bottomCategory, categoryCode));
+            subCategoryRepository.save(subCategoryRequestDto.toEntity(bottomCategory));
         } catch (IllegalArgumentException e) {
             log.warn("Validation failed: {}", e.getMessage());
             throw e;
@@ -111,80 +105,43 @@ public class CategoryServiceImpl implements CategoryService {
         return topCategoryList.stream()
                 .map(topCategory -> TopCategoryResponseDto.builder()
                         .topCategoryName(topCategory.getCategoryName())
-                        .topCategoryCode(topCategory.getCategoryCode())
                         .build())
                 .toList();
     }
 
     @Transactional
     @Override
-    public List<MiddleCategoryResponseDto> getMiddleCategoryListByTopCategoryCode(String topCategoryCode) {
-        List<MiddleCategory> middleCategoryList = middleCategoryRepository.findByTopCategoryCategoryCode(topCategoryCode);
+    public List<MiddleCategoryResponseDto> getMiddleCategoryListByTopCategoryName(String topCategoryName) {
+        List<MiddleCategory> middleCategoryList = middleCategoryRepository.findByTopCategoryCategoryName(topCategoryName);
         return middleCategoryList.stream()
                 .map(middleCategory -> MiddleCategoryResponseDto.builder()
                         .middleCategoryName(middleCategory.getCategoryName())
-                        .middleCategoryCode(middleCategory.getCategoryCode())
-                        .topCategoryCode(middleCategory.getTopCategory().getCategoryCode())
+                        .topCategoryName(middleCategory.getTopCategory().getCategoryName())
                         .build())
                 .toList();
     }
 
     @Transactional
     @Override
-    public List<BottomCategoryResponseDto> getBottomCategoryListByMiddleCategoryCode(String middleCategoryCode) {
-        List<BottomCategory> bottomCategoryList = bottomCategoryRepository.findByMiddleCategoryCategoryCode(middleCategoryCode);
+    public List<BottomCategoryResponseDto> getBottomCategoryListByMiddleCategoryName(String middleCategoryName) {
+        List<BottomCategory> bottomCategoryList = bottomCategoryRepository.findByMiddleCategoryCategoryName(middleCategoryName);
         return bottomCategoryList.stream()
                 .map(bottomCategory -> BottomCategoryResponseDto.builder()
-                        .bottomCategoryCode(bottomCategory.getCategoryCode())
                         .bottomCategoryName(bottomCategory.getCategoryName())
-                        .middleCategoryCode(bottomCategory.getMiddleCategory().getCategoryCode())
+                        .middleCategoryName(bottomCategory.getMiddleCategory().getCategoryName())
                         .build())
                 .toList();
     }
     @Transactional
     @Override
-    public List<SubCategoryResponseDto> getSubCategoryListByBottomCategoryCode(String bottomCategoryCode) {
-        List<SubCategory> subCategoryList = subCategoryRepository.findByBottomCategoryCategoryCode(bottomCategoryCode);
+    public List<SubCategoryResponseDto> getSubCategoryListByBottomCategoryName(String bottomCategoryName) {
+        List<SubCategory> subCategoryList = subCategoryRepository.findByBottomCategoryCategoryName(bottomCategoryName);
         return subCategoryList.stream()
                 .map(subCategory -> SubCategoryResponseDto.builder()
-                        .subCategoryCode(subCategory.getCategoryCode())
                         .subCategoryName(subCategory.getCategoryName())
-                        .bottomCategoryCode(subCategory.getBottomCategory().getCategoryCode())
+                        .bottomCategoryName(subCategory.getBottomCategory().getCategoryName())
                         .build())
                 .toList();
-    }
-
-    public String generateUniquesCategoryCode(String prefix) {
-        for (int i = 0; i < MAX_CODE_TRIES; i++) {
-            String categoryCode = CategoryCodeGenerator.generateCategoryCode(prefix);
-            switch (prefix) {
-                case "TC-":
-                    if (!topCategoryRepository.existsByCategoryCode(categoryCode)) {
-                        return categoryCode;
-                    }
-                    break;
-                case "MC-":
-                    if (!middleCategoryRepository.existsByCategoryCode(categoryCode)) {
-                        return categoryCode;
-                    }
-                    break;
-                case "BC-":
-                    if (!bottomCategoryRepository.existsByCategoryCode(categoryCode)) {
-                        return categoryCode;
-                    }
-                    break;
-                case "SC-":
-                    if (!subCategoryRepository.existsByCategoryCode(categoryCode)) {
-                        return categoryCode;
-                    }
-                    break;
-                default:
-                    throw new IllegalArgumentException("유효하지 않은 카테고리 코드 접두사입니다: " + prefix);
-            }
-
-        }
-        throw new IllegalStateException("고유한 카테고리 코드를 생성하는 데 실패했습니다.");
-
     }
 
 }

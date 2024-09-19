@@ -31,10 +31,10 @@ public class ProductByCategoryController {
         log.info("ProductByCategoryRequestVo: {}", productByCategoryRequestVo);
         ProductByCategoryRequestDto productByCategoryRequestDto = ProductByCategoryRequestDto.builder()
                 .productCode(productByCategoryRequestVo.getProductCode())
-                .topCategoryCode(productByCategoryRequestVo.getTopCategoryCode())
-                .middleCategoryCode(productByCategoryRequestVo.getMiddleCategoryCode())
-                .bottomCategoryCode(productByCategoryRequestVo.getBottomCategoryCode())
-                .subCategoryCode(productByCategoryRequestVo.getSubCategoryCode())
+                .topCategoryName(productByCategoryRequestVo.getTopCategoryName())
+                .middleCategoryName(productByCategoryRequestVo.getMiddleCategoryName())
+                .bottomCategoryName(productByCategoryRequestVo.getBottomCategoryName())
+                .subCategoryName(productByCategoryRequestVo.getSubCategoryName())
                 .build();
         productByCategoryService.createCategoryProduct(productByCategoryRequestDto);
         return new CommonResponseEntity<>(
@@ -45,16 +45,16 @@ public class ProductByCategoryController {
     }
     @GetMapping("/productCategoryList")
     public CommonResponseEntity<List<ProductByCategoryResponseVo>> getProductByCategoryList(
-            @RequestParam( value = "topCategoryCode", required = false ) String topCategoryCode,
-            @RequestParam( value = "middleCategoryCode", required = false ) String middleCategoryCode,
-            @RequestParam( value = "bottomCategoryCode", required = false ) String bottomCategoryCode,
-            @RequestParam( value = "subCategoryCode", required = false ) String subCategoryCode)
+            @RequestParam( value = "topCategoryName", required = false ) String topCategoryName,
+            @RequestParam( value = "middleCategoryName", required = false ) String middleCategoryName,
+            @RequestParam( value = "bottomCategoryName", required = false ) String bottomCategoryName,
+            @RequestParam( value = "subCategoryName", required = false ) String subCategoryName)
     {
         return new CommonResponseEntity<>(
                 HttpStatus.OK,
                 CommonResponseMessage.SUCCESS.getMessage(),
                 productByCategoryService.getProductCategoryListByCategories(
-                        topCategoryCode, middleCategoryCode, bottomCategoryCode, subCategoryCode).stream().map(
+                        topCategoryName, middleCategoryName, bottomCategoryName, subCategoryName).stream().map(
                         ProductByCategoryResponseDto::toVo).toList());
     }
 }

@@ -17,23 +17,23 @@ public class ProductByCategoryRepositoryImpl implements ProductByCategoryReposit
 
     @Override
     public List<ProductByCategory> getProductByCategoryListByCategories
-            (String topCategoryCode, String middleCategoryCode, String bottomCategoryCode, String subCategoryCode) {
+            (String topCategoryName, String middleCategoryName, String bottomCategoryName, String subCategoryName) {
 
         QProductByCategory productByCategory = QProductByCategory.productByCategory;
         BooleanBuilder builder = new BooleanBuilder();
 
-        if (topCategoryCode != null) {
-            builder.and(productByCategory.topCategoryCode.eq(topCategoryCode));
+        if (topCategoryName != null) {
+            builder.and(productByCategory.topCategoryName.eq(topCategoryName));
         }
-        if (middleCategoryCode != null) {
-            builder.and(productByCategory.middleCategoryCode.eq(middleCategoryCode));
+        if (middleCategoryName != null) {
+            builder.and(productByCategory.middleCategoryName.eq(middleCategoryName));
         }
-        if (bottomCategoryCode != null) {
-            builder.and(productByCategory.bottomCategoryCode.eq(bottomCategoryCode));
+        if (bottomCategoryName != null) {
+            builder.and(productByCategory.bottomCategoryName.eq(bottomCategoryName));
         }
 
-        if (bottomCategoryCode != null) {
-            builder.and(productByCategory.subCategoryCode.eq(subCategoryCode));
+        if (bottomCategoryName != null) {
+            builder.and(productByCategory.subCategoryName.eq(subCategoryName));
         }
 
         return jpaQueryFactory.selectFrom(productByCategory)

@@ -13,14 +13,12 @@ import lombok.NoArgsConstructor;
 public class MiddleCategoryResponseDto {
 
     private String middleCategoryName;
-    private String middleCategoryCode;
-    private String topCategoryCode;
+    private String topCategoryName;
 
     public MiddleCategoryResponseVo toVo() {
         return MiddleCategoryResponseVo.builder()
                 .middleCategoryName(middleCategoryName)
-                .middleCategoryCode(middleCategoryCode)
-                .topCategoryCode(topCategoryCode)
+                .topCategoryName(topCategoryName)
                 .build();
     }
 }

@@ -20,6 +20,6 @@ public class TopCategory {
     @Column(nullable = false, length  = 100)
     private String categoryName;
 
-    @Column(nullable = false, length  = 100)
-    private String categoryCode;
+//    @Column(nullable = false, length  = 100)
+//    private String categoryCode;
 }

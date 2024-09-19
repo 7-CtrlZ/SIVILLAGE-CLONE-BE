@@ -12,8 +12,8 @@ public interface CategoryService {
     void createSubCategory(SubCategoryRequestDto subCategoryRequestDto);
 
     List<TopCategoryResponseDto> getTopCategoryList();
-    List<MiddleCategoryResponseDto> getMiddleCategoryListByTopCategoryCode(String topCategoryCode);
-    List<BottomCategoryResponseDto> getBottomCategoryListByMiddleCategoryCode(String middleCategoryCode);
-    List<SubCategoryResponseDto> getSubCategoryListByBottomCategoryCode(String bottomCategoryCode);
+    List<MiddleCategoryResponseDto> getMiddleCategoryListByTopCategoryName(String topCategoryName);
+    List<BottomCategoryResponseDto> getBottomCategoryListByMiddleCategoryName(String middleCategoryName);
+    List<SubCategoryResponseDto> getSubCategoryListByBottomCategoryName(String bottomCategoryName);
 
 }

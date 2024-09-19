@@ -15,6 +15,7 @@ public class ProductStocksRequestDto {
 
     private Long subOptionId;
     private Integer quantity;
+//    private Integer orderQuantity;
 
     public ProductStocks toEntity() {
         return ProductStocks.builder()

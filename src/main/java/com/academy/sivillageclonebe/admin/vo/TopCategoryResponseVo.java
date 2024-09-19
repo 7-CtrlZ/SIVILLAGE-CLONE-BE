@@ -8,6 +8,5 @@ import lombok.*;
 @Builder
 public class TopCategoryResponseVo {
 
-    private String topCategoryCode;
     private String topCategoryName;
 }
