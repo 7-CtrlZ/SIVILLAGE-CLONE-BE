@@ -36,7 +36,7 @@ public class MemberAddress {
     private String receiverPhone;
 
     @Column(nullable = false)
-    private boolean isDefault;
+    private boolean defaultAddress;
 
     @Builder
     public MemberAddress(
@@ -47,7 +47,7 @@ public class MemberAddress {
             String request,
             String receiverName,
             String receiverPhone,
-            boolean isDefault
+            boolean defaultAddress
     ) {
         this.id = id;
         this.member = member;
@@ -56,7 +56,7 @@ public class MemberAddress {
         this.request = request;
         this.receiverName = receiverName;
         this.receiverPhone = receiverPhone;
-        this.isDefault = isDefault;
+        this.defaultAddress = defaultAddress;
     }
 
     public void editMemberAddress(MemberAddressDto memberAddressDto) {
@@ -65,7 +65,11 @@ public class MemberAddress {
         this.request = memberAddressDto.getRequest();
         this.receiverName = memberAddressDto.getReceiverName();
         this.receiverPhone = memberAddressDto.getReceiverPhone();
-        this.isDefault = memberAddressDto.isDefault();
+        this.defaultAddress = memberAddressDto.isDefaultAddress();
+    }
+
+    public void editDefaultAddress(boolean defaultAddress) {
+        this.defaultAddress = defaultAddress;
     }
 
 }

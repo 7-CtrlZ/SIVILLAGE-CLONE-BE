@@ -1,19 +1,15 @@
-package com.academy.sivillageclonebe.member.dto;
+package com.academy.sivillageclonebe.member.vo;
 
+import com.academy.sivillageclonebe.member.dto.MemberAddressDto;
+import com.academy.sivillageclonebe.member.dto.MemberAddressRequestDto;
 import com.academy.sivillageclonebe.member.entity.Member;
-import com.academy.sivillageclonebe.member.entity.MemberAddress;
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.ToString;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @ToString
-public class MemberAddressRequestDto {
-
-    private Long id;
-    private Member member;
+@Getter
+public class MemberAddressUpdateVo {
     private String address;
     private String zipCode;
     private String request;
@@ -21,10 +17,9 @@ public class MemberAddressRequestDto {
     private String receiverPhone;
     private boolean defaultAddress;
 
-    public MemberAddress toEntity() {
-        return MemberAddress.builder()
-                .id(id)
-                .member(member)
+    @Builder
+    public MemberAddressDto toDto() {
+        return MemberAddressDto.builder()
                 .address(address)
                 .zipCode(zipCode)
                 .request(request)
@@ -33,4 +28,5 @@ public class MemberAddressRequestDto {
                 .defaultAddress(defaultAddress)
                 .build();
     }
+
 }
