@@ -14,7 +14,7 @@ public class MemberAddressRequestVo {
     private String request;
     private String receiverName;
     private String receiverPhone;
-    private boolean isDefault;
+    private boolean defaultAddress;
 
     @Builder
     public MemberAddressRequestDto toDto(Member member) {
@@ -25,7 +25,7 @@ public class MemberAddressRequestVo {
                 .request(request)
                 .receiverName(receiverName)
                 .receiverPhone(receiverPhone)
-                .isDefault(isDefault)
+                .defaultAddress(defaultAddress)
                 .build();
     }
 
