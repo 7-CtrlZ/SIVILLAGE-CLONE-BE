@@ -5,7 +5,9 @@ import com.academy.sivillageclonebe.member.entity.Member;
 import com.academy.sivillageclonebe.member.repository.MemberRepository;
 import com.academy.sivillageclonebe.orders.dto.OrdersRequestDto;
 import com.academy.sivillageclonebe.orders.dto.OrdersUpdateDto;
+import com.academy.sivillageclonebe.orders.entity.OrderedProducts;
 import com.academy.sivillageclonebe.orders.entity.Orders;
+import com.academy.sivillageclonebe.orders.repository.OrderedProductsRepository;
 import com.academy.sivillageclonebe.orders.repository.OrdersRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -22,12 +25,27 @@ import java.util.Optional;
 public class OrdersServiceImpl implements OrdersService {
 
     private final OrdersRepository ordersRepository;
+    private final OrderedProductsRepository orderedProductsRepository;
     private final SecurityUtils securityUtils;
 
     @Override
     public void createOrder(OrdersRequestDto ordersRequestDto) {
         Member member = securityUtils.getAuthenticatedMember();
-        ordersRepository.save(ordersRequestDto.toEntity(member));
+        Orders orders = ordersRequestDto.toEntity(member);
+        ordersRepository.save(orders);
+
+        List<OrderedProducts> orderedProductsList = ordersRequestDto.getOrderedProducts().stream()
+                .map(productDto -> OrderedProducts.builder()
+                        .orders(orders)
+                        .productId(productDto.getProductId())
+                        .orderedMainOption(productDto.getOrderedMainOption())
+                        .orderedSubOption(productDto.getOrderedSubOption())
+                        .price(productDto.getPrice())
+                        .quantity(productDto.getQuantity())
+                        .build())
+                .collect(Collectors.toList());
+
+        orderedProductsRepository.saveAll(orderedProductsList);
     }
 
     @Override
