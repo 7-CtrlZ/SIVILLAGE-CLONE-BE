@@ -10,8 +10,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum ProductStatus {
 
-    SOLD_OUT("품절"),
-    ON_SALE("판매중");
+    ON_SALE("판매중"),
+    SOLD_OUT("품절");
 
     private final String productStatus;
 
