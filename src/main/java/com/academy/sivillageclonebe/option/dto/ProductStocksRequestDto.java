@@ -14,13 +14,12 @@ import lombok.NoArgsConstructor;
 public class ProductStocksRequestDto {
 
     private Long subOptionId;
-    private Integer quantity;
-//    private Integer orderQuantity;
+    private Integer orderQuantity;
 
-    public ProductStocks toEntity() {
+    public ProductStocks toEntity(SubOption subOption, Integer changeNum) {
         return ProductStocks.builder()
-                .subOptionId(subOptionId)
-                .quantity(quantity)
+                .subOption(subOption)
+                .quantity(changeNum)
                 .build();
     }
 }
