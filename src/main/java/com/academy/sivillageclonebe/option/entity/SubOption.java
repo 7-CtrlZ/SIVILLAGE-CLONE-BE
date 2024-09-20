@@ -39,7 +39,7 @@ public class SubOption {
     @OneToOne(mappedBy = "subOption")
     private ProductStocks productStocks;
 
-    public void getProductStatus(ProductStatus productStatus) {
+    public void setProductStatus(ProductStatus productStatus) {
         this.productStatus = productStatus;
     }
 }

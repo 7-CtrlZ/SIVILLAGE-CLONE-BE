@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ import static com.academy.sivillageclonebe.option.entity.QProductStocks.productS
 @Slf4j
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class OptionServiceImpl implements OptionService {
 
     private final ProductStocksRepository productStocksRepository;
@@ -49,7 +51,7 @@ public class OptionServiceImpl implements OptionService {
                         productStocksRequestDto.getSubOptionId())
                 .orElseThrow(() -> new IllegalArgumentException("해당 옵션이 존재하지 않습니다.")
                 );
-        productStocksRepository.save(productStocksRequestDto.toEntity());
+        productStocksRepository.save(productStocksRequestDto.toEntity(subOption, productStocksRequestDto.getOrderQuantity()));
     }
 
     @Override
@@ -60,50 +62,30 @@ public class OptionServiceImpl implements OptionService {
         productImagesRepository.save(productImagesRequestDto.toEntity(mainOption));
     }
 
-//    @Override
-//    public void updateProductStocks(ProductStocksRequestDto productStocksRequestDto) {
-//        SubOption subOption = subOptionRepository.findById(productStocksRequestDto.getSubOptionId())
-//                .orElseThrow(() -> new IllegalArgumentException("해당 옵션이 존재하지 않습니다."));
-//
-//
-//        productStocksRepository.save(productStocksRequestDto.toEntity());
-//
-//        if (productStocksRequestDto.getQuantity() == 0) {
-//            subOption.getProductStatus(ProductStatus.SOLD_OUT);
-//        }
-//        else if (productStocksRequestDto.getQuantity() > 0) {
-//            subOption.getProductStatus(ProductStatus.ON_SALE);
-//        }
-//        subOptionRepository.save(subOption);
-//    }
-
     @Override
     public void updateProductStocks(ProductStocksRequestDto productStocksRequestDto) {
         SubOption subOption = subOptionRepository.findById(productStocksRequestDto.getSubOptionId())
                 .orElseThrow(() -> new IllegalArgumentException("해당 옵션이 존재하지 않습니다."));
 
-//        ProductStocks productStocks = productStocksRepository.findById(productStocksRequestDto.getSubOptionId())
-//                .orElseThrow(() -> new IllegalArgumentException("해당 재고 정보가 존재하지 않습니다."));
-//
-//        int currentStock = productStocks.getQuantity();
-//        int updatedStock;
-//
-//        if (productStocksRequestDto.getOrderQuantity() < 0) {
-//            updatedStock = currentStock - productStocksRequestDto.getOrderQuantity();
-//        } else if (productStocksRequestDto.getOrderQuantity() > 0) {
-//            updatedStock = currentStock + productStocksRequestDto.getOrderQuantity();
-//        }
+        ProductStocks productStocks = productStocksRepository.findBySubOptionId(productStocksRequestDto.getSubOptionId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 재고가 존재하지 않습니다."));
 
-        productStocksRepository.save(productStocksRequestDto.toEntity());
+        // 기존 수량 + 주문 수량 = 변경될 수량
+        Integer changeNum = productStocks.getQuantity() + productStocksRequestDto.getOrderQuantity();
+        if (changeNum < 0) {
+            throw new IllegalArgumentException("재고가 부족합니다.");
+        }
+        // 기존 ProductStocks 엔티티의 수량을 업데이트
+        productStocks.setQuantity(changeNum);
 
-        if (productStocksRequestDto.getQuantity() == 0) {
-            subOption.getProductStatus(ProductStatus.SOLD_OUT);
+        // 재고 수량에 따른 상품 상태 업데이트
+        if (changeNum == 0) {
+            subOption.setProductStatus(ProductStatus.SOLD_OUT);
+        } else if (changeNum > 0) {
+            subOption.setProductStatus(ProductStatus.ON_SALE);
         }
-        else if (productStocksRequestDto.getQuantity() > 0) {
-            subOption.getProductStatus(ProductStatus.ON_SALE);
-        }
-        subOptionRepository.save(subOption);
     }
+
 
     @Override
     public ProductStocksResponseDto getProductStocks(Long subOptionId) {

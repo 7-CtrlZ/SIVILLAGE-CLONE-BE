@@ -21,4 +21,5 @@ public class ProductStocks {
     @OneToOne
     @JoinColumn(name = "subOptionId")
     private SubOption subOption;
+    public void setQuantity(Integer quantity) {this.quantity = quantity;}
 }

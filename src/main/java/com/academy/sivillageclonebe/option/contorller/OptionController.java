@@ -58,11 +58,12 @@ public class OptionController {
 
     @PostMapping("/stocks")
     public CommonResponseEntity<Void> createProductStocks(
+            @PathVariable Long subOptionId,
             @RequestBody ProductStocksRequestVo productStocksRequestVo) {
         log.info("ProductStocksRequestVo : {}", productStocksRequestVo);
         ProductStocksRequestDto productStocksRequestDto = ProductStocksRequestDto.builder()
-                .quantity(productStocksRequestVo.getQuantity())
-                .subOptionId(productStocksRequestVo.getSubOptionId())
+                .orderQuantity(productStocksRequestVo.getQuantity())
+                .subOptionId(subOptionId)
                 .build();
         optionService.createProductStocks(productStocksRequestDto);
         return new CommonResponseEntity<>(
@@ -127,11 +128,12 @@ public class OptionController {
         );
     }
 
-    @PutMapping("productStocks")
+    @PutMapping("productStocks/{subOptionId}")
     public ResponseEntity<CommonResponseEntity<Void>> updateProductStocks(
-            @RequestBody ProductStocksRequestDto productStocksRequestDto) {
+            @PathVariable Long subOptionId,
+            @RequestBody ProductStocksRequestVo productStocksRequestVo) {
 
-        optionService.updateProductStocks(productStocksRequestDto);
+        optionService.updateProductStocks(productStocksRequestVo.toDto(subOptionId));
         return ResponseEntity.ok(
                 new CommonResponseEntity<>(
                         HttpStatus.OK,

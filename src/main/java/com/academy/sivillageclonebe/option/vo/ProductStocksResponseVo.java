@@ -14,11 +14,4 @@ public class ProductStocksResponseVo {
     private Long subOptionId;
     private Integer quantity;
 
-    public ProductStocksResponseVo toVo() {
-        return ProductStocksResponseVo.builder()
-                .subOptionId(subOptionId)
-                .quantity(quantity)
-                .build();
-    }
-
 }
