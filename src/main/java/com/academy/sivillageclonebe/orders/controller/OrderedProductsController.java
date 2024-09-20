@@ -2,10 +2,8 @@ package com.academy.sivillageclonebe.orders.controller;
 
 import com.academy.sivillageclonebe.common.entity.CommonResponseEntity;
 import com.academy.sivillageclonebe.common.entity.CommonResponseMessage;
-import com.academy.sivillageclonebe.orders.dto.OrderedProductsRequestDto;
-import com.academy.sivillageclonebe.orders.entity.OrderedProducts;
-import com.academy.sivillageclonebe.orders.entity.Orders;
 import com.academy.sivillageclonebe.orders.service.OrderedProductsService;
+import com.academy.sivillageclonebe.orders.vo.OrderedProductsResponseVo;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,9 +24,9 @@ public class OrderedProductsController {
 
     @Operation(summary = "Get Ordered Products API", description = "Get Ordered Products API", tags = {"Ordered Products"})
     @GetMapping("/{ordersId}")
-    public CommonResponseEntity<List<OrderedProductsRequestDto>> getOrderedProductsByOrdersId(@PathVariable Long ordersId) {
+    public CommonResponseEntity<List<OrderedProductsResponseVo>> getOrderedProductsByOrdersId(@PathVariable Long ordersId) {
 
-        List<OrderedProductsRequestDto> orderedProductsList = orderedProductsService.getOrderedProducts(ordersId);
+        List<OrderedProductsResponseVo> orderedProductsList = orderedProductsService.getOrderedProducts(ordersId);
         return new CommonResponseEntity<>(
                 HttpStatus.OK,
                 CommonResponseMessage.SUCCESS.getMessage(),

@@ -2,6 +2,7 @@ package com.academy.sivillageclonebe.orders.dto;
 
 import com.academy.sivillageclonebe.orders.entity.OrderedProducts;
 import com.academy.sivillageclonebe.orders.entity.Orders;
+import com.academy.sivillageclonebe.orders.vo.OrderedProductsResponseVo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -37,6 +38,16 @@ public class OrderedProductsRequestDto {
                 .orderedSubOption(orderedProducts.getOrderedSubOption())
                 .price(orderedProducts.getPrice())
                 .quantity(orderedProducts.getQuantity())
+                .build();
+    }
+
+    public OrderedProductsResponseVo toVo() {
+        return OrderedProductsResponseVo.builder()
+                .productId(productId)
+                .orderedMainOption(orderedMainOption)
+                .orderedSubOption(orderedSubOption)
+                .price(price)
+                .quantity(quantity)
                 .build();
     }
 

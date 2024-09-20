@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 public class OrdersRequestVo {
     private String receiverName;
     private String receiverPhone;
-    private Long totalPrice;
     private String address;
     private String zipCode;
     private String request;
@@ -29,7 +28,7 @@ public class OrdersRequestVo {
         return OrdersRequestDto.builder()
                 .receiverName(receiverName)
                 .receiverPhone(receiverPhone)
-                .totalPrice(totalPrice)
+                .totalPrice(0L)
                 .address(address)
                 .zipCode(zipCode)
                 .request(request)

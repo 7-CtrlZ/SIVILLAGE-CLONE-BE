@@ -1,8 +1,8 @@
 package com.academy.sivillageclonebe.orders.service;
 
-import com.academy.sivillageclonebe.orders.dto.OrderedProductsRequestDto;
 import com.academy.sivillageclonebe.orders.entity.OrderedProducts;
 import com.academy.sivillageclonebe.orders.repository.OrderedProductsRepository;
+import com.academy.sivillageclonebe.orders.vo.OrderedProductsResponseVo;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,10 +20,10 @@ public class OrderedProductsServiceImpl implements OrderedProductsService {
     private final OrderedProductsRepository orderedProductsRepository;
 
     @Override
-    public List<OrderedProductsRequestDto> getOrderedProducts(Long ordersId) {
+    public List<OrderedProductsResponseVo> getOrderedProducts(Long ordersId) {
         List<OrderedProducts> orderedProductsList = orderedProductsRepository.findAllByOrdersId(ordersId);
         return orderedProductsList.stream()
-                .map(OrderedProductsRequestDto::fromEntity)
+                .map(OrderedProductsResponseVo::fromEntity)
                 .collect(Collectors.toList());
     }
 }

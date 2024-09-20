@@ -16,7 +16,7 @@ public class OrderedProducts {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "orders_id", nullable = false)
     private Orders orders;
     @Column(nullable = false)
