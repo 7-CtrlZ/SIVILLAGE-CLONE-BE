@@ -11,12 +11,10 @@ import lombok.*;
 public class TopCategoryResponseDto {
 
     private String topCategoryName;
-    private String topCategoryCode;
 
     public TopCategoryResponseVo toVo() {
         return TopCategoryResponseVo.builder()
                 .topCategoryName(topCategoryName)
-                .topCategoryCode(topCategoryCode)
                 .build();
     }
 

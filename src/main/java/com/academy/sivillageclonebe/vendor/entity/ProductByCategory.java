@@ -18,13 +18,13 @@ public class ProductByCategory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(nullable = false, length  = 100)
-    private String topCategoryCode;
+    private String topCategoryName;
     @Column(nullable = false, length  = 100)
-    private String middleCategoryCode;
+    private String middleCategoryName;
     @Column(nullable = false, length  = 100)
-    private String bottomCategoryCode;
+    private String bottomCategoryName;
     @Column(length  = 100)
-    private String subCategoryCode;
+    private String subCategoryName;
 
     private String productCode;
 

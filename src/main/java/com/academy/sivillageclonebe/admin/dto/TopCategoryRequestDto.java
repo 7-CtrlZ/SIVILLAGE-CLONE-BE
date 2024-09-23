@@ -15,10 +15,9 @@ public class TopCategoryRequestDto {
 
     private String topCategoryName;
 
-    public TopCategory toEntity(String categoryCode) {
+    public TopCategory toEntity() {
         return TopCategory.builder()
                 .categoryName(topCategoryName)
-                .categoryCode(categoryCode)
                 .build();
     }
 }

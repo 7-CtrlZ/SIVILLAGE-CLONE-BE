@@ -11,12 +11,16 @@ import jakarta.persistence.Id;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
+import static com.academy.sivillageclonebe.option.entity.QProductStocks.productStocks;
 
 @Slf4j
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class OptionServiceImpl implements OptionService {
 
     private final ProductStocksRepository productStocksRepository;
@@ -36,7 +40,7 @@ public class OptionServiceImpl implements OptionService {
     @Override
     public void createSubOptions(SubOptionRequestDto subOptionRequestDto) {
         MainOption mainOption = mainOptionRepository.findById(subOptionRequestDto.getMainOptionId())
-                .orElseThrow(() -> new RuntimeException("해당 메인 옵션이 없습니다."));
+                .orElseThrow(() -> new IllegalArgumentException("해당 메인 옵션이 없습니다."));
 
         subOptionRepository.save(subOptionRequestDto.toEntity(mainOption));
     }
@@ -47,7 +51,7 @@ public class OptionServiceImpl implements OptionService {
                         productStocksRequestDto.getSubOptionId())
                 .orElseThrow(() -> new IllegalArgumentException("해당 옵션이 존재하지 않습니다.")
                 );
-        productStocksRepository.save(productStocksRequestDto.toEntity());
+        productStocksRepository.save(productStocksRequestDto.toEntity(subOption, productStocksRequestDto.getOrderQuantity()));
     }
 
     @Override
@@ -63,16 +67,25 @@ public class OptionServiceImpl implements OptionService {
         SubOption subOption = subOptionRepository.findById(productStocksRequestDto.getSubOptionId())
                 .orElseThrow(() -> new IllegalArgumentException("해당 옵션이 존재하지 않습니다."));
 
-        productStocksRepository.save(productStocksRequestDto.toEntity());
+        ProductStocks productStocks = productStocksRepository.findBySubOptionId(productStocksRequestDto.getSubOptionId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 재고가 존재하지 않습니다."));
 
-        if (productStocksRequestDto.getQuantity() == 0) {
-            subOption.getProductStatus(ProductStatus.SOLD_OUT);
+        // 기존 수량 + 주문 수량 = 변경될 수량
+        Integer changeNum = productStocks.getQuantity() + productStocksRequestDto.getOrderQuantity();
+        if (changeNum < 0) {
+            throw new IllegalArgumentException("재고가 부족합니다.");
         }
-        else if (productStocksRequestDto.getQuantity() > 0) {
-            subOption.getProductStatus(ProductStatus.ON_SALE);
+        // 기존 ProductStocks 엔티티의 수량을 업데이트
+        productStocks.setQuantity(changeNum);
+
+        // 재고 수량에 따른 상품 상태 업데이트
+        if (changeNum == 0) {
+            subOption.setProductStatus(ProductStatus.SOLD_OUT);
+        } else if (changeNum > 0) {
+            subOption.setProductStatus(ProductStatus.ON_SALE);
         }
-        subOptionRepository.save(subOption);
     }
+
 
     @Override
     public ProductStocksResponseDto getProductStocks(Long subOptionId) {
@@ -80,7 +93,7 @@ public class OptionServiceImpl implements OptionService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 옵션이 존재하지 않습니다.")
                 );
         return ProductStocksResponseDto.builder()
-                .subOptionId(productStocks.getSubOptionId())
+                .subOptionId(productStocks.getId())
                 .quantity(productStocks.getQuantity())
                 .build();
     }

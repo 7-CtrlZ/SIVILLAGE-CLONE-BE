@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface TopCategoryRepository extends JpaRepository<TopCategory, Long> {
 
-    boolean existsByCategoryCode(String categoryCode);
-    Optional<TopCategory> findByCategoryCode(String categoryCode);
+    boolean existsByCategoryName(String categoryName);
+    Optional<TopCategory> findByCategoryName(String categoryName);
 }

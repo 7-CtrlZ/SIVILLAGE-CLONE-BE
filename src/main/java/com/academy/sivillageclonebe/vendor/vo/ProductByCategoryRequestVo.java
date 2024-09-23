@@ -11,10 +11,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProductByCategoryRequestVo {
 
-    private String topCategoryCode;
-    private String middleCategoryCode;
-    private String bottomCategoryCode;
-    private String subCategoryCode;
+    private String topCategoryName;
+    private String middleCategoryName;
+    private String bottomCategoryName;
+    private String subCategoryName;
     private String productCode;
 
 }

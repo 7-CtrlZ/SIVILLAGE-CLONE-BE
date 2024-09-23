@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SubCategoryResponseVo {
 
-    private String bottomCategoryCode;
-    private String subCategoryCode;
+    private String bottomCategoryName;
     private String subCategoryName;
 }

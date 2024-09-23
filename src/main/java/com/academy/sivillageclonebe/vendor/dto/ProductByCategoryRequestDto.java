@@ -12,18 +12,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProductByCategoryRequestDto {
 
-    private String topCategoryCode;
-    private String middleCategoryCode;
-    private String bottomCategoryCode;
-    private String subCategoryCode;
+    private String topCategoryName;
+    private String middleCategoryName;
+    private String bottomCategoryName;
+    private String subCategoryName;
     private String productCode;
 
     public ProductByCategory toEntity() {
         return ProductByCategory.builder()
-                .topCategoryCode(topCategoryCode)
-                .middleCategoryCode(middleCategoryCode)
-                .bottomCategoryCode(bottomCategoryCode)
-                .subCategoryCode(subCategoryCode)
+                .topCategoryName(topCategoryName)
+                .middleCategoryName(middleCategoryName)
+                .bottomCategoryName(bottomCategoryName)
+                .subCategoryName(subCategoryName)
                 .productCode(productCode)
                 .build();
     }

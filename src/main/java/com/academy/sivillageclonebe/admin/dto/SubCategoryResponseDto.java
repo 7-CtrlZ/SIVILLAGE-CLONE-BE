@@ -14,14 +14,12 @@ import lombok.NoArgsConstructor;
 public class SubCategoryResponseDto {
 
     private String subCategoryName;
-    private String subCategoryCode;
-    private String bottomCategoryCode;
+    private String bottomCategoryName;
 
     public SubCategoryResponseVo toVo() {
         return SubCategoryResponseVo.builder()
                 .subCategoryName(subCategoryName)
-                .subCategoryCode(subCategoryCode)
-                .bottomCategoryCode(bottomCategoryCode)
+                .bottomCategoryName(bottomCategoryName)
                 .build();
     }
 }
