@@ -26,8 +26,8 @@ public class ProductsByCartServiceImpl implements ProductsByCartService{
     @Transactional
     @Override
     public ProductsByCartDto addProductToCart(CartDto cartDto, ProductsByCartDto productsByCartDto) {
-        // productsId로 브랜드 정보를 조회
-        Integer brandId = productService.getBrandIdByProductId(productsByCartDto.getProductsId());
+        // productCode로 브랜드 정보를 조회
+        Integer brandId = productService.getBrandIdByProductCode(productsByCartDto.getProductCode());
 
         // memberId와 brandId로 Cart 조회, 없으면 새로 생성
         Cart cart = cartRepository.findByMemberIdAndBrandId(cartDto.getMemberId(), brandId)

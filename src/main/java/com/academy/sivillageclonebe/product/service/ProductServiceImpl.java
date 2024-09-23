@@ -64,8 +64,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Integer getBrandIdByProductId(Long productsId) {
-        Product product = productRepository.findById(productsId).orElseThrow();
+    public Integer getBrandIdByProductCode(String productCode) {
+        Product product = productRepository.findByProductCode(productCode).orElseThrow();
         return product.getBrandId();
     }
 

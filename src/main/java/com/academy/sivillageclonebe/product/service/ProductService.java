@@ -7,7 +7,7 @@ public interface ProductService {
 
     void addProduct(ProductRequestDto productDto);
 
-    Integer getBrandIdByProductId(Long productsId);
+    Integer getBrandIdByProductCode(String productCode);
 
     ProductResponseDto getProduct(String productCode);
 

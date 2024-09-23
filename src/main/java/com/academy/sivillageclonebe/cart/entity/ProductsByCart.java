@@ -22,7 +22,7 @@ public class ProductsByCart extends BaseEntity {
     private Cart cart;
 
     @Column(nullable = false)
-    private Long productsId;
+    private String productCode;
 
     @Column(nullable = false)
     private Long subOptionId;
@@ -37,13 +37,13 @@ public class ProductsByCart extends BaseEntity {
     @Builder
     public ProductsByCart(
             Cart cart,
-            Long productsId,
+            String productCode,
             Long subOptionId,
             Integer quantity,
             boolean isChecked
     ) {
         this.cart = cart;
-        this.productsId = productsId;
+        this.productCode = productCode;
         this.subOptionId = subOptionId;
         this.quantity = quantity;
         this.isChecked = isChecked;
