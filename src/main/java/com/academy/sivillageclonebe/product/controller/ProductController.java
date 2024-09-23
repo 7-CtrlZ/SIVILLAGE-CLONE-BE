@@ -47,7 +47,7 @@ public class ProductController {
         return new CommonResponseEntity<>(
                 HttpStatus.OK,
                 "상품 조회 성공",
-                productResponseDto.toResponseVo()
+                productResponseDto.toVo()
         );
     }
 }

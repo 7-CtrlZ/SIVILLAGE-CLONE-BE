@@ -101,7 +101,7 @@ public class CategoryServiceImpl implements CategoryService {
     public List<TopCategoryResponseDto> getTopCategoryList() {
         List<TopCategory> topCategoryList = topCategoryRepository.findAll();
 //        return topCategoryList.stream()
-//                .map(TopCategoryResponseDto::toDto).toList();
+//                .map(TopCategoryResponseDto::toVo).toList();
         return topCategoryList.stream()
                 .map(topCategory -> TopCategoryResponseDto.builder()
                         .topCategoryName(topCategory.getCategoryName())

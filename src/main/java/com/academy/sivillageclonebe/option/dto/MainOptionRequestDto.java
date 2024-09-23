@@ -9,7 +9,7 @@ import lombok.Getter;
 @Builder
 public class MainOptionRequestDto {
 
-    private Long productId;
+    private String productCode;
     private String mainOptionName;
 
     public MainOption toEntity(Product product) {
