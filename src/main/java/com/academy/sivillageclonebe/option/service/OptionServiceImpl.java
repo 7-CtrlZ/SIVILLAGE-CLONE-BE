@@ -93,7 +93,7 @@ public class OptionServiceImpl implements OptionService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 옵션이 존재하지 않습니다.")
                 );
         return ProductStocksResponseDto.builder()
-                .subOptionId(productStocks.getSubOptionId())
+                .subOptionId(productStocks.getId())
                 .quantity(productStocks.getQuantity())
                 .build();
     }

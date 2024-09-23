@@ -86,7 +86,6 @@ public class CategoryController {
     @GetMapping("/top-categoryList")
     public CommonResponseEntity<List<TopCategoryResponseVo>> getTopCategoryList() {
         List<TopCategoryResponseDto> topCategoryResponseDtoList = categoryService.getTopCategoryList();
-//      return categoryService.getTopCategoryList().stream().map(TopCategoryResponseDto::toVo).toList();
         return new CommonResponseEntity<>(
                 HttpStatus.OK,
                 "상품 조회 성공",
