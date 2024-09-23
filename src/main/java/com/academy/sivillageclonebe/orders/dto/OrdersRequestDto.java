@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Getter
 @Builder
 @AllArgsConstructor
@@ -19,6 +21,7 @@ public class OrdersRequestDto {
     private String address;
     private String zipCode;
     private String request;
+    private List<OrderedProductsRequestDto> orderedProducts;
 
     public Orders toEntity(Member member) {
         return Orders.builder()

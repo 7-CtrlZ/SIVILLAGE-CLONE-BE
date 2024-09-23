@@ -4,7 +4,6 @@ import com.academy.sivillageclonebe.common.entity.CommonResponseEntity;
 import com.academy.sivillageclonebe.common.entity.CommonResponseMessage;
 import com.academy.sivillageclonebe.common.utills.SecurityUtils;
 import com.academy.sivillageclonebe.member.entity.Member;
-import com.academy.sivillageclonebe.member.vo.SignUpRequestVo;
 import com.academy.sivillageclonebe.orders.dto.OrdersUpdateDto;
 import com.academy.sivillageclonebe.orders.entity.Orders;
 import com.academy.sivillageclonebe.orders.service.OrdersService;
