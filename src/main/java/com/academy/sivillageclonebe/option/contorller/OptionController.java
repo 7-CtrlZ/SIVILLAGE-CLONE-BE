@@ -56,7 +56,7 @@ public class OptionController {
         );
     }
 
-    @PostMapping("/stocks")
+    @PostMapping("/stocks/{subOptionId}")
     public CommonResponseEntity<Void> createProductStocks(
             @PathVariable Long subOptionId,
             @RequestBody ProductStocksRequestVo productStocksRequestVo) {
@@ -91,7 +91,7 @@ public class OptionController {
         );
     }
 
-    @GetMapping("/productId/{productId}/mainOption")
+    @GetMapping("/productId/{productId}/mainOptions")
     public CommonResponseEntity<List<MainOptionResponseVo>> getMainOption(@PathVariable Long productId) {
         List<MainOptionResponseDto> mainOptionResponseDtoList = optionService.getMainOptionListByProductId(productId);
         return new CommonResponseEntity<>(
@@ -109,7 +109,7 @@ public class OptionController {
                 productImagesResponseDtoList.stream().map(ProductImagesResponseDto::toVo).toList());
     }
 
-    @GetMapping("/mainOptionId/{mainOptionId}/subOption")
+    @GetMapping("/mainOptionId/{mainOptionId}/subOptions")
     public CommonResponseEntity<List<SubOptionResponseVo>> getSubOption(@PathVariable Long mainOptionId) {
         List<SubOptionResponseDto> subOptionResponseDtoList = optionService.getSubOptionListByMainOptionId(mainOptionId);
         return new CommonResponseEntity<>(

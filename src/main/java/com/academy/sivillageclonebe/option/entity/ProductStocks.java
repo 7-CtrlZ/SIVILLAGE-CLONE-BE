@@ -15,11 +15,14 @@ import lombok.NoArgsConstructor;
 public class ProductStocks {
 
     @Id
-    private Long subOptionId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
     private Integer quantity;
 
     @OneToOne
     @JoinColumn(name = "subOptionId")
     private SubOption subOption;
+
     public void setQuantity(Integer quantity) {this.quantity = quantity;}
 }
