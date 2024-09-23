@@ -26,7 +26,7 @@ public class OptionController {
             @RequestBody MainOptionRequestVo mainOptionRequestVo) {
         log.info("mainOptionRequestVo: {}", mainOptionRequestVo);
         MainOptionRequestDto mainOptionRequestDto = MainOptionRequestDto.builder()
-                .productId(mainOptionRequestVo.getProductId())
+                .productCode(mainOptionRequestVo.getProductCode())
                 .mainOptionName(mainOptionRequestVo.getMainOptionName())
                 .build();
         optionService.createMainOptions(mainOptionRequestDto);
@@ -91,14 +91,14 @@ public class OptionController {
         );
     }
 
-    @GetMapping("/productId/{productId}/mainOptions")
-    public CommonResponseEntity<List<MainOptionResponseVo>> getMainOption(@PathVariable Long productId) {
-        List<MainOptionResponseDto> mainOptionResponseDtoList = optionService.getMainOptionListByProductId(productId);
-        return new CommonResponseEntity<>(
-                HttpStatus.OK,
-                "메인 옵션 조회 성공",
-                mainOptionResponseDtoList.stream().map(MainOptionResponseDto::toVo).toList());
-    }
+//    @GetMapping("/productCode/{productCode}/mainOptions")
+//    public CommonResponseEntity<List<MainOptionResponseVo>> getMainOption(@PathVariable String productCode) {
+//        List<MainOptionResponseDto> mainOptionResponseDtoList = optionService.getMainOptionListByProductCode(productCode);
+//        return new CommonResponseEntity<>(
+//                HttpStatus.OK,
+//                "메인 옵션 조회 성공",
+//                mainOptionResponseDtoList.stream().map(MainOptionResponseDto::toVo).toList());
+//    }
 
     @GetMapping("/mainOptionId/{mainOptionId}/images")
     public CommonResponseEntity<List<ProductImagesResponseVo>> getImage(@PathVariable Long mainOptionId) {

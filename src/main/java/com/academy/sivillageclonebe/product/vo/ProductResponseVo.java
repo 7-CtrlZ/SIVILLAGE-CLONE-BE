@@ -1,5 +1,6 @@
 package com.academy.sivillageclonebe.product.vo;
 
+import com.academy.sivillageclonebe.option.dto.MainOptionResponseDto;
 import lombok.*;
 
 import java.util.List;
@@ -10,11 +11,11 @@ import java.util.List;
 @AllArgsConstructor
 public class ProductResponseVo {
 
-    private String productUuid;
     private String productCode;
-    private Integer brandId;
+    private String brandName;
     private String productName;
     private String productDescription;
     private String productDetailContent;
     private Double price;
+    private List<MainOptionResponseDto> mainOptionList;
 }

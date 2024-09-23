@@ -34,13 +34,13 @@ public class BrandController {
                 null
         );
     }
-    @GetMapping("brand/{brandId}")
-    public CommonResponseEntity<BrandResponseVo> getBrandById (@PathVariable Integer brandId) {
-        BrandResponseDto brandResponseDto = brandService.getBrandById(brandId);
-        return new CommonResponseEntity<>(
-                HttpStatus.OK,
-                "브랜드 조회 성공",
-                brandResponseDto.toVo()
-        );
-    }
+//    @GetMapping("brand/{brandId}")
+//    public CommonResponseEntity<BrandResponseVo> getBrandById (@PathVariable Integer brandId) {
+//        BrandResponseDto brandResponseDto = brandService.getBrandById(brandId);
+//        return new CommonResponseEntity<>(
+//                HttpStatus.OK,
+//                "브랜드 조회 성공",
+//                brandResponseDto.toVo()
+//        );
+//    }
 }

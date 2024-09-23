@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MainOptionResponseVo {
 
-    private Long productId;
     private Long mainOptionId;
     private String mainOptionName;
 }

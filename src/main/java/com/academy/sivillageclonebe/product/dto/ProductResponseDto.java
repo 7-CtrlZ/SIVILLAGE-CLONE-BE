@@ -1,5 +1,7 @@
 package com.academy.sivillageclonebe.product.dto;
 
+import com.academy.sivillageclonebe.option.dto.MainOptionResponseDto;
+import com.academy.sivillageclonebe.option.entity.MainOption;
 import com.academy.sivillageclonebe.product.vo.ProductResponseVo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,24 +17,24 @@ import java.util.List;
 @NoArgsConstructor
 public class ProductResponseDto {
 
-    private String productUuid;
     private String productCode;
-    private Integer brandId;
+    private String brandName;
     private String productName;
     private Double price;
     private String productDescription;
     private String productDetailContent;
+    private List<MainOptionResponseDto> mainOptionList;
 
 
-    public ProductResponseVo toResponseVo() {
+    public ProductResponseVo toVo() {
         return ProductResponseVo.builder()
-                .productUuid(productUuid)
                 .productCode(productCode)
-                .brandId(brandId)
+                .brandName(brandName)
                 .productName(productName)
                 .price(price)
                 .productDescription(productDescription)
                 .productDetailContent(productDetailContent)
+                .mainOptionList(mainOptionList)
                 .build();
     }
 

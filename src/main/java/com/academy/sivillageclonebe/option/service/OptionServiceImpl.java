@@ -31,7 +31,7 @@ public class OptionServiceImpl implements OptionService {
 
     @Override
     public void createMainOptions(MainOptionRequestDto mainOptionRequestDto) {
-        Product product = productRepository.findById(mainOptionRequestDto.getProductId())
+        Product product = productRepository.findByProductCode(mainOptionRequestDto.getProductCode())
                 .orElseThrow(() -> new IllegalArgumentException("해당 상품이 존재하지 않습니다.")
                 );
         mainOptionRepository.save(mainOptionRequestDto.toEntity(product));
@@ -99,11 +99,10 @@ public class OptionServiceImpl implements OptionService {
     }
 
     @Override
-    public List<MainOptionResponseDto> getMainOptionListByProductId(Long productId) {
-        List<MainOption> mainOptionList = mainOptionRepository.findByProductId(productId);
+    public List<MainOptionResponseDto> getMainOptionListByProductCode(String productCode) {
+        List<MainOption> mainOptionList = mainOptionRepository.findByProduct_ProductCode(productCode);
         return mainOptionList.stream().map(mainOption -> MainOptionResponseDto.builder()
                 .mainOptionName(mainOption.getMainOptionName())
-                .productId(mainOption.getProduct().getId())
                 .mainOptionId(mainOption.getId())
                 .build())
         .toList();

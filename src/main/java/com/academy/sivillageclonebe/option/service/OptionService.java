@@ -16,7 +16,7 @@ public interface OptionService {
     void updateProductStocks(ProductStocksRequestDto productStocksRequestDto);
 
     ProductStocksResponseDto getProductStocks(Long subOptionId);
-    List<MainOptionResponseDto> getMainOptionListByProductId(Long productId);
+    List<MainOptionResponseDto> getMainOptionListByProductCode(String productCode);
     List<ProductImagesResponseDto> getProductImageListByMainOptionId(Long mainOptionId);
     List<SubOptionResponseDto> getSubOptionListByMainOptionId(Long subOptionId);
 
