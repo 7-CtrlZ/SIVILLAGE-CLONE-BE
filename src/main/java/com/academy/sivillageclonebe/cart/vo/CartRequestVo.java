@@ -9,7 +9,7 @@ import lombok.ToString;
 @Getter
 public class CartRequestVo {
 
-    private Long productsId;
+    private String productCode;
     private Long subOptionId;
     private Integer quantity;
     private boolean isChecked;
@@ -17,7 +17,7 @@ public class CartRequestVo {
     @Builder
     public ProductsByCartDto toProductsByCartDto() {
         return ProductsByCartDto.builder()
-                .productsId(productsId)
+                .productCode(productCode)
                 .subOptionId(subOptionId)
                 .quantity(quantity)
                 .isChecked(isChecked)
