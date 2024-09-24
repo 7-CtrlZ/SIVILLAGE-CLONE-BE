@@ -38,7 +38,7 @@ public class CartController {
         Member member = securityUtils.getAuthenticatedMember();
         CartDto cartDto = CartDto.builder()
                 .memberId(member.getId())
-                .brandId(productService.getBrandIdByProductId(cartRequestVo.getProductsId()))
+                .brandId(productService.getBrandIdByProductCode(cartRequestVo.toProductsByCartDto().getProductCode()))
                 .build();
         ProductsByCartDto productsByCartDto = cartRequestVo.toProductsByCartDto();
 
