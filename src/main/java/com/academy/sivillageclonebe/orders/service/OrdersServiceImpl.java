@@ -9,6 +9,7 @@ import com.academy.sivillageclonebe.orders.entity.OrderedProducts;
 import com.academy.sivillageclonebe.orders.entity.Orders;
 import com.academy.sivillageclonebe.orders.repository.OrderedProductsRepository;
 import com.academy.sivillageclonebe.orders.repository.OrdersRepository;
+import com.academy.sivillageclonebe.product.service.ProductService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,7 @@ public class OrdersServiceImpl implements OrdersService {
     private final OrdersRepository ordersRepository;
     private final OrderedProductsRepository orderedProductsRepository;
     private final SecurityUtils securityUtils;
+    private final ProductService productService;
 
     @Override
     public void createOrder(OrdersRequestDto ordersRequestDto) {
@@ -39,7 +41,7 @@ public class OrdersServiceImpl implements OrdersService {
                         .productId(productDto.getProductId())
                         .orderedMainOption(productDto.getOrderedMainOption())
                         .orderedSubOption(productDto.getOrderedSubOption())
-                        .price(productDto.getPrice())
+                        .price(productService.findByProductId(productDto.getProductId()).getPrice())
                         .quantity(productDto.getQuantity())
                         .build())
                 .collect(Collectors.toList());

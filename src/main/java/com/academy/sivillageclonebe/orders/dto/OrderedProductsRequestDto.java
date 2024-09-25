@@ -17,7 +17,6 @@ public class OrderedProductsRequestDto {
     private Long productId;
     private String orderedMainOption;
     private String orderedSubOption;
-    private Long price;
     private Integer quantity;
 
     public OrderedProducts toEntity() {
@@ -26,7 +25,6 @@ public class OrderedProductsRequestDto {
                 .productId(productId)
                 .orderedMainOption(orderedMainOption)
                 .orderedSubOption(orderedSubOption)
-                .price(price)
                 .quantity(quantity)
                 .build();
     }
@@ -36,7 +34,6 @@ public class OrderedProductsRequestDto {
                 .productId(orderedProducts.getProductId())
                 .orderedMainOption(orderedProducts.getOrderedMainOption())
                 .orderedSubOption(orderedProducts.getOrderedSubOption())
-                .price(orderedProducts.getPrice())
                 .quantity(orderedProducts.getQuantity())
                 .build();
     }
@@ -46,7 +43,6 @@ public class OrderedProductsRequestDto {
                 .productId(productId)
                 .orderedMainOption(orderedMainOption)
                 .orderedSubOption(orderedSubOption)
-                .price(price)
                 .quantity(quantity)
                 .build();
     }

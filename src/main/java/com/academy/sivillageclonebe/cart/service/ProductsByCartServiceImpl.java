@@ -25,7 +25,7 @@ public class ProductsByCartServiceImpl implements ProductsByCartService{
 
     @Transactional
     @Override
-    public ProductsByCartDto addProductToCart(CartDto cartDto, ProductsByCartDto productsByCartDto) {
+    public void addProductToCart(CartDto cartDto, ProductsByCartDto productsByCartDto) {
         // productCode로 브랜드 정보를 조회
         Integer brandId = productService.getBrandIdByProductCode(productsByCartDto.getProductCode());
 
@@ -35,9 +35,8 @@ public class ProductsByCartServiceImpl implements ProductsByCartService{
 
         ProductsByCart productsByCart = productsByCartDto.toEntity(cart);
 
-        ProductsByCart savedProductsByCart = productsByCartRepository.save(productsByCart);
+        productsByCartRepository.save(productsByCart);
 
-        return ProductsByCartDto.fromEntity(savedProductsByCart);
     }
 
     @Override

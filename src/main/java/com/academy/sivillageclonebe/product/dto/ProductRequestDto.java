@@ -13,7 +13,7 @@ public class ProductRequestDto {
     private String productCode;
     private Integer brandId;
     private String productName;
-    private Double price;
+    private Long price;
     private String productDescription;
     private String productDetailContent;
 

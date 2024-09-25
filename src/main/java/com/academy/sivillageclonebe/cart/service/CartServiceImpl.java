@@ -30,11 +30,9 @@ public class CartServiceImpl implements CartService{
     public List<CartDto> findAllByMemberId(Long memberId) {
         List<Cart> carts = cartRepository.findAllByMemberId(memberId);
 
-        List<CartDto> cartDtos = carts.stream().map(cart -> {
+        return carts.stream().map(cart -> {
             List<ProductsByCart> productsByCartList = productsByCartService.findByCart(cart);
             return CartDto.fromEntity(cart, productsByCartList);
         }).collect(Collectors.toList());
-
-        return cartDtos;
     }
 }
