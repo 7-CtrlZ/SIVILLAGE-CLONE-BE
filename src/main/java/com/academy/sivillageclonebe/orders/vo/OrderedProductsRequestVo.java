@@ -12,7 +12,6 @@ public class OrderedProductsRequestVo {
     private Long productId;
     private String orderedMainOption;
     private String orderedSubOption;
-    private Long price;
     private Integer quantity;
 
     @Builder
@@ -21,7 +20,6 @@ public class OrderedProductsRequestVo {
                 .productId(productId)
                 .orderedMainOption(orderedMainOption)
                 .orderedSubOption(orderedSubOption)
-                .price(price)
                 .quantity(quantity)
                 .build();
     }

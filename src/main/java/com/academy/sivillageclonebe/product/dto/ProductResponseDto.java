@@ -20,7 +20,7 @@ public class ProductResponseDto {
     private String productCode;
     private String brandName;
     private String productName;
-    private Double price;
+    private Long price;
     private String productDescription;
     private String productDetailContent;
     private List<MainOptionResponseDto> mainOptionList;

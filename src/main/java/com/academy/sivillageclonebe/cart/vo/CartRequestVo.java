@@ -15,7 +15,7 @@ public class CartRequestVo {
     private boolean isChecked;
 
     @Builder
-    public ProductsByCartDto toProductsByCartDto() {
+    public ProductsByCartDto toDto() {
         return ProductsByCartDto.builder()
                 .productCode(productCode)
                 .subOptionId(subOptionId)

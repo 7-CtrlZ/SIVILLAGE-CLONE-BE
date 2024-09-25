@@ -69,4 +69,9 @@ public class ProductServiceImpl implements ProductService {
         return product.getBrandId();
     }
 
+    @Override
+    public Product findByProductId(Long id) {
+        return productRepository.findById(id).orElseThrow();
+    }
+
 }

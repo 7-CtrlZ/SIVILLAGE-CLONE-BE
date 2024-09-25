@@ -16,6 +16,6 @@ public class ProductResponseVo {
     private String productName;
     private String productDescription;
     private String productDetailContent;
-    private Double price;
+    private Long price;
     private List<MainOptionResponseDto> mainOptionList;
 }

@@ -13,7 +13,7 @@ public interface ProductsByCartService {
 
     List<ProductsByCart> findByCart(Cart cart);
 
-    ProductsByCartDto addProductToCart(CartDto cartDto, ProductsByCartDto productsByCartDto);
+    void addProductToCart(CartDto cartDto, ProductsByCartDto productsByCartDto);
 
     void removeProductFromCart(Long productsByCartId);
 
