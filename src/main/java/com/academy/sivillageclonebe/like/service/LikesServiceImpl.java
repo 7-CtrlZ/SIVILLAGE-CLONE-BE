@@ -38,7 +38,6 @@ public class LikesServiceImpl implements LikesService {
         return likesRepository.existsByMemberIdAndMainOptionId(memberId, mainOptionId);
     }
 
-
     @Override
     public void deleteLikes(Long memberId, Long mainOptionId) {
         Likes likes = likesRepository.findByMemberIdAndMainOptionId(memberId, mainOptionId)
