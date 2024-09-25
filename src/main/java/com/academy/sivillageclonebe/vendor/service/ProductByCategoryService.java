@@ -1,6 +1,5 @@
 package com.academy.sivillageclonebe.vendor.service;
 
-import com.academy.sivillageclonebe.vendor.dto.BrandRequestDto;
 import com.academy.sivillageclonebe.vendor.dto.ProductByCategoryRequestDto;
 import com.academy.sivillageclonebe.vendor.dto.ProductByCategoryResponseDto;
 

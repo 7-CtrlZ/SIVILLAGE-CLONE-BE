@@ -2,10 +2,14 @@ package com.academy.sivillageclonebe.vendor.service;
 
 import com.academy.sivillageclonebe.vendor.dto.ProductByCategoryRequestDto;
 import com.academy.sivillageclonebe.vendor.dto.ProductByCategoryResponseDto;
+import com.academy.sivillageclonebe.vendor.entity.ProductByCategory;
 import com.academy.sivillageclonebe.vendor.repository.ProductByCategoryRepository;
 import com.academy.sivillageclonebe.vendor.repository.ProductByCategoryRepositoryCustom;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +27,7 @@ public class ProductByCategoryServiceImpl implements ProductByCategoryService{
         productByCategoryRepository.save(productByCategoryRequestDto.toEntity());
     }
 
+
     @Override
     public List<ProductByCategoryResponseDto> getProductCategoryListByCategories
             (String topCategoryName, String middleCategoryName, String bottomCategoryName, String subCategoryName) {
@@ -34,4 +39,6 @@ public class ProductByCategoryServiceImpl implements ProductByCategoryService{
                         .build()
         ).toList();
     }
+
 }
+

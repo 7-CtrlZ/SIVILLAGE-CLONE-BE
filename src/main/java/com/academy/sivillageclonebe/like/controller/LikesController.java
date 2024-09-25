@@ -6,7 +6,10 @@ import com.academy.sivillageclonebe.common.utills.SecurityUtils;
 import com.academy.sivillageclonebe.like.entity.Likes;
 import com.academy.sivillageclonebe.like.service.LikesService;
 import com.academy.sivillageclonebe.like.vo.LikesRequestVo;
+import com.academy.sivillageclonebe.like.vo.LikesResponseVo;
 import com.academy.sivillageclonebe.member.entity.Member;
+import com.academy.sivillageclonebe.option.entity.MainOption;
+import com.academy.sivillageclonebe.option.repository.MainOptionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -34,14 +37,29 @@ public class LikesController {
         );
     }
 
-    @GetMapping
-    public CommonResponseEntity<List<Likes>> getLikes() {
+    @GetMapping("{mainOptionId}")
+    public CommonResponseEntity<Boolean> getLikes
+        (@PathVariable Long mainOptionId){
         Member member = securityUtils.getAuthenticatedMember();
-        List<Likes> likesList = likesService.getLikes(member.getId());
+        boolean isLiked = likesService.getLikes(member.getId(), mainOptionId);
         return new CommonResponseEntity<>(
                 HttpStatus.OK,
                 CommonResponseMessage.SUCCESS.getMessage(),
-                likesList);
+                isLiked
+                );
+    }
+
+    @DeleteMapping("/{mainOptionId}")
+    public CommonResponseEntity<Void> deleteLikes
+            (@PathVariable Long mainOptionId) {
+        Member member = securityUtils.getAuthenticatedMember();
+        likesService.deleteLikes(member.getId(),mainOptionId);
+
+        return new CommonResponseEntity<>(
+                HttpStatus.OK,
+                CommonResponseMessage.SUCCESS.getMessage(),
+                null
+        );
     }
 
 }

@@ -7,4 +7,6 @@ public class LikesResponseVo {
 
     private Boolean isLiked;
 
+    public LikesResponseVo(boolean isLiked) {
+    }
 }

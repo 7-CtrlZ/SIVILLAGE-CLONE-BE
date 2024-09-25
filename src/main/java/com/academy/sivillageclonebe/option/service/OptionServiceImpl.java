@@ -89,7 +89,7 @@ public class OptionServiceImpl implements OptionService {
 
     @Override
     public ProductStocksResponseDto getProductStocks(Long subOptionId) {
-        ProductStocks productStocks = productStocksRepository.findById(subOptionId)
+        ProductStocks productStocks = productStocksRepository.findBySubOptionId(subOptionId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 옵션이 존재하지 않습니다.")
                 );
         return ProductStocksResponseDto.builder()
