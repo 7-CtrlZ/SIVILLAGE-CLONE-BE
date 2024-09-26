@@ -17,13 +17,13 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class ProductsByCartServiceImpl implements ProductsByCartService{
 
     private final ProductsByCartRepository productsByCartRepository;
     private final CartRepository cartRepository;
     private final ProductService productService;
 
-    @Transactional
     @Override
     public void addProductToCart(CartDto cartDto, ProductsByCartDto productsByCartDto) {
         // productCode로 브랜드 정보를 조회
@@ -65,6 +65,17 @@ public class ProductsByCartServiceImpl implements ProductsByCartService{
     @Override
     public ProductsByCart save(ProductsByCart productsByCart) {
         return productsByCartRepository.save(productsByCart);
+    }
+
+    @Override
+    public void updateCheck(Long productsByCartId) {
+
+        ProductsByCart productsByCart = productsByCartRepository.findById(productsByCartId)
+                .orElseThrow(() -> new IllegalArgumentException("Product not found"));
+        log.info("ProductsByCartId {}: {}", productsByCartId, productsByCart.getProductCode());
+
+        productsByCart.editCheck(!productsByCart.isChecked());
+
     }
 
 }

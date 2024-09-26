@@ -18,4 +18,6 @@ public interface ProductsByCartService {
     void removeProductFromCart(Long productsByCartId);
 
     ProductsByCart save(ProductsByCart productsByCart);
+
+    void updateCheck(Long productsByCartId);
 }

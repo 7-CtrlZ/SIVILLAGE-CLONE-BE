@@ -71,4 +71,16 @@ public class CartController {
         );
     }
 
+    @PutMapping("/{id}")
+    public CommonResponseEntity<Void> updateCheck(@PathVariable Long id) {
+
+        productsByCartService.updateCheck(id);
+
+        return new CommonResponseEntity<>(
+                HttpStatus.OK,
+                CommonResponseMessage.SUCCESS.getMessage(),
+                null
+        );
+    }
+
 }
