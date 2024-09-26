@@ -8,6 +8,7 @@ import com.academy.sivillageclonebe.orders.dto.OrdersUpdateDto;
 import com.academy.sivillageclonebe.orders.entity.Orders;
 import com.academy.sivillageclonebe.orders.service.OrdersService;
 import com.academy.sivillageclonebe.orders.vo.OrdersRequestVo;
+import com.academy.sivillageclonebe.orders.vo.OrdersStatusUpdateVo;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -67,6 +68,18 @@ public class OrdersController {
     @PutMapping("/{uuid}")
     public CommonResponseEntity<Void> updateOrder(@PathVariable String uuid, @RequestBody OrdersUpdateDto ordersUpdateDto) {
         ordersService.updateOrder(uuid, ordersUpdateDto);
+        return new CommonResponseEntity<>(
+                HttpStatus.OK,
+                CommonResponseMessage.SUCCESS.getMessage(),
+                null);
+    }
+
+    @Operation(summary = "Update Order Status API", description = "Update Order Status API", tags = {"Orders"})
+    @PutMapping("/status/{uuid}")
+    public CommonResponseEntity<Void> updateStatusOrder(@PathVariable String uuid, @RequestBody OrdersStatusUpdateVo ordersStatusUpdateVo) {
+
+        ordersService.updateOrderStatus(uuid, ordersStatusUpdateVo.toDto());
+
         return new CommonResponseEntity<>(
                 HttpStatus.OK,
                 CommonResponseMessage.SUCCESS.getMessage(),
