@@ -2,6 +2,7 @@ package com.academy.sivillageclonebe.cart.service;
 
 import com.academy.sivillageclonebe.cart.dto.CartDto;
 import com.academy.sivillageclonebe.cart.dto.ProductsByCartDto;
+import com.academy.sivillageclonebe.cart.dto.ProductsByCartUpdateDto;
 import com.academy.sivillageclonebe.cart.entity.Cart;
 import com.academy.sivillageclonebe.cart.entity.ProductsByCart;
 
@@ -20,4 +21,7 @@ public interface ProductsByCartService {
     ProductsByCart save(ProductsByCart productsByCart);
 
     void updateCheck(Long productsByCartId);
+
+    void updateOption(Long productsByCartId, ProductsByCartUpdateDto productsByCartUpdateDto);
+
 }
