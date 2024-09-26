@@ -2,6 +2,7 @@ package com.academy.sivillageclonebe.vendor.controller;
 
 import com.academy.sivillageclonebe.common.entity.CommonResponseEntity;
 import com.academy.sivillageclonebe.common.entity.CommonResponseMessage;
+import com.academy.sivillageclonebe.common.utills.CursorPage;
 import com.academy.sivillageclonebe.vendor.dto.BrandRequestDto;
 import com.academy.sivillageclonebe.vendor.dto.ProductByCategoryRequestDto;
 import com.academy.sivillageclonebe.vendor.dto.ProductByCategoryResponseDto;
@@ -44,18 +45,24 @@ public class ProductByCategoryController {
                 null
         );
     }
+
     @GetMapping("/productCategoryList")
-    public CommonResponseEntity<List<ProductByCategoryResponseVo>> getProductByCategoryList(
+    public CommonResponseEntity<CursorPage<ProductByCategoryResponseVo>> getProductCategoryListByCategories(
             @RequestParam( value = "topCategoryName", required = false ) String topCategoryName,
             @RequestParam( value = "middleCategoryName", required = false ) String middleCategoryName,
             @RequestParam( value = "bottomCategoryName", required = false ) String bottomCategoryName,
-            @RequestParam( value = "subCategoryName", required = false ) String subCategoryName)
+            @RequestParam( value = "subCategoryName", required = false ) String subCategoryName,
+            @RequestParam( value = "lastId", defaultValue = "0" ) Long lastId,
+            @RequestParam( value = "page", defaultValue = "0" ) Integer page)
+
     {
+        CursorPage<ProductByCategoryResponseVo> cursorPage = productByCategoryService.getProductCategoryListByCategories(
+                topCategoryName, middleCategoryName, bottomCategoryName, subCategoryName, page, lastId);
+
         return new CommonResponseEntity<>(
                 HttpStatus.OK,
                 CommonResponseMessage.SUCCESS.getMessage(),
-                productByCategoryService.getProductCategoryListByCategories(
-                        topCategoryName, middleCategoryName, bottomCategoryName, subCategoryName).stream().map(
-                        ProductByCategoryResponseDto::toVo).toList());
+                cursorPage
+        );
     }
 }

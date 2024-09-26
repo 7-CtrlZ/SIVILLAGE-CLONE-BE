@@ -7,18 +7,17 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductByCategoryResponseDto {
 
-    private String productCode;
-
-    public ProductByCategoryResponseVo toVo() {
-        return ProductByCategoryResponseVo.builder()
-                .productCode(productCode)
-                .build();
-    }
+    private List<String> productCode;
+    private Long lastId;
+    private Integer size;
+    private Boolean hasNext;
 
 }

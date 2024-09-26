@@ -1,17 +1,13 @@
 package com.academy.sivillageclonebe.vendor.repository;
 
-import com.academy.sivillageclonebe.vendor.entity.ProductByCategory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import com.academy.sivillageclonebe.common.utills.CursorPage;
+import com.academy.sivillageclonebe.vendor.vo.ProductByCategoryResponseVo;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 public interface ProductByCategoryRepositoryCustom {
 
-    List<ProductByCategory> getProductByCategoryListByCategories(
-            String topCategoryName, String middleCategoryName, String bottomCategoryName, String subCategoryName);
+    CursorPage<ProductByCategoryResponseVo> getProductByCategoryListByCategories(
+            String topCategoryName, String middleCategoryName, String bottomCategoryName, String subCategoryName, Integer page, Long lastId);
 
 }
