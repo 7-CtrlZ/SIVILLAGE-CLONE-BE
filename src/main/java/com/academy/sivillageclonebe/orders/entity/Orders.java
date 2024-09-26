@@ -1,8 +1,7 @@
 package com.academy.sivillageclonebe.orders.entity;
 
-import ch.qos.logback.classic.filter.ThresholdFilter;
 import com.academy.sivillageclonebe.common.entity.BaseEntity;
-import com.academy.sivillageclonebe.orders.dto.OrdersRequestDto;
+import com.academy.sivillageclonebe.orders.dto.OrdersStatusUpdateDto;
 import com.academy.sivillageclonebe.orders.dto.OrdersUpdateDto;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -84,7 +83,11 @@ public class Orders extends BaseEntity {
         this.request = ordersUpdateDto.getRequest();
     }
 
-    public void setTotalPrice(Long totalPrice) {
+    public void editOrdersStatus(OrdersStatusUpdateDto ordersStatusUpdateDto) {
+        this.orderStatus = ordersStatusUpdateDto.getOrderStatus();
+    }
+
+    public void editTotalPrice(Long totalPrice) {
         this.totalPrice = totalPrice;
     }
 

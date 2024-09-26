@@ -2,8 +2,8 @@ package com.academy.sivillageclonebe.orders.service;
 
 import com.academy.sivillageclonebe.common.utills.SecurityUtils;
 import com.academy.sivillageclonebe.member.entity.Member;
-import com.academy.sivillageclonebe.member.repository.MemberRepository;
 import com.academy.sivillageclonebe.orders.dto.OrdersRequestDto;
+import com.academy.sivillageclonebe.orders.dto.OrdersStatusUpdateDto;
 import com.academy.sivillageclonebe.orders.dto.OrdersUpdateDto;
 import com.academy.sivillageclonebe.orders.entity.OrderedProducts;
 import com.academy.sivillageclonebe.orders.entity.Orders;
@@ -48,7 +48,7 @@ public class OrdersServiceImpl implements OrdersService {
         Long totalPrice = orderedProductsList.stream()
                 .mapToLong(product -> product.getPrice() * product.getQuantity())
                 .sum();
-        orders.setTotalPrice(totalPrice);
+        orders.editTotalPrice(totalPrice);
 
         orderedProductsRepository.saveAll(orderedProductsList);
     }
@@ -67,6 +67,12 @@ public class OrdersServiceImpl implements OrdersService {
     public void updateOrder(String uuid, OrdersUpdateDto ordersUpdateDto) {
         Orders orders = ordersRepository.findByUuid(uuid).orElseThrow(() -> new RuntimeException("Order not found"));
         orders.editOrders(ordersUpdateDto);
+    }
+
+    @Override
+    public void updateOrderStatus(String uuid, OrdersStatusUpdateDto ordersStatusUpdateDto) {
+        Orders orders = ordersRepository.findByUuid(uuid).orElseThrow(() -> new RuntimeException("Order not found"));
+        orders.editOrdersStatus(ordersStatusUpdateDto);
     }
 
     @Override
