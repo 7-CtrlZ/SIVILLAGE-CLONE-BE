@@ -2,6 +2,7 @@ package com.academy.sivillageclonebe.cart.service;
 
 import com.academy.sivillageclonebe.cart.dto.CartDto;
 import com.academy.sivillageclonebe.cart.dto.ProductsByCartDto;
+import com.academy.sivillageclonebe.cart.dto.ProductsByCartUpdateDto;
 import com.academy.sivillageclonebe.cart.entity.Cart;
 import com.academy.sivillageclonebe.cart.entity.ProductsByCart;
 import com.academy.sivillageclonebe.cart.repository.CartRepository;
@@ -75,6 +76,16 @@ public class ProductsByCartServiceImpl implements ProductsByCartService{
         log.info("ProductsByCartId {}: {}", productsByCartId, productsByCart.getProductCode());
 
         productsByCart.editCheck(!productsByCart.isChecked());
+
+    }
+
+    @Override
+    public void updateOption(Long productsByCartId, ProductsByCartUpdateDto productsByCartUpdateDto) {
+
+        ProductsByCart productsByCart = productsByCartRepository.findById(productsByCartId)
+                .orElseThrow(() -> new IllegalArgumentException("Product not found"));
+
+        productsByCart.editCart(productsByCartUpdateDto);
 
     }
 

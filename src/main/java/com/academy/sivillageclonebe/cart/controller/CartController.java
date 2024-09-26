@@ -5,6 +5,7 @@ import com.academy.sivillageclonebe.cart.dto.ProductsByCartDto;
 import com.academy.sivillageclonebe.cart.service.CartService;
 import com.academy.sivillageclonebe.cart.service.ProductsByCartService;
 import com.academy.sivillageclonebe.cart.vo.CartRequestVo;
+import com.academy.sivillageclonebe.cart.vo.ProductsByCartUpdateVo;
 import com.academy.sivillageclonebe.common.entity.CommonResponseEntity;
 import com.academy.sivillageclonebe.common.entity.CommonResponseMessage;
 import com.academy.sivillageclonebe.common.utills.SecurityUtils;
@@ -75,6 +76,18 @@ public class CartController {
     public CommonResponseEntity<Void> updateCheck(@PathVariable Long id) {
 
         productsByCartService.updateCheck(id);
+
+        return new CommonResponseEntity<>(
+                HttpStatus.OK,
+                CommonResponseMessage.SUCCESS.getMessage(),
+                null
+        );
+    }
+
+    @PutMapping("/option/{id}")
+    public CommonResponseEntity<Void> updateOption(@PathVariable Long id, @RequestBody ProductsByCartUpdateVo productsByCartUpdateVo) {
+
+        productsByCartService.updateOption(id, productsByCartUpdateVo.toDto());
 
         return new CommonResponseEntity<>(
                 HttpStatus.OK,

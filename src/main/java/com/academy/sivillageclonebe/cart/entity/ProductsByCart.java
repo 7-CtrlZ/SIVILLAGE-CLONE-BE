@@ -1,5 +1,6 @@
 package com.academy.sivillageclonebe.cart.entity;
 
+import com.academy.sivillageclonebe.cart.dto.ProductsByCartUpdateDto;
 import com.academy.sivillageclonebe.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -51,5 +52,10 @@ public class ProductsByCart extends BaseEntity {
 
     public void editCheck(boolean check) {
         this.checked = check;
+    }
+
+    public void editCart(ProductsByCartUpdateDto productsByCartUpdateDto) {
+        this.subOptionId = productsByCartUpdateDto.getSubOptionId();
+        this.quantity = productsByCartUpdateDto.getQuantity();
     }
 }
