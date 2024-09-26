@@ -10,6 +10,7 @@ import com.academy.sivillageclonebe.vendor.service.ProductByCategoryService;
 import com.academy.sivillageclonebe.vendor.vo.BrandRequestVo;
 import com.academy.sivillageclonebe.vendor.vo.ProductByCategoryRequestVo;
 import com.academy.sivillageclonebe.vendor.vo.ProductByCategoryResponseVo;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,7 @@ public class ProductByCategoryController {
 
     public final ProductByCategoryService productByCategoryService;
 
+    @Operation(summary = "카테고리 별 상품 등록 API", description = "카테고리 별 상품 등록 API 입니다.", tags = {"Category"})
     @PostMapping("/CategoryProduct")
     public CommonResponseEntity<Void> createCategoryProduct(
             @RequestBody ProductByCategoryRequestVo productByCategoryRequestVo) {
@@ -46,6 +48,7 @@ public class ProductByCategoryController {
         );
     }
 
+    @Operation(summary = "카테고리 별 상품 조회 API", description = "카테고리 별 상품 조회 API 입니다.", tags = {"Category"})
     @GetMapping("/productCategoryList")
     public CommonResponseEntity<CursorPage<ProductByCategoryResponseVo>> getProductCategoryListByCategories(
             @RequestParam( value = "topCategoryName", required = false ) String topCategoryName,

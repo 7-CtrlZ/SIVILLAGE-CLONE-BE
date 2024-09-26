@@ -10,6 +10,7 @@ import com.academy.sivillageclonebe.like.vo.LikesResponseVo;
 import com.academy.sivillageclonebe.member.entity.Member;
 import com.academy.sivillageclonebe.option.entity.MainOption;
 import com.academy.sivillageclonebe.option.repository.MainOptionRepository;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,7 @@ public class LikesController {
     private final LikesService likesService;
     private final SecurityUtils securityUtils;
 
+    @Operation(summary = "찜 등록 API", description = "찜 등록 API 입니다.", tags = {"Like"})
     @PostMapping
     public CommonResponseEntity<Void> createLikes(
             @RequestBody LikesRequestVo likesRequestvo) {
@@ -37,6 +39,7 @@ public class LikesController {
         );
     }
 
+    @Operation(summary = "찜 조회 API", description = "찜 조회 API 입니다.", tags = {"Like"})
     @GetMapping("{mainOptionId}")
     public CommonResponseEntity<Boolean> getLikes
         (@PathVariable Long mainOptionId){
@@ -48,7 +51,8 @@ public class LikesController {
                 isLiked
                 );
     }
-
+    
+    @Operation(summary = "찜 삭제 API", description = "찜 삭제 API 입니다.", tags = {"Like"})
     @DeleteMapping("/{mainOptionId}")
     public CommonResponseEntity<Void> deleteLikes
             (@PathVariable Long mainOptionId) {

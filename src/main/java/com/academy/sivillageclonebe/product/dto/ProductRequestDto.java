@@ -1,6 +1,8 @@
 package com.academy.sivillageclonebe.product.dto;
 
 import com.academy.sivillageclonebe.product.entity.Product;
+import com.academy.sivillageclonebe.product.vo.ProductRequestVo;
+import com.academy.sivillageclonebe.product.vo.ProductResponseVo;
 import lombok.*;
 
 @Getter
@@ -26,6 +28,16 @@ public class ProductRequestDto {
                 .price(price)
                 .productDescription(productDescription)
                 .productDetailContent(productDetailContent)
+                .build();
+    }
+
+    public static ProductRequestDto from(ProductRequestVo productRequestVo) {
+        return ProductRequestDto.builder()
+                .brandId(productRequestVo.getBrandId())
+                .productName(productRequestVo.getProductName())
+                .price(productRequestVo.getPrice())
+                .productDescription(productRequestVo.getProductDescription())
+                .productDetailContent(productRequestVo.getProductDetailContent())
                 .build();
     }
 }
