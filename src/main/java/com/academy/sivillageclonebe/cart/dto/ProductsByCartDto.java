@@ -17,7 +17,7 @@ public class ProductsByCartDto {
     private String productCode;
     private Long subOptionId;
     private Integer quantity;
-    private boolean isChecked;
+    private boolean checked;
 
     public static ProductsByCartDto fromEntity(ProductsByCart productsByCart) {
         return ProductsByCartDto.builder()
@@ -26,7 +26,7 @@ public class ProductsByCartDto {
                 .productCode(productsByCart.getProductCode())
                 .subOptionId(productsByCart.getSubOptionId())
                 .quantity(productsByCart.getQuantity())
-                .isChecked(productsByCart.isChecked())
+                .checked(productsByCart.isChecked())
                 .build();
     }
 
@@ -36,7 +36,7 @@ public class ProductsByCartDto {
                 .productCode(productCode)
                 .subOptionId(subOptionId)
                 .quantity(quantity)
-                .isChecked(true)
+                .checked(true)
                 .build();
     }
 

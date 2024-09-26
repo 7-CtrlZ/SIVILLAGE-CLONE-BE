@@ -31,7 +31,7 @@ public class ProductsByCart extends BaseEntity {
     private Integer quantity;
 
     @Column(nullable = false)
-    private boolean isChecked;
+    private boolean checked;
 
 
     @Builder
@@ -40,12 +40,16 @@ public class ProductsByCart extends BaseEntity {
             String productCode,
             Long subOptionId,
             Integer quantity,
-            boolean isChecked
+            boolean checked
     ) {
         this.cart = cart;
         this.productCode = productCode;
         this.subOptionId = subOptionId;
         this.quantity = quantity;
-        this.isChecked = isChecked;
+        this.checked = checked;
+    }
+
+    public void editCheck(boolean check) {
+        this.checked = check;
     }
 }
