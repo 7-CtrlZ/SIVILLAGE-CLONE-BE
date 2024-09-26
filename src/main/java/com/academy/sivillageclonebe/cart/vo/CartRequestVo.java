@@ -12,7 +12,6 @@ public class CartRequestVo {
     private String productCode;
     private Long subOptionId;
     private Integer quantity;
-    private boolean checked;
 
     @Builder
     public ProductsByCartDto toDto() {
@@ -20,7 +19,6 @@ public class CartRequestVo {
                 .productCode(productCode)
                 .subOptionId(subOptionId)
                 .quantity(quantity)
-                .checked(checked)
                 .build();
     }
 
