@@ -21,6 +21,7 @@ public class CategoryController {
 
     public final CategoryService categoryService;
 
+    @Operation(summary = "topCategory 등록 API", description = "topCategory 등록 API 입니다.", tags = {"Category"})
     @PostMapping("/top-category")
     public CommonResponseEntity<Void> creteTopCategory (
             @RequestBody TopCategoryRequestVo topCategoryRequestVo) {
@@ -35,6 +36,7 @@ public class CategoryController {
                 null);
     }
 
+    @Operation(summary = "middleCategory 등록 API", description = "middleCategory 등록 API 입니다.", tags = {"Category"})
     @PostMapping("/middle-category")
     public CommonResponseEntity<Void> createMiddleCategory (
             @RequestBody MiddleCategoryRequestVo middleCategoryRequestVo) {
@@ -51,6 +53,7 @@ public class CategoryController {
                 null);
     }
 
+    @Operation(summary = "bottomCategory 등록 API", description = "bottomCategory 등록 API 입니다.", tags = {"Category"})
     @PostMapping("/bottom-category")
     public CommonResponseEntity<Void> createBottomCategory (
             @RequestBody BottomCategoryRequestVo bottomCategoryRequestVo) {
@@ -67,6 +70,7 @@ public class CategoryController {
                 null);
     }
 
+    @Operation(summary = "subCategory 등록 API", description = "subCategory 등록 API 입니다.", tags = {"Category"})
     @PostMapping("/sub-category")
     public CommonResponseEntity<Void> createSubCategory (
             @RequestBody SubCategoryRequestVo subCategoryRequestVo) {
@@ -83,6 +87,7 @@ public class CategoryController {
                 null);
     }
 
+    @Operation(summary = "topCategory 조회 API", description = "topCategory 조회 API 입니다.", tags = {"Category"})
     @GetMapping("/top-categoryList")
     public CommonResponseEntity<List<TopCategoryResponseVo>> getTopCategoryList() {
         List<TopCategoryResponseDto> topCategoryResponseDtoList = categoryService.getTopCategoryList();
@@ -92,6 +97,7 @@ public class CategoryController {
                 topCategoryResponseDtoList.stream().map(TopCategoryResponseDto::toVo).toList());
     }
 
+    @Operation(summary = "middleCategory 조회 API", description = "middleCategory 조회 API 입니다.", tags = {"Category"})
     @GetMapping("topCategoryName/{topCategoryName}/middle-categoryList")
     public CommonResponseEntity<List<MiddleCategoryResponseVo>> getMiddleCategoryList(
             @PathVariable String topCategoryName) {
@@ -102,6 +108,7 @@ public class CategoryController {
                 middleCategoryResponseDtoList.stream().map(MiddleCategoryResponseDto::toVo).toList());
     }
 
+    @Operation(summary = "bottomCategory 조회 API", description = "bottomCategory 조회 API 입니다.", tags = {"Category"})
     @GetMapping("middleCategoryName/{middleCategoryName}/bottom-categoryList")
     public CommonResponseEntity<List<BottomCategoryResponseVo>> getBottomCategoryList(
             @PathVariable String middleCategoryName) {
@@ -111,7 +118,7 @@ public class CategoryController {
                 "상품 조회 성공",
                 bottomCategoryResponseDtoList.stream().map(BottomCategoryResponseDto::toVo).toList());
     }
-
+    @Operation(summary = "subCategory 조회 API", description = "subCategory 조회 API 입니다.", tags = {"Category"})
     @GetMapping("bottomCategoryName/{bottomCategoryName}/sub-categoryList")
     public CommonResponseEntity<List<SubCategoryResponseVo>> getSubCategoryList(
             @PathVariable String bottomCategoryName) {

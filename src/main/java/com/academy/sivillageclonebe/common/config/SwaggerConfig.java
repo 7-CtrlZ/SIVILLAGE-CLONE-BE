@@ -16,8 +16,8 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .addServersItem(new Server().url("/"))
-                .info(new Info().title("API Documentation")
-                        .description("API documentation with JWT security"))
+                .info(new Info().title("Sivillage Clone API")
+                        .description("Sivillage 웹사이트 클론 코딩 프로젝트의 API 문서입니다."))
                 .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
                 .components(new Components()
                         .addSecuritySchemes("bearerAuth",

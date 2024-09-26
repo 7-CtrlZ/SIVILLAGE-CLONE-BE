@@ -5,6 +5,7 @@ import com.academy.sivillageclonebe.common.entity.CommonResponseMessage;
 import com.academy.sivillageclonebe.option.dto.*;
 import com.academy.sivillageclonebe.option.service.OptionService;
 import com.academy.sivillageclonebe.option.vo.*;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -20,7 +21,8 @@ import java.util.List;
 public class OptionController {
 
     public final OptionService optionService;
-
+    
+    @Operation(summary = "메인 옵션 등록 API", description = "메인 옵션 등록 API 입니다.", tags = {"Product"})
     @PostMapping("/mainOptions")
     public CommonResponseEntity<Void> createMainOptions(
             @RequestBody MainOptionRequestVo mainOptionRequestVo) {
@@ -37,6 +39,7 @@ public class OptionController {
         );
     }
 
+    @Operation(summary = "서브 옵션 등록 API", description = "서브 옵션 등록 API 입니다.", tags = {"Product"})
     @PostMapping("/subOptions")
     public CommonResponseEntity<Void> createSubOptions(
             @RequestBody SubOptionRequestVo subOptionRequestVo) {
@@ -56,6 +59,7 @@ public class OptionController {
         );
     }
 
+    @Operation(summary = "재고 등록 API", description = "재고 등록 API 입니다.", tags = {"Product"})
     @PostMapping("/stocks/{subOptionId}")
     public CommonResponseEntity<Void> createProductStocks(
             @PathVariable Long subOptionId,
@@ -73,6 +77,7 @@ public class OptionController {
         );
     }
 
+    @Operation(summary = "상품 이미지 등록 API", description = "상품 이미지 등록 API 입니다.", tags = {"Product"})
     @PostMapping("/images")
     public CommonResponseEntity<Void> createProductImages(
             @RequestBody ProductImagesRequestVo productImagesRequestVo) {
@@ -90,16 +95,8 @@ public class OptionController {
                 null
         );
     }
-
-//    @GetMapping("/productCode/{productCode}/mainOptions")
-//    public CommonResponseEntity<List<MainOptionResponseVo>> getMainOption(@PathVariable String productCode) {
-//        List<MainOptionResponseDto> mainOptionResponseDtoList = optionService.getMainOptionListByProductCode(productCode);
-//        return new CommonResponseEntity<>(
-//                HttpStatus.OK,
-//                "메인 옵션 조회 성공",
-//                mainOptionResponseDtoList.stream().map(MainOptionResponseDto::toVo).toList());
-//    }
-
+    
+    @Operation(summary = "상품 이미지 조회 API", description = "상품 이미지 조회 API 입니다.", tags = {"Product"})
     @GetMapping("/mainOptionId/{mainOptionId}/images")
     public CommonResponseEntity<List<ProductImagesResponseVo>> getImage(@PathVariable Long mainOptionId) {
         List<ProductImagesResponseDto> productImagesResponseDtoList = optionService.getProductImageListByMainOptionId(mainOptionId);
@@ -109,6 +106,7 @@ public class OptionController {
                 productImagesResponseDtoList.stream().map(ProductImagesResponseDto::toVo).toList());
     }
 
+    @Operation(summary = "서브 옵션 조회 API", description = "서브 옵션 조회 API 입니다.", tags = {"Product"})
     @GetMapping("/mainOptionId/{mainOptionId}/subOptions")
     public CommonResponseEntity<List<SubOptionResponseVo>> getSubOption(@PathVariable Long mainOptionId) {
         List<SubOptionResponseDto> subOptionResponseDtoList = optionService.getSubOptionListByMainOptionId(mainOptionId);
@@ -118,6 +116,7 @@ public class OptionController {
                 subOptionResponseDtoList.stream().map(SubOptionResponseDto::toVo).toList());
     }
 
+    @Operation(summary = "재고 조회 API", description = "재고 조회 API 입니다.", tags = {"Product"})
     @GetMapping("/subOptionId/{subOptionId}/productStocks")
     public CommonResponseEntity<ProductStocksResponseVo> getProductStocks(@PathVariable Long subOptionId) {
         ProductStocksResponseDto productStocksResponseDto = optionService.getProductStocks(subOptionId);
@@ -128,6 +127,7 @@ public class OptionController {
         );
     }
 
+    @Operation(summary = "재고 업데이트 API", description = "재고 업데이트 API 입니다.", tags = {"Product"})
     @PutMapping("productStocks/{subOptionId}")
     public ResponseEntity<CommonResponseEntity<Void>> updateProductStocks(
             @PathVariable Long subOptionId,
