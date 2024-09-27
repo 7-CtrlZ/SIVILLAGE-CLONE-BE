@@ -1,14 +1,12 @@
 package com.academy.sivillageclonebe.product.dto;
 
 import com.academy.sivillageclonebe.option.dto.MainOptionResponseDto;
-import com.academy.sivillageclonebe.option.entity.MainOption;
 import com.academy.sivillageclonebe.product.vo.ProductResponseVo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter

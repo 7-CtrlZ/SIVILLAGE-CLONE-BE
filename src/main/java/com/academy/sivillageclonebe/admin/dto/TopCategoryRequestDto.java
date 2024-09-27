@@ -1,7 +1,6 @@
 package com.academy.sivillageclonebe.admin.dto;
 
 import com.academy.sivillageclonebe.admin.entity.TopCategory;
-import com.academy.sivillageclonebe.admin.vo.TopCategoryResponseVo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

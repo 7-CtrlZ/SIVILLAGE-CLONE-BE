@@ -1,8 +1,8 @@
 package com.academy.sivillageclonebe.product.service;
 
-import com.academy.sivillageclonebe.option.dto.MainOptionRequestDto;
+import com.academy.sivillageclonebe.common.entity.BaseResponseStatus;
+import com.academy.sivillageclonebe.common.exception.BaseException;
 import com.academy.sivillageclonebe.option.dto.MainOptionResponseDto;
-import com.academy.sivillageclonebe.option.entity.MainOption;
 import com.academy.sivillageclonebe.option.repository.MainOptionRepository;
 import com.academy.sivillageclonebe.product.dto.ProductRequestDto;
 import com.academy.sivillageclonebe.product.dto.ProductResponseDto;
@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +27,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void addProduct(ProductRequestDto productDto) {
+        Brand brand = brandRepository.findById(productDto.getBrandId())
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_BRAND));
         String productUuid;
         String productCode;
 
@@ -35,23 +36,20 @@ public class ProductServiceImpl implements ProductService {
         productCode = productUuid.substring(0, 8);
 
         productRepository.save(productDto.toEntity(productUuid, productCode));
-
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public ProductResponseDto getProduct(String productCode) {
         Product getProduct = productRepository.findByProductCode(productCode)
-                .orElseThrow(() -> new IllegalArgumentException("해당 상품이 존재하지 않습니다."));
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_PRODUCT));
         Brand brand = brandRepository.findById(getProduct.getBrandId())
-                .orElseThrow(() -> new IllegalArgumentException("해당 브랜드가 존재하지 않습니다."));
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_BRAND));
 
-        List<MainOption> mainOptions = mainOptionRepository.findByProduct_ProductCode(productCode);
-
-        List<MainOptionResponseDto> mainOptionList = mainOptions.stream()
-                .map(option -> new MainOptionResponseDto(option.getId(), option.getMainOptionName()))
-                .collect(Collectors.toList());
-
+        List<MainOptionResponseDto> mainOptionList = mainOptionRepository.findByProduct_ProductCode(productCode)
+                .stream()
+                .map(MainOptionResponseDto::from)
+                .toList();
         return ProductResponseDto.builder()
                 .productCode(getProduct.getProductCode())
                 .productName(getProduct.getProductName())

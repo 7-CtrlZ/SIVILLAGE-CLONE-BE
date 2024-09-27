@@ -10,11 +10,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class SubOptionResponseVo {
 
     private Long mainOptionId;
     private Long subOptionId;
-    private String optionName;
+    private String subOptionName;
     private ProductStatus productStatus;
 
 }

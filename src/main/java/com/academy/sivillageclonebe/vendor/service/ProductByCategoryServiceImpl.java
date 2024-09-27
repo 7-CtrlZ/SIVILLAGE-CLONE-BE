@@ -6,11 +6,8 @@ import com.academy.sivillageclonebe.vendor.repository.ProductByCategoryRepositor
 import com.academy.sivillageclonebe.vendor.repository.ProductByCategoryRepositoryCustom;
 import com.academy.sivillageclonebe.vendor.vo.ProductByCategoryResponseVo;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-
-@Slf4j
 @RequiredArgsConstructor
 @Service
 public class ProductByCategoryServiceImpl implements ProductByCategoryService{
@@ -26,7 +23,6 @@ public class ProductByCategoryServiceImpl implements ProductByCategoryService{
     @Override
     public CursorPage<ProductByCategoryResponseVo> getProductCategoryListByCategories
             (String topCategoryName, String middleCategoryName, String bottomCategoryName, String subCategoryName, Integer page, Long lastId) {
-
         return productCategoryListRepositoryCustom.getProductByCategoryListByCategories
                 (topCategoryName,middleCategoryName,bottomCategoryName,subCategoryName, page, lastId);
     }

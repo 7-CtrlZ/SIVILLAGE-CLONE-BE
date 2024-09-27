@@ -1,6 +1,5 @@
 package com.academy.sivillageclonebe.option.entity;
 
-import com.academy.sivillageclonebe.product.entity.Product;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

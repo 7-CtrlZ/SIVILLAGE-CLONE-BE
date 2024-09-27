@@ -11,6 +11,7 @@ import com.academy.sivillageclonebe.common.entity.CommonResponseMessage;
 import com.academy.sivillageclonebe.common.utills.SecurityUtils;
 import com.academy.sivillageclonebe.member.entity.Member;
 import com.academy.sivillageclonebe.product.service.ProductService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,7 @@ public class CartController {
     private final SecurityUtils securityUtils;
     private final ProductsByCartService productsByCartService;
 
+    @Operation(summary = "장바구니 등록 API", description = "장바구니 등록 API 입니다.", tags = {"Cart"})
     @PostMapping("/add")
     public CommonResponseEntity<Void> addProductToCart(@RequestBody CartRequestVo cartRequestVo) {
 
@@ -48,6 +50,7 @@ public class CartController {
         );
     }
 
+    @Operation(summary = "장바구니 조회 API", description = "장바구니 조회 API 입니다.", tags = {"Cart"})
     @GetMapping
     public CommonResponseEntity<List<CartDto>> getAllCart() {
         Member member = securityUtils.getAuthenticatedMember();
@@ -60,6 +63,7 @@ public class CartController {
         );
     }
 
+    @Operation(summary = "장바구니 삭제 API", description = "장바구니 삭제 API 입니다.", tags = {"Cart"})
     @DeleteMapping("/{id}")
     public CommonResponseEntity<Void> deleteProductsByCart(@PathVariable Long id) {
 
@@ -72,6 +76,7 @@ public class CartController {
         );
     }
 
+    @Operation(summary = "장바구니 업데이트 API", description = "장바구니 업데이트 API 입니다.", tags = {"Cart"})
     @PutMapping("/{id}")
     public CommonResponseEntity<Void> updateCheck(@PathVariable Long id) {
 
@@ -84,6 +89,7 @@ public class CartController {
         );
     }
 
+    @Operation(summary = "장바구니 옵션 업데이트 API", description = "장바구니 옵션 업데이트 API 입니다.", tags = {"Cart"})
     @PutMapping("/option/{id}")
     public CommonResponseEntity<Void> updateOption(@PathVariable Long id, @RequestBody ProductsByCartUpdateVo productsByCartUpdateVo) {
 

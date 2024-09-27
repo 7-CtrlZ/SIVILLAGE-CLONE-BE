@@ -18,4 +18,10 @@ public class TopCategoryResponseDto {
                 .build();
     }
 
+    public static TopCategoryResponseDto from(TopCategory topCategory) {
+        return TopCategoryResponseDto.builder()
+                .topCategoryName(topCategory.getCategoryName())
+                .build();
+    }
+
 }

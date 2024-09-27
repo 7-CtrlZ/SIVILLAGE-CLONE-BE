@@ -1,14 +1,12 @@
 package com.academy.sivillageclonebe.vendor.vo;
 
-import lombok.AllArgsConstructor;
+import com.academy.sivillageclonebe.vendor.dto.ProductByCategoryRequestDto;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Getter
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
+
 public class ProductByCategoryRequestVo {
 
     private String productCode;
@@ -16,5 +14,15 @@ public class ProductByCategoryRequestVo {
     private String middleCategoryName;
     private String bottomCategoryName;
     private String subCategoryName;
+
+    public ProductByCategoryRequestDto toDto() {
+        return ProductByCategoryRequestDto.builder()
+                .productCode(productCode)
+                .topCategoryName(topCategoryName)
+                .middleCategoryName(middleCategoryName)
+                .bottomCategoryName(bottomCategoryName)
+                .subCategoryName(subCategoryName)
+                .build();
+    }
 
 }

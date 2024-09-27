@@ -1,8 +1,5 @@
 package com.academy.sivillageclonebe.option.entity;
 
-import com.academy.sivillageclonebe.member.dto.MemberAddressDto;
-import com.academy.sivillageclonebe.member.entity.Role;
-import com.academy.sivillageclonebe.option.dto.SubOptionRequestDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,17 +17,17 @@ public class SubOption {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String optionName;
+    private String subOptionName;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private ProductStatus productStatus;
 
     @Column(nullable = false)
-    private Boolean isActive;
+    private Boolean isActive = true;
 
     @Column(nullable = false)
-    private Boolean isDeleted;
+    private Boolean isDeleted = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mainOptionId", nullable = false)

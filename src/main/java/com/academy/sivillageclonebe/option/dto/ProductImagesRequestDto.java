@@ -2,7 +2,6 @@ package com.academy.sivillageclonebe.option.dto;
 
 import com.academy.sivillageclonebe.option.entity.MainOption;
 import com.academy.sivillageclonebe.option.entity.ProductImages;
-import com.academy.sivillageclonebe.product.entity.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

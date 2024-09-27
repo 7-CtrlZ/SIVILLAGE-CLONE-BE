@@ -1,5 +1,6 @@
 package com.academy.sivillageclonebe.admin.dto;
 
+import com.academy.sivillageclonebe.admin.entity.BottomCategory;
 import com.academy.sivillageclonebe.admin.vo.BottomCategoryResponseVo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,6 +20,13 @@ public class BottomCategoryResponseDto {
         return BottomCategoryResponseVo.builder()
                 .bottomCategoryName(bottomCategoryName)
                 .middleCategoryName(middleCategoryName)
+                .build();
+    }
+
+    public static BottomCategoryResponseDto from(BottomCategory bottomCategory) {
+        return BottomCategoryResponseDto.builder()
+                .bottomCategoryName(bottomCategory.getCategoryName())
+                .middleCategoryName(bottomCategory.getMiddleCategory().getCategoryName())
                 .build();
     }
 }

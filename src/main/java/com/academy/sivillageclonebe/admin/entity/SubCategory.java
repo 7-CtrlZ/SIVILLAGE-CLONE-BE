@@ -20,9 +20,6 @@ public class SubCategory {
     @Column(nullable = false, length  = 100)
     private String categoryName;
 
-//    @Column(nullable = false, length  = 100)
-//    private String categoryCode;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bottomCategoryId", nullable = false)
     private BottomCategory bottomCategory;
