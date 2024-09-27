@@ -4,6 +4,7 @@ import com.academy.sivillageclonebe.common.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -52,12 +53,12 @@ public class SecurityConfig {
                                         "/api/v1/admin/**",
                                         "/api/v1/product/**",
                                         "/api/v1/option/**",
-                                        "/api/v1/like/**",
                                         "/swagger-ui/**",
                                         "/v3/api-docs/**",
                                         "/error"
                                 )
                                 .permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/v1/review/**").permitAll()
                                 .anyRequest()
                                 .authenticated()
                 )

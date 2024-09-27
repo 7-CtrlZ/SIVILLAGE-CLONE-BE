@@ -37,9 +37,8 @@ public class CartController {
                 .memberId(member.getId())
                 .brandId(productService.getBrandIdByProductCode(cartRequestVo.toDto().getProductCode()))
                 .build();
-        ProductsByCartDto productsByCartDto = cartRequestVo.toDto();
 
-        productsByCartService.addProductToCart(cartDto, productsByCartDto);
+        productsByCartService.addProductToCart(cartDto, cartRequestVo.toDto());
 
         return new CommonResponseEntity<>(
                 HttpStatus.OK,

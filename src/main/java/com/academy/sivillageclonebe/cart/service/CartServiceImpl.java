@@ -1,16 +1,9 @@
 package com.academy.sivillageclonebe.cart.service;
 
 import com.academy.sivillageclonebe.cart.dto.CartDto;
-import com.academy.sivillageclonebe.cart.dto.ProductsByCartDto;
 import com.academy.sivillageclonebe.cart.entity.Cart;
 import com.academy.sivillageclonebe.cart.entity.ProductsByCart;
 import com.academy.sivillageclonebe.cart.repository.CartRepository;
-import com.academy.sivillageclonebe.cart.repository.ProductsByCartRepository;
-import com.academy.sivillageclonebe.cart.vo.CartRequestVo;
-import com.academy.sivillageclonebe.member.entity.Member;
-import com.academy.sivillageclonebe.member.entity.MemberAddress;
-import com.academy.sivillageclonebe.product.service.ProductService;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

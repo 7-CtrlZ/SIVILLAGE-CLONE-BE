@@ -16,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -44,7 +43,7 @@ public class OrdersServiceImpl implements OrdersService {
                         .price(productService.findByProductId(productDto.getProductId()).getPrice())
                         .quantity(productDto.getQuantity())
                         .build())
-                .collect(Collectors.toList());
+                .toList();
         Long totalPrice = orderedProductsList.stream()
                 .mapToLong(product -> product.getPrice() * product.getQuantity())
                 .sum();

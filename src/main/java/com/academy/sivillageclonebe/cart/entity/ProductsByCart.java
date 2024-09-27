@@ -51,7 +51,7 @@ public class ProductsByCart extends BaseEntity {
     }
 
     public void editCheck(boolean check) {
-        this.checked = check;
+        this.checked = !check;
     }
 
     public void editCart(ProductsByCartUpdateDto productsByCartUpdateDto) {

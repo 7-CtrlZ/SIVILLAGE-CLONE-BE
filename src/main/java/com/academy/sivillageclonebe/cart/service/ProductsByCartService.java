@@ -10,8 +10,6 @@ import java.util.List;
 
 public interface ProductsByCartService {
 
-    ProductsByCart saveProduct(ProductsByCart productsByCart);
-
     List<ProductsByCart> findByCart(Cart cart);
 
     void addProductToCart(CartDto cartDto, ProductsByCartDto productsByCartDto);

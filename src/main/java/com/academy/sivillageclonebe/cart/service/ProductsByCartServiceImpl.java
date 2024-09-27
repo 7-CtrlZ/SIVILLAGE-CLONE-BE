@@ -23,26 +23,15 @@ public class ProductsByCartServiceImpl implements ProductsByCartService{
 
     private final ProductsByCartRepository productsByCartRepository;
     private final CartRepository cartRepository;
-    private final ProductService productService;
+    private final ProductService productService;    //repository를 불러 오는 것이 좋다
 
     @Override
     public void addProductToCart(CartDto cartDto, ProductsByCartDto productsByCartDto) {
-        // productCode로 브랜드 정보를 조회
-        Integer brandId = productService.getBrandIdByProductCode(productsByCartDto.getProductCode());
 
-        // memberId와 brandId로 Cart 조회, 없으면 새로 생성
-        Cart cart = cartRepository.findByMemberIdAndBrandId(cartDto.getMemberId(), brandId)
-                .orElseGet(() -> cartRepository.save(cartDto.toEntity()));
+        productsByCartRepository.save(productsByCartDto.toEntity(cartRepository.findByMemberIdAndBrandId(
+                        cartDto.getMemberId(), productService.getBrandIdByProductCode(productsByCartDto.getProductCode()))
+                .orElseGet(() -> cartRepository.save(cartDto.toEntity()))));
 
-        ProductsByCart productsByCart = productsByCartDto.toEntity(cart);
-
-        productsByCartRepository.save(productsByCart);
-
-    }
-
-    @Override
-    public ProductsByCart saveProduct(ProductsByCart productsByCart) {
-        return productsByCartRepository.save(productsByCart);
     }
 
     @Override
@@ -75,7 +64,7 @@ public class ProductsByCartServiceImpl implements ProductsByCartService{
                 .orElseThrow(() -> new IllegalArgumentException("Product not found"));
         log.info("ProductsByCartId {}: {}", productsByCartId, productsByCart.getProductCode());
 
-        productsByCart.editCheck(!productsByCart.isChecked());
+        productsByCart.editCheck(productsByCart.isChecked());
 
     }
 
