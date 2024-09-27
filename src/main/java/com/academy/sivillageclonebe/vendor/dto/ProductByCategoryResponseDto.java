@@ -1,7 +1,5 @@
 package com.academy.sivillageclonebe.vendor.dto;
 
-import com.academy.sivillageclonebe.vendor.entity.ProductByCategory;
-import com.academy.sivillageclonebe.vendor.vo.ProductByCategoryResponseVo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

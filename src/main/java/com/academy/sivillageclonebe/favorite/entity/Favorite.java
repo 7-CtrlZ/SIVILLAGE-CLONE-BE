@@ -1,4 +1,4 @@
-package com.academy.sivillageclonebe.like.entity;
+package com.academy.sivillageclonebe.favorite.entity;
 
 import com.academy.sivillageclonebe.common.entity.BaseEntity;
 import jakarta.persistence.*;
@@ -12,16 +12,16 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Likes extends BaseEntity {
+public class Favorite extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    private Long memberId;
+    private String memberUuid;
     @Column(nullable = false)
     private Long mainOptionId;
     @Column(nullable = false)
-    private Boolean isLiked;
+    private Boolean liked;
 
 }

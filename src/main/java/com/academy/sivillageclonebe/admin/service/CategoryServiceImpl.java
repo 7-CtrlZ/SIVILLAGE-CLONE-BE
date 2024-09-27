@@ -3,20 +3,19 @@ package com.academy.sivillageclonebe.admin.service;
 import com.academy.sivillageclonebe.admin.dto.*;
 import com.academy.sivillageclonebe.admin.entity.BottomCategory;
 import com.academy.sivillageclonebe.admin.entity.MiddleCategory;
-import com.academy.sivillageclonebe.admin.entity.SubCategory;
 import com.academy.sivillageclonebe.admin.entity.TopCategory;
 import com.academy.sivillageclonebe.admin.repository.BottomCategoryRepository;
 import com.academy.sivillageclonebe.admin.repository.MiddleCategoryRepository;
 import com.academy.sivillageclonebe.admin.repository.SubCategoryRepository;
 import com.academy.sivillageclonebe.admin.repository.TopCategoryRepository;
+import com.academy.sivillageclonebe.common.entity.BaseResponseStatus;
+import com.academy.sivillageclonebe.common.exception.BaseException;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Slf4j
 @RequiredArgsConstructor
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -26,124 +25,95 @@ public class CategoryServiceImpl implements CategoryService {
     private final BottomCategoryRepository bottomCategoryRepository;
     private final SubCategoryRepository subCategoryRepository;
 
-
-    private static final int MAX_CODE_TRIES = 5;
-
     @Transactional
     @Override
     public void createTopCategory(TopCategoryRequestDto topCategoryRequestDto) {
-        try {
-            topCategoryRepository.save(topCategoryRequestDto.toEntity());
-        } catch (IllegalArgumentException e) {
-            log.warn("Validation failed: {}", e.getMessage());
-            throw e;
-        } catch (Exception e) {
-            log.error("An unexpected error occurred: ", e);
-            throw new RuntimeException("카테고리 생성 중 오류가 발생했습니다.", e);
-        }
 
+        if (topCategoryRepository.existsByCategoryName(topCategoryRequestDto.getTopCategoryName())) {
+            throw new BaseException(BaseResponseStatus.DUPLICATED_CATEGORY);
+        }
+        topCategoryRepository.save(topCategoryRequestDto.toEntity());
     }
 
     @Transactional
     @Override
     public void createMiddleCategory(MiddleCategoryRequestDto middleCategoryRequestDto) {
 
-        try {
+        if (middleCategoryRepository.existsByCategoryName(middleCategoryRequestDto.getMiddleCategoryName())) {
+            throw new BaseException(BaseResponseStatus.DUPLICATED_CATEGORY);
+        }
             TopCategory topCategory = topCategoryRepository.findByCategoryName(
-                    middleCategoryRequestDto.getTopCategoryName()).orElseThrow(() -> new IllegalArgumentException("해당 카테고리가 존재하지 않습니다.")
+                    middleCategoryRequestDto.getTopCategoryName()).orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_CATEGORY)
             );
             middleCategoryRepository.save(middleCategoryRequestDto.toEntity(topCategory));
-        } catch (IllegalArgumentException e) {
-            log.warn("Validation failed: {}", e.getMessage());
-            throw e;
-        } catch (Exception e) {
-            log.error("An unexpected error occurred: ", e);
-            throw new RuntimeException("카테고리 생성 중 오류가 발생했습니다.", e);
-        }
     }
 
     @Transactional
     @Override
     public void createBottomCategory(BottomCategoryRequestDto bottomCategoryRequestDto) {
-        try {
+
+        if ( bottomCategoryRepository.existsByCategoryName(bottomCategoryRequestDto.getBottomCategoryName())) {
+            throw new BaseException(BaseResponseStatus.DUPLICATED_CATEGORY);
+        }
             MiddleCategory middleCategory = middleCategoryRepository.findByCategoryName(
-                    bottomCategoryRequestDto.getMiddleCategoryName()).orElseThrow(() -> new IllegalArgumentException("해당 카테고리가 존재하지 않습니다.")
+                    bottomCategoryRequestDto.getMiddleCategoryName()).orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_CATEGORY)
             );
             bottomCategoryRepository.save(bottomCategoryRequestDto.toEntity(middleCategory));
-        } catch (IllegalArgumentException e) {
-            log.warn("Validation failed: {}", e.getMessage());
-            throw e;
-        } catch (Exception e) {
-            log.error("An unexpected error occurred: ", e);
-            throw new RuntimeException("카테고리 생성 중 오류가 발생했습니다.", e);
-        }
     }
 
     @Transactional
     @Override
     public void createSubCategory(SubCategoryRequestDto subCategoryRequestDto) {
-        try {
+
+        if (subCategoryRepository.existsByCategoryName(subCategoryRequestDto.getSubCategoryName())) {
+            throw new BaseException(BaseResponseStatus.DUPLICATED_CATEGORY);
+        }
             BottomCategory bottomCategory = bottomCategoryRepository.findByCategoryName(
-                    subCategoryRequestDto.getBottomCategoryName()).orElseThrow(() -> new IllegalArgumentException("해당 카테고리가 존재하지 않습니다.")
+                    subCategoryRequestDto.getBottomCategoryName()).orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_CATEGORY)
             );
             subCategoryRepository.save(subCategoryRequestDto.toEntity(bottomCategory));
-        } catch (IllegalArgumentException e) {
-            log.warn("Validation failed: {}", e.getMessage());
-            throw e;
-        } catch (Exception e) {
-            log.error("An unexpected error occurred: ", e);
-            throw new RuntimeException("카테고리 생성 중 오류가 발생했습니다.", e);
-        }
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public List<TopCategoryResponseDto> getTopCategoryList() {
-        List<TopCategory> topCategoryList = topCategoryRepository.findAll();
-//        return topCategoryList.stream()
-//                .map(TopCategoryResponseDto::toVo).toList();
-        return topCategoryList.stream()
-                .map(topCategory -> TopCategoryResponseDto.builder()
-                        .topCategoryName(topCategory.getCategoryName())
-                        .build())
+        return  topCategoryRepository.findAll().stream()
+                .map(TopCategoryResponseDto::from)
                 .toList();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public List<MiddleCategoryResponseDto> getMiddleCategoryListByTopCategoryName(String topCategoryName) {
-        List<MiddleCategory> middleCategoryList = middleCategoryRepository.findByTopCategoryCategoryName(topCategoryName);
-        return middleCategoryList.stream()
-                .map(middleCategory -> MiddleCategoryResponseDto.builder()
-                        .middleCategoryName(middleCategory.getCategoryName())
-                        .topCategoryName(middleCategory.getTopCategory().getCategoryName())
-                        .build())
+        TopCategory topCategory = topCategoryRepository.findByCategoryName(topCategoryName)
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_CATEGORY));
+        return  middleCategoryRepository.findByTopCategoryCategoryName(topCategoryName)
+                .stream()
+                .map(MiddleCategoryResponseDto::from)
                 .toList();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public List<BottomCategoryResponseDto> getBottomCategoryListByMiddleCategoryName(String middleCategoryName) {
-        List<BottomCategory> bottomCategoryList = bottomCategoryRepository.findByMiddleCategoryCategoryName(middleCategoryName);
-        return bottomCategoryList.stream()
-                .map(bottomCategory -> BottomCategoryResponseDto.builder()
-                        .bottomCategoryName(bottomCategory.getCategoryName())
-                        .middleCategoryName(bottomCategory.getMiddleCategory().getCategoryName())
-                        .build())
-                .toList();
-    }
-    @Transactional
-    @Override
-    public List<SubCategoryResponseDto> getSubCategoryListByBottomCategoryName(String bottomCategoryName) {
-        List<SubCategory> subCategoryList = subCategoryRepository.findByBottomCategoryCategoryName(bottomCategoryName);
-        return subCategoryList.stream()
-                .map(subCategory -> SubCategoryResponseDto.builder()
-                        .subCategoryName(subCategory.getCategoryName())
-                        .bottomCategoryName(subCategory.getBottomCategory().getCategoryName())
-                        .build())
+        MiddleCategory middleCategory = middleCategoryRepository.findByCategoryName(middleCategoryName)
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_CATEGORY));
+        return bottomCategoryRepository.findByMiddleCategoryCategoryName(middleCategoryName)
+                .stream()
+                .map(BottomCategoryResponseDto::from)
                 .toList();
     }
 
+    @Transactional(readOnly = true)
+    @Override
+    public List<SubCategoryResponseDto> getSubCategoryListByBottomCategoryName(String bottomCategoryName) {
+        BottomCategory bottomCategory = bottomCategoryRepository.findByCategoryName(bottomCategoryName)
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_CATEGORY));
+        return subCategoryRepository.findByBottomCategoryCategoryName(bottomCategoryName)
+                .stream()
+                .map(SubCategoryResponseDto::from)
+                .toList();
+    }
 }
 
 

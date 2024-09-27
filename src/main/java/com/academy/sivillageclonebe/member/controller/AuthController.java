@@ -20,7 +20,7 @@ public class AuthController {
 
     private final AuthService authService;
 
-    @Operation(summary = "SignIn API", description = "SignIn API 입니다.", tags = {"Auth"})
+    @Operation(summary = "로그인 API", description = "로그인 API 입니다.", tags = {"Auth"})
     @PostMapping("/sign-in")
     public CommonResponseEntity<SignInResponseVo> signIn(
             @RequestBody SignInRequestVo signInRequestVo) {
@@ -34,7 +34,7 @@ public class AuthController {
 
     }
 
-    @Operation(summary = "SignUp API", description = "SignUp API 입니다.", tags = {"Auth"})
+    @Operation(summary = "회원가입 API", description = "회원가입 API 입니다.", tags = {"Auth"})
     @PostMapping("/sign-up")
     public CommonResponseEntity<Void> signUp(
             @RequestBody SignUpRequestVo signUpRequestVo) {

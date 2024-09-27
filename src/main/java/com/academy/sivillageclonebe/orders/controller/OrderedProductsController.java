@@ -22,7 +22,7 @@ import java.util.List;
 public class OrderedProductsController {
     private final OrderedProductsService orderedProductsService;
 
-    @Operation(summary = "Get Ordered Products API", description = "Get Ordered Products API", tags = {"Ordered Products"})
+    @Operation(summary = "주문 상품 조회 API", description = "주문 상품 조회 API", tags = {"Orders"})
     @GetMapping("/{ordersId}")
     public CommonResponseEntity<List<OrderedProductsResponseVo>> getOrderedProductsByOrdersId(@PathVariable Long ordersId) {
 
@@ -33,5 +33,4 @@ public class OrderedProductsController {
                 orderedProductsList
         );
     }
-
 }

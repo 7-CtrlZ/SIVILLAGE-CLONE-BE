@@ -1,7 +1,7 @@
 package com.academy.sivillageclonebe.option.vo;
 
+import com.academy.sivillageclonebe.option.dto.SubOptionRequestDto;
 import com.academy.sivillageclonebe.option.entity.ProductStatus;
-import io.jsonwebtoken.Jwts;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -10,8 +10,14 @@ import lombok.ToString;
 public class SubOptionRequestVo {
 
     private Long mainOptionId;
+    private String subOptionName;
     private ProductStatus productStatus;
-    private String optionName;
-    private Boolean isActive;
-    private Boolean isDeleted;
+
+    public SubOptionRequestDto toDto() {
+        return SubOptionRequestDto.builder()
+                .mainOptionId(mainOptionId)
+                .subOptionName(subOptionName)
+                .productStatus(productStatus)
+                .build();
+    }
 }

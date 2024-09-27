@@ -2,7 +2,6 @@ package com.academy.sivillageclonebe.product.dto;
 
 import com.academy.sivillageclonebe.product.entity.Product;
 import com.academy.sivillageclonebe.product.vo.ProductRequestVo;
-import com.academy.sivillageclonebe.product.vo.ProductResponseVo;
 import lombok.*;
 
 @Getter
@@ -11,8 +10,6 @@ import lombok.*;
 @NoArgsConstructor
 public class ProductRequestDto {
 
-    private String productUuid;
-    private String productCode;
     private Integer brandId;
     private String productName;
     private Long price;

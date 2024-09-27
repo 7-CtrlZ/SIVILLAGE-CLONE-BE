@@ -1,6 +1,5 @@
 package com.academy.sivillageclonebe.option.entity;
 
-import com.academy.sivillageclonebe.member.entity.Role;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;

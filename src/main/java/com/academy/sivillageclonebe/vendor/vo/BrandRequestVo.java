@@ -1,7 +1,6 @@
 package com.academy.sivillageclonebe.vendor.vo;
 
 import com.academy.sivillageclonebe.vendor.dto.BrandRequestDto;
-import com.academy.sivillageclonebe.vendor.entity.Brand;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

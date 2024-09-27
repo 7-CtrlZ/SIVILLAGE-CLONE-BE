@@ -1,6 +1,5 @@
 package com.academy.sivillageclonebe.option.dto;
 
-import com.academy.sivillageclonebe.option.entity.ProductStocks;
 import com.academy.sivillageclonebe.option.vo.ProductStocksResponseVo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

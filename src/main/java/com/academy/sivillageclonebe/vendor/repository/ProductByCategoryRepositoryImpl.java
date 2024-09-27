@@ -9,7 +9,6 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import javax.xml.transform.sax.SAXTransformerFactory;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +16,7 @@ import java.util.Optional;
 @Repository
 public class ProductByCategoryRepositoryImpl implements ProductByCategoryRepositoryCustom {
 
-    private static final int DEFAULT_PAGE_SIZE = 20;
+    private static final int DEFAULT_PAGE_SIZE = 10;
     private static final int DEFAULT_PAGE_NUMBER = 0;
 
     private final JPAQueryFactory jpaQueryFactory;

@@ -4,8 +4,6 @@ import com.academy.sivillageclonebe.product.dto.ProductRequestDto;
 import com.academy.sivillageclonebe.product.dto.ProductResponseDto;
 import com.academy.sivillageclonebe.product.entity.Product;
 
-import java.util.Optional;
-
 public interface ProductService {
 
     void addProduct(ProductRequestDto productDto);

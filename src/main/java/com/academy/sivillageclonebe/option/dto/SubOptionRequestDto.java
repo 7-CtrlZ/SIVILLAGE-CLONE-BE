@@ -11,18 +11,14 @@ import lombok.Getter;
 public class SubOptionRequestDto {
 
     private Long mainOptionId;
+    private String subOptionName;
     private ProductStatus productStatus;
-    private String optionName;
-    private Boolean isActive;
-    private Boolean isDeleted;
 
     public SubOption toEntity(MainOption mainOption) {
         return SubOption.builder()
-                .productStatus(productStatus)
-                .optionName(optionName)
-                .isActive(isActive)
-                .isDeleted(isDeleted)
                 .mainOption(mainOption)
+                .subOptionName(subOptionName)
+                .productStatus(productStatus)
                 .build();
     }
 }
