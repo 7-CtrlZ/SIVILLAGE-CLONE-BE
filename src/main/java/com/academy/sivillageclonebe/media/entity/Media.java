@@ -1,4 +1,4 @@
-package com.academy.sivillageclonebe.media.domain;
+package com.academy.sivillageclonebe.media.entity;
 
 import com.academy.sivillageclonebe.common.entity.BaseEntity;
 import jakarta.persistence.*;

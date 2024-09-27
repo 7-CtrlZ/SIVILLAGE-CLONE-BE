@@ -1,4 +1,4 @@
-package com.academy.sivillageclonebe.media.application;
+package com.academy.sivillageclonebe.media.service;
 
 
 import com.academy.sivillageclonebe.media.dto.in.MediaRequestDto;

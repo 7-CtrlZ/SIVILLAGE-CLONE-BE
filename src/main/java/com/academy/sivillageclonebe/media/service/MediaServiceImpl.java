@@ -1,11 +1,11 @@
-package com.academy.sivillageclonebe.media.application;
+package com.academy.sivillageclonebe.media.service;
 
 
 import com.academy.sivillageclonebe.common.entity.BaseResponseStatus;
 import com.academy.sivillageclonebe.common.exception.BaseException;
 import com.academy.sivillageclonebe.media.dto.in.MediaRequestDto;
 import com.academy.sivillageclonebe.media.dto.out.MediaResponseDto;
-import com.academy.sivillageclonebe.media.infrastructure.MediaRepository;
+import com.academy.sivillageclonebe.media.repository.MediaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

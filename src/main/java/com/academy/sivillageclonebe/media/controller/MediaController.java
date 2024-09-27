@@ -1,8 +1,8 @@
-package com.academy.sivillageclonebe.media.presentation;
+package com.academy.sivillageclonebe.media.controller;
 
 import com.academy.sivillageclonebe.common.entity.BaseResponse;
 import com.academy.sivillageclonebe.common.entity.BaseResponseStatus;
-import com.academy.sivillageclonebe.media.application.MediaService;
+import com.academy.sivillageclonebe.media.service.MediaService;
 import com.academy.sivillageclonebe.media.dto.in.MediaRequestDto;
 import com.academy.sivillageclonebe.media.vo.in.MediaRequestVo;
 import com.academy.sivillageclonebe.media.vo.out.MediaResponseVo;

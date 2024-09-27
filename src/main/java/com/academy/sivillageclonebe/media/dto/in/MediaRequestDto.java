@@ -1,6 +1,6 @@
 package com.academy.sivillageclonebe.media.dto.in;
 
-import com.academy.sivillageclonebe.media.domain.Media;
+import com.academy.sivillageclonebe.media.entity.Media;
 import com.academy.sivillageclonebe.media.vo.in.MediaRequestVo;
 import lombok.Builder;
 import lombok.Getter;
