@@ -16,7 +16,7 @@ public class FavoriteRequestDto {
         return Favorite.builder()
                 .memberUuid(memberUuid)
                 .mainOptionId(mainOptionId)
-                .isLiked(true)
+                .liked(true)
                 .build();
     }
 }
