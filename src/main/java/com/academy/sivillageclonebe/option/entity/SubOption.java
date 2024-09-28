@@ -17,6 +17,7 @@ public class SubOption {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String subOptionName;
 
     @Column(nullable = false)
@@ -24,10 +25,10 @@ public class SubOption {
     private ProductStatus productStatus;
 
     @Column(nullable = false)
-    private Boolean isActive = true;
+    private Boolean isActive;
 
     @Column(nullable = false)
-    private Boolean isDeleted = false;
+    private Boolean isDeleted;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mainOptionId", nullable = false)

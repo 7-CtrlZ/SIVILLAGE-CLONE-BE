@@ -13,12 +13,16 @@ public class SubOptionRequestDto {
     private Long mainOptionId;
     private String subOptionName;
     private ProductStatus productStatus;
+    private Boolean isActive;
+    private Boolean isDeleted;
 
     public SubOption toEntity(MainOption mainOption) {
         return SubOption.builder()
                 .mainOption(mainOption)
                 .subOptionName(subOptionName)
                 .productStatus(productStatus)
+                .isActive(true)
+                .isDeleted(false)
                 .build();
     }
 }
