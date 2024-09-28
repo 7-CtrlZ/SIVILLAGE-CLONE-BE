@@ -5,6 +5,6 @@ import lombok.Getter;
 @Getter
 public class FavoriteResponseVo {
 
-    private Boolean isLiked;
+    private Boolean liked;
 
 }
