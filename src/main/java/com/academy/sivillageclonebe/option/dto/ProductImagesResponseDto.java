@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProductImagesResponseDto {
 
-    private Long mainOptionId;
     private String imageUrl;
     private String imageDescription;
     private Boolean isMainImage;
@@ -23,13 +22,11 @@ public class ProductImagesResponseDto {
                 .imageUrl(imageUrl)
                 .imageDescription(imageDescription)
                 .isMainImage(isMainImage)
-                .mainOptionId(mainOptionId)
                 .build();
     }
 
     public static ProductImagesResponseDto from(ProductImages productImages) {
         return ProductImagesResponseDto.builder()
-                .mainOptionId(productImages.getId())
                 .imageUrl(productImages.getImageUrl())
                 .imageDescription(productImages.getImageDescription())
                 .isMainImage(productImages.getIsMainImage())
